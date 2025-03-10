@@ -28,7 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="relative w-full h-full">
         <MantineProvider>
-          <div className="absolute w-full">
+          <div className="relative w-full">
             <FullPageHeader />
           </div>
           {children}

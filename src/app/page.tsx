@@ -7,8 +7,20 @@ import FullPageHeader from "@/components/layout/FullPageHeader";
 
 export default function Home() {
   return (
-    <div className="absolute w-full h-full">
+    <div className="-z-10 absolute w-full top-0 h-full">
       <HomepageCarousel />
+      <div className="flex flex-col w-2/5">
+        <p className="text-center">our story</p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+          ullamcorper efficitur urna, et efficitur quam aliquam sit amet.
+          Curabitur sed posuere odio, vitae consectetur nisl. Etiam fermentum
+          vehicula sagittis. Sed lobortis tincidunt lectus, quis congue velit
+          mattis consectetur. Integer placerat, dolor vitae venenatis porta,
+          purus tortor porta purus, vel rhoncus felis leo ac metus. Vestibulum
+          eu nulla nibh.
+        </p>
+      </div>
     </div>
   );
 }

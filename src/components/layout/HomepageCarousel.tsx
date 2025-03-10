@@ -8,8 +8,8 @@ import NextImage from "next/image";
 
 export default function HomepageCarousel() {
   return (
-    <div className="-z-10 absolute w-full top-0">
-      <Carousel height={500}>
+    <div className="-z-10 absolute w-full top-0 flex h-96">
+      <Carousel height="100%" className="flex-1">
         <Carousel.Slide>
           <Image
             src={coffeePhoto}

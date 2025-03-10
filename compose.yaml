@@ -1,10 +1,12 @@
 services:
-  web:
+  app:
     build: .
-    ports: 
+    ports:
       - "1010:1010"
     develop:
       watch:
         - action: sync
           path: .
           target: /code
+    environment:
+      - "NEXT_WEBPACK_USEPOLLING=1"

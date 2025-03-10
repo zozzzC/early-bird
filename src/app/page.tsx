@@ -18,7 +18,7 @@ export default function Home() {
           vehicula sagittis. Sed lobortis tincidunt lectus, quis congue velit
           mattis consectetur. Integer placerat, dolor vitae venenatis porta,
           purus tortor porta purus, vel rhoncus felis leo ac metus. Vestibulum
-          eu nulla nibh.
+          eu nulla nibh. 
         </p>
       </div>
     </div>

@@ -2,7 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  webpack: (config, _) => ({
+  webpack: (config, _) => (
+    {
     ...config,
     watchOptions: {
       ...config.watchOptions,

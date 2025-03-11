@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { MantineProvider } from "@mantine/core";
 import FullPageHeader from "@/components/layout/FullPageHeader";
+import Footer from "@/components/layout/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,12 +27,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="relative w-full h-full">
+      <body className="relative w-full h-full min-h-screen flex flex-col">
         <MantineProvider>
-          <div className="relative w-full">
-            <FullPageHeader />
+          <div className="flex-1">
+            <div className="relative w-full">
+              <FullPageHeader />
+            </div>
+            {children}
           </div>
-          {children}
+          <Footer />
         </MantineProvider>
       </body>
     </html>

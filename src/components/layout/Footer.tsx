@@ -1,8 +1,14 @@
+import logo from "@/test/logoipsum-361.svg";
+import Image from "next/image";
+
 export default function Footer() {
   return (
-    <div className="w-full md:h-40 h-20 flex justify-between p-5">
-      <div className="flex gap-5">
-        <div className="flex flex-col">
+    <div className="w-full flex justify-between p-5">
+      <div className="flex gap-12">
+        <div className="h-full w-36 flex justify-center">
+          <Image src={logo} alt="logo" className="flex-1" />
+        </div>
+        <div className="flex flex-col ">
           <p>home</p>
           <p>about</p>
           <p>order</p>
@@ -17,7 +23,10 @@ export default function Footer() {
       </div>
       <div className="flex flex-col">
         <p>all rights reserved</p>
-        <p>developed by</p>
+        <div>
+          <p>terms and conditions</p>
+          <p>privacy policy</p>
+        </div>
       </div>
     </div>
   );

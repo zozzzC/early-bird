@@ -25,7 +25,6 @@ export default function Home() {
       <div className="flex w-full">
         <div className="w-full">
           <p className="text-center">opening times</p>
-          
         </div>
         <div className="w-full flex-3/5">
           <Maps />

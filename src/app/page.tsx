@@ -4,6 +4,7 @@ import "@mantine/core/styles.css";
 import "@mantine/carousel/styles.css";
 import Image from "next/image";
 import FullPageHeader from "@/components/layout/FullPageHeader";
+import Maps from "@/components/home/Maps";
 
 export default function Home() {
   return (
@@ -20,6 +21,15 @@ export default function Home() {
           purus tortor porta purus, vel rhoncus felis leo ac metus. Vestibulum
           eu nulla nibh.
         </p>
+      </div>
+      <div className="flex w-full">
+        <div className="w-full">
+          <p className="text-center">opening times</p>
+          
+        </div>
+        <div className="w-full flex-3/5">
+          <Maps />
+        </div>
       </div>
     </div>
   );

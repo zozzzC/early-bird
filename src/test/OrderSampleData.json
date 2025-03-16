@@ -1,10 +1,12 @@
 [
   {
+    "key": 1,
     "name": "item 1",
     "description": "something about me",
     "photo": "https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
   },
   {
+    "key": 2,
     "name": "item 2",
     "description": "something about me",
     "photo": "https://www.pexels.com/photo/cold-coffee-drink-in-clear-drinking-glass-4869286/"

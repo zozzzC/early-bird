@@ -8,7 +8,7 @@ export default function Order() {
   return (
     <div>
       <p>order</p>
-      <div>
+      <div className="flex md:flex-row flex-col gap-5">
         {orderData.map((i) => (
           <OrderItem
             key={i.key}

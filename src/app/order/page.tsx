@@ -8,7 +8,7 @@ export default function Order() {
   return (
     <div>
       <p>order</p>
-      <div className="flex md:flex-row flex-col gap-5">
+      <div className="flex md:flex-row flex-col gap-5 md:justify-center items-center flex-wrap">
         {orderData.map((i) => (
           <OrderItem
             key={i.key}

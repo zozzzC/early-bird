@@ -1,4 +1,5 @@
 "use client";
+import "@mantine/core/styles.css"; //styles will not load properly if not imported
 import { Item } from "@/types/Item";
 import Image from "next/image";
 import { Modal } from "@mantine/core";

@@ -12,7 +12,7 @@ export default function OrderItem({ id, name, description, photo }: Item) {
   return (
     <div className="h-full w-full">
       <Modal
-        className="absolute top-0 z-10 h-full w-full"
+        className="absolute z-10 h-full w-full"
         opened={opened}
         onClose={close}
         centered
@@ -24,7 +24,6 @@ export default function OrderItem({ id, name, description, photo }: Item) {
       >
         <OrderItemModal id={id} />
       </Modal>
-
       <div className="h-full flex flex-col relative items-center">
         <div className="grow-1 object-cover w-full h-full max-w-80 relative aspect-square">
           <Image

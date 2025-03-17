@@ -11,7 +11,8 @@ export default function Order() {
         <div className="absolute w-9/12 grid 2xl:grid-cols-4 lg:grid-cols-3 grid-cols-1 m-0 gap-5">
           {orderData.map((i) => (
             <OrderItem
-              key={i.key}
+              key={i.id}
+              id={i.id}
               name={i.name}
               description={i.description}
               photo={i.photo}

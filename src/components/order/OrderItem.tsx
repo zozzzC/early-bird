@@ -6,7 +6,7 @@ import { Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import OrderItemModal from "./OrderItemModal";
 
-export default function OrderItem({ name, description, photo }: Item) {
+export default function OrderItem({ id, name, description, photo }: Item) {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
@@ -23,7 +23,7 @@ export default function OrderItem({ name, description, photo }: Item) {
           }}
           size="100%"
         >
-          <OrderItemModal />
+          <OrderItemModal id={id}/>
         </Modal>
       ) : null}
 

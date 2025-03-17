@@ -1,7 +1,7 @@
-export default function OrderItemModal() {
+export default function OrderItemModal({ id }: { id: number }) {
   return (
     <div className="w-full h-full">
-      <p>Order Item</p>
+      <p>Order Item {id}</p>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
         consectetur sed orci sed sagittis. Aenean accumsan luctus justo, non

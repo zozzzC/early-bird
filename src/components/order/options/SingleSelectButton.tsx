@@ -24,7 +24,10 @@ export default function SingleSelectButton({
       >
         <div className="flex gap-3 items-center">
           {on ? <CheckCircle2 /> : null}
-          {name}
+          <div className="flex flex-col">
+            <p>{name}</p>
+            <p>${price}</p>
+          </div>
         </div>
       </Button>
     </div>

@@ -8,7 +8,7 @@ export default function OrderItemModal({ id }: { id: number }) {
 
   return (
     <div className="w-full h-full grid lg:grid-cols-2 grid-cols-1">
-      <div className="w-full lg:h-full lg:max-h-full max-h-1/2 aspect-square relative">
+      <div className="w-full lg:h-full lg:max-h-full aspect-square relative">
         <Image
           src={
             "https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
@@ -17,7 +17,7 @@ export default function OrderItemModal({ id }: { id: number }) {
           alt="order image"
         />
       </div>
-      <div>
+      <div className="flex-1">
         <p>Order Item {id}</p>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec

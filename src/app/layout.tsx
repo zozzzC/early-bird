@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { DM_Sans, Bokor } from "next/font/google";
 import "./globals.css";
 import { MantineProvider } from "@mantine/core";
 import FullPageHeader from "@/components/layout/FullPageHeader";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const dmSans = DM_Sans({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+  variable: "--font-dm-sans",
 });
 
 export const metadata: Metadata = {
@@ -25,8 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="relative w-full h-full">
+    <html lang="en" className={``}>
+      <body className={`relative w-full h-full ${dmSans.className}`}>
         <MantineProvider>
           <div className="relative w-full">
             <FullPageHeader />

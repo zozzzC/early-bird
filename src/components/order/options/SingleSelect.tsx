@@ -1,4 +1,5 @@
 import { Button } from "@mantine/core";
+import { useState } from "react";
 
 export default function SingleSelect({
   id,
@@ -6,14 +7,22 @@ export default function SingleSelect({
   price,
   select,
 }: {
-  id: string,
+  id: string;
   name: string;
   price: number;
-  select: (id : string) => void;
+  select(id: string): void;
 }) {
-    return (
-        <div>
-            <Button onClick={() => select(id)}>{name}</Button>
-        </div>
-    )
+  const [on, setOn] = useState<boolean>();
+
+  return (
+    <div>
+      <Button
+        onClick={() => {
+          select(id), setOn(!on);
+        }}
+      >
+        {name}
+      </Button>
+    </div>
+  );
 }

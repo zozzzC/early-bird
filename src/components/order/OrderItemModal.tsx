@@ -1,6 +1,11 @@
 import Image from "next/image";
+import SingleSelect from "./options/SingleSelect";
 
 export default function OrderItemModal({ id }: { id: number }) {
+  function select(id: string) {
+    console.log(id);
+  }
+
   return (
     <div className="w-full h-full grid lg:grid-cols-2 grid-cols-1">
       <div className="w-full lg:h-full lg:max-h-full max-h-1/2 aspect-square relative">
@@ -22,6 +27,9 @@ export default function OrderItemModal({ id }: { id: number }) {
           sodales velit, a porta lorem felis eu ante. In hac habitasse platea
           dictumst. Sed sodales sem a leo feugiat, in elementum sem accumsan.
         </p>
+        <p>Options</p>
+        <SingleSelect id={"1"} name={"name"} price={2} select={select} />
+        <p>Add Ons</p>
       </div>
     </div>
   );

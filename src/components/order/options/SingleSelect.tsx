@@ -1,17 +1,19 @@
 import { Button } from "@mantine/core";
 
 export default function SingleSelect({
+  id,
   name,
   price,
   select,
 }: {
+  id: string,
   name: string;
   price: number;
-  select: () => void;
+  select: (id : string) => void;
 }) {
     return (
         <div>
-            <Button onClick={select}>{name}</Button>
+            <Button onClick={() => select(id)}>{name}</Button>
         </div>
     )
 }

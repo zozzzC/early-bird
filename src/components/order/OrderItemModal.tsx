@@ -1,5 +1,5 @@
 import Image from "next/image";
-import SingleSelect from "./options/SingleSelect";
+import SingleSelectButton from "./options/SingleSelectButton";
 
 export default function OrderItemModal({ id }: { id: number }) {
   function select(id: string) {
@@ -28,7 +28,7 @@ export default function OrderItemModal({ id }: { id: number }) {
           dictumst. Sed sodales sem a leo feugiat, in elementum sem accumsan.
         </p>
         <p>Options</p>
-        <SingleSelect id={"1"} name={"name"} price={2} select={select} />
+        <SingleSelectButton id={"1"} name={"name"} price={2} select={select} />
         <p>Add Ons</p>
       </div>
     </div>

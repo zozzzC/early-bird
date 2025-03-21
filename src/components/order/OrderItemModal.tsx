@@ -1,6 +1,7 @@
 import Image from "next/image";
 import SingleSelectButton from "./options/SingleSelectButton";
 import SingleSelectManager from "./options/SingleSelectManager";
+import MultiSelectManager from "./options/MultiSelectManager";
 
 export default function OrderItemModal({ id }: { id: number }) {
   return (
@@ -27,6 +28,7 @@ export default function OrderItemModal({ id }: { id: number }) {
         <p>Options</p>
         <SingleSelectManager />
         <p>Add Ons</p>
+        <MultiSelectManager />
       </div>
     </div>
   );

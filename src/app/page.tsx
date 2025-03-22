@@ -12,7 +12,7 @@ export default function Home() {
       <HomepageCarousel />
       <div className="flex">
         <div className="flex flex-col w-2/5">
-          <p className="text-center">our story</p>
+          <p className="text-center text-2xl">our story</p>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
             ullamcorper efficitur urna, et efficitur quam aliquam sit amet.
@@ -30,7 +30,7 @@ export default function Home() {
       </div>
       <div className="flex w-full">
         <div className="w-full">
-          <p className="text-center">opening times</p>
+          <p className="text-center text-2xl">opening times</p>
         </div>
         <div className="w-full flex-3/5">
           <Maps />

@@ -42,6 +42,7 @@ export default function OrderItemModal({ id }: { id: number }) {
               size="md"
               className="w-1/6 "
               variant="filled"
+              defaultValue={1}
               min={1}
             ></NumberInput>
           </div>

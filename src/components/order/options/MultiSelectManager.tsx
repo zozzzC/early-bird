@@ -6,38 +6,24 @@ type itemsId = {
 };
 
 export default function MultiSelectManager() {
-  const [selectedItemsId, setSelectedItemsId] = useState<itemsId[]>([]);
+  const [selectedItemsId, setSelectedItemsId] = useState<string[]>([]);
 
-  function select(id: string) {
-    const items: itemsId[] = selectedItemsId;
-    items.push({ id: id });
-    setSelectedItemsId(items);
-    console.log(JSON.stringify(selectedItemsId));
-  }
-
-  function removeSelect(id: string) {
-    const items: itemsId[] = selectedItemsId;
-    items.splice(items.indexOf({ id: id }));
-    setSelectedItemsId(items);
-    console.log(JSON.stringify(selectedItemsId));
+  function select(id: string, on: boolean) {
+    setSelectedItemsId((items) => {
+      if (on) {
+        items.splice(items.indexOf(id));
+      } else {
+        items.push(id);
+      }
+      console.log(JSON.stringify(selectedItemsId));
+      return items;
+    });
   }
 
   return (
-    <div>
-      <MultiSelectButton
-        id={"1"}
-        name={"name"}
-        price={2}
-        select={select}
-        removeSelect={removeSelect}
-      />
-      <MultiSelectButton
-        id={"2"}
-        name={"name 2"}
-        price={2}
-        select={select}
-        removeSelect={removeSelect}
-      />
+    <div className="flex flex-row gap-5">
+      <MultiSelectButton id={"1"} name={"name"} price={2} select={select} />
+      <MultiSelectButton id={"2"} name={"name 2"} price={2} select={select} />
     </div>
   );
 }

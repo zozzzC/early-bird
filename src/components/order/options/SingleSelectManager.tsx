@@ -9,11 +9,10 @@ export default function SingleSelectManager() {
   }
 
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row gap-5">
       <SingleSelectButton
         id={"1"}
         name={"name"}
-        price={2}
         select={select}
         selectedItemId={selectedItemId}
       />

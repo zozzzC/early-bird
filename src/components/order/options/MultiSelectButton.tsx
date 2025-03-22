@@ -7,13 +7,11 @@ export default function MultiSelectButton({
   name,
   price,
   select,
-  removeSelect,
 }: {
   id: string;
   name: string;
-  price: number;
-  select(id: string): void;
-  removeSelect(id: string): void;
+  price?: number;
+  select(id: string, on: boolean): void;
 }) {
   const [on, setOn] = useState<boolean>(false);
 
@@ -22,16 +20,19 @@ export default function MultiSelectButton({
       <Button
         onClick={() => {
           if (on) {
-            removeSelect(id);
+            select(id, on);
           } else {
-            select(id);
+            select(id, on);
           }
           setOn(!on);
         }}
       >
         <div className="flex gap-3 items-center">
           {on ? <CheckCircle2 /> : <PlusCircle />}
-          {name}
+          <div className="flex flex-col">
+            <p>{name}</p>
+            {price ? <p>${price}</p> : null}
+          </div>
         </div>
       </Button>
     </div>

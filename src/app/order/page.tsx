@@ -1,6 +1,6 @@
 export default function Order() {
   return (
-    <div>
+    <div className="pt-20">
       <p>order</p>
     </div>
   );

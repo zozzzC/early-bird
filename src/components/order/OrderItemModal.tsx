@@ -2,14 +2,15 @@ import Image from "next/image";
 import SingleSelectButton from "./options/SingleSelectButton";
 import SingleSelectManager from "./options/SingleSelectManager";
 import MultiSelectManager from "./options/MultiSelectManager";
-import { NumberInput } from "@mantine/core";
-import { useState } from "react";
+import { Button, NumberInput } from "@mantine/core";
+import { createContext, useState } from "react";
 
 export default function OrderItemModal({ id }: { id: number }) {
   const [quantity, setQuantity] = useState<number>(1);
+  const [total, setTotal] = useState<number>(0.0);
 
   return (
-    <div className="w-full h-full grid lg:grid-cols-2 grid-cols-1">
+    <div className="w-full h-full grid lg:grid-cols-2 grid-cols-1 gap-5">
       <div className="w-full lg:h-full lg:max-h-full aspect-square relative">
         <Image
           src={
@@ -37,20 +38,21 @@ export default function OrderItemModal({ id }: { id: number }) {
             <p>Add Ons</p>
             <MultiSelectManager />
           </div>
-          <div className="p-5 gap-5 flex justify-end w-full items-center">
+          <div className="gap-5 pr-5 flex justify-end w-full items-center">
             <NumberInput
               size="md"
-              className="w-1/6 "
+              className="w-16"
               variant="filled"
               defaultValue={1}
               min={1}
             ></NumberInput>
           </div>
-          <div className="flex justify-end w-full p-5 ">
+          <div className="flex justify-end w-full p-5">
             <div className="">
               <p className="text-lg">total</p>
             </div>
           </div>
+          <Button>add to cart</Button>
         </div>
       </div>
     </div>

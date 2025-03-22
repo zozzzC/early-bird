@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import MultiSelectButton from "./MultiSelectButton";
+import { TotalContext } from "@/app/hooks/TotalContext";
 
 type itemsId = {
   id: string;
@@ -7,6 +8,7 @@ type itemsId = {
 
 export default function MultiSelectManager() {
   const [selectedItemsId, setSelectedItemsId] = useState<string[]>([]);
+  const { total, setTotal } = useContext(TotalContext);
 
   function select(id: string, on: boolean) {
     setSelectedItemsId((items) => {
@@ -15,7 +17,6 @@ export default function MultiSelectManager() {
       } else {
         items.push(id);
       }
-      console.log(JSON.stringify(selectedItemsId));
       return items;
     });
   }

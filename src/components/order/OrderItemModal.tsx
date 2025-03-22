@@ -3,16 +3,16 @@ import SingleSelectButton from "./options/SingleSelectButton";
 import SingleSelectManager from "./options/SingleSelectManager";
 import MultiSelectManager from "./options/MultiSelectManager";
 import { Button, NumberInput } from "@mantine/core";
-import { createContext, useState } from "react";
+import { useState } from "react";
+import { TotalContext } from "@/app/hooks/TotalContext";
 
 export default function OrderItemModal({ id }: { id: number }) {
   const [quantity, setQuantity] = useState<number>(1);
   const [total, setTotal] = useState<number>(0.0);
-  const TotalContext = createContext({ total, setTotal });
 
   return (
     <div className="w-full h-full grid lg:grid-cols-2 grid-cols-1 gap-5">
-      <TotalContext.Provider value={{ total, setTotal }}>
+      <TotalContext value={{ total, setTotal }}>
         <div className="w-full lg:h-full lg:max-h-full aspect-square relative">
           <Image
             src={

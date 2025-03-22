@@ -1,6 +1,7 @@
 import { Button } from "@mantine/core";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CheckCircle2, PlusCircle } from "lucide-react";
+import { TotalContext } from "@/app/hooks/TotalContext";
 
 export default function MultiSelectButton({
   id,
@@ -14,7 +15,8 @@ export default function MultiSelectButton({
   select(id: string, on: boolean): void;
 }) {
   const [on, setOn] = useState<boolean>(false);
-
+  const { total, setTotal } = useContext(TotalContext);
+  
   return (
     <div>
       <Button

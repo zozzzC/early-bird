@@ -1,6 +1,8 @@
 import { Button } from "@mantine/core";
-import { useState } from "react";
+import { useContext, useState } from "react";
+
 import { CheckCircle2, Circle } from "lucide-react";
+import { TotalContext } from "@/app/hooks/TotalContext";
 
 export default function SingleSelectButton({
   id,
@@ -15,6 +17,7 @@ export default function SingleSelectButton({
   select(id: string): void;
   selectedItemId: string | null;
 }) {
+  const { total, setTotal } = useContext(TotalContext);
   return (
     <div>
       <Button

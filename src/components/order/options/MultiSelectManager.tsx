@@ -8,7 +8,6 @@ type itemsId = {
 
 export default function MultiSelectManager() {
   const [selectedItemsId, setSelectedItemsId] = useState<string[]>([]);
-  const { total, setTotal } = useContext(TotalContext);
 
   function select(id: string, on: boolean) {
     setSelectedItemsId((items) => {

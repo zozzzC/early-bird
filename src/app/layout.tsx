@@ -3,6 +3,7 @@ import { DM_Sans, Bokor } from "next/font/google";
 import "./globals.css";
 import { MantineProvider } from "@mantine/core";
 import FullPageHeader from "@/components/layout/FullPageHeader";
+import Footer from "@/components/layout/Footer";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -22,14 +23,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={``}>
-      <body className={`relative w-full h-full ${dmSans.className}`}>
-        <MantineProvider>
-          <div className="relative w-full">
-            <FullPageHeader />
-          </div>
-          {children}
-        </MantineProvider>
+    <html lang="en" className="h-full">
+      <body className={`flex flex-col min-h-screen ${dmSans.className}`}>
+        <div className="z-10 absolute top-0 w-full">
+          <FullPageHeader />
+        </div>
+        <main className="flex-1 w-full">
+          <MantineProvider>{children}</MantineProvider>
+        </main>
+        <div className="">
+          <Footer />
+        </div>
       </body>
     </html>
   );

@@ -4,7 +4,7 @@ import SingleSelectManager from "./options/SingleSelectManager";
 import MultiSelectManager from "./options/MultiSelectManager";
 import { Button, NumberInput } from "@mantine/core";
 import { useState } from "react";
-import { TotalContext } from "@/app/hooks/TotalContext";
+import { TotalContext } from "@/hooks/TotalContext";
 
 export default function OrderItemModal({ id }: { id: number }) {
   const [quantity, setQuantity] = useState<number>(1);
@@ -51,13 +51,13 @@ export default function OrderItemModal({ id }: { id: number }) {
             </div>
             <div className="flex justify-end w-full p-5">
               <div className="">
-                <p className="text-lg">total</p>
+                <p className="text-lg">{total}</p>
               </div>
             </div>
             <Button>add to cart</Button>
           </div>
         </div>
-      </TotalContext.Provider>
+      </TotalContext>
     </div>
   );
 }

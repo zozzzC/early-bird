@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import MultiSelectButton from "./MultiSelectButton";
-import { TotalContext } from "@/app/hooks/TotalContext";
+import { TotalContext } from "@/hooks/TotalContext";
 
 type itemsId = {
   id: string;

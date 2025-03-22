@@ -1,10 +1,11 @@
 import { useContext, useState } from "react";
 import SingleSelectButton from "./SingleSelectButton";
-import { TotalContext } from "@/app/hooks/TotalContext";
+import { TotalContext } from "@/hooks/TotalContext";
 
 export default function SingleSelectManager() {
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
-  
+  const { total, setTotal } = useContext(TotalContext);
+
   function select(id: string) {
     setSelectedItemId(id);
   }
@@ -15,6 +16,7 @@ export default function SingleSelectManager() {
         id={"1"}
         name={"name"}
         select={select}
+        price={5}
         selectedItemId={selectedItemId}
       />
       <SingleSelectButton

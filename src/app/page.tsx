@@ -8,7 +8,7 @@ import Maps from "@/components/home/Maps";
 
 export default function Home() {
   return (
-    <div className="-z-10 absolute w-full top-0 h-full">
+    <div className="-z-10 w-full top-0 h-full">
       <HomepageCarousel />
       <div className="flex flex-col w-2/5">
         <p className="text-center">our story</p>

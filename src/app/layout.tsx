@@ -26,17 +26,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="relative w-full h-full min-h-screen flex flex-col">
-        <MantineProvider>
-          <div className="flex-1">
-            <div className="relative w-full">
-              <FullPageHeader />
-            </div>
-            {children}
-          </div>
+    <html lang="en" className="h-full">
+      <body className="flex flex-col min-h-screen">
+        <div className="z-10 absolute top-0 w-full">
+          <FullPageHeader />
+        </div>
+        <main className="flex-1 w-full">
+          <MantineProvider>{children}</MantineProvider>
+        </main>
+        <div className="">
           <Footer />
-        </MantineProvider>
+        </div>
       </body>
     </html>
   );

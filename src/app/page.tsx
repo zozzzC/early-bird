@@ -10,8 +10,8 @@ export default function Home() {
   return (
     <div className="-z-10 w-full top-0 h-full">
       <HomepageCarousel />
-      <div className="flex">
-        <div className="flex flex-col w-2/5">
+      <div className="flex h-[36rem]">
+        <div className="flex flex-col justify-center text-black-main w-3/5">
           <p className="text-center text-2xl">our story</p>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
@@ -29,8 +29,16 @@ export default function Home() {
         </div>
       </div>
       <div className="flex w-full">
-        <div className="w-full">
-          <p className="text-center text-2xl">opening times</p>
+        <div className="w-full flex items-center flex-col text-black-main">
+          <p className="text-2xl">opening times</p>
+          <div className="text-black-main w-1/2 text-center grid grid-cols-2 ">
+            <p>mon-fri</p>
+            <p>6:30 - 3:00</p>
+            <p>sat</p>
+            <p>7:00 - 1:00</p>
+            <p>sun</p>
+            <p>closed</p>
+          </div>
         </div>
         <div className="w-full flex-3/5">
           <Maps />

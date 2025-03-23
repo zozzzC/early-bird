@@ -5,6 +5,7 @@ import "@mantine/carousel/styles.css";
 import Image from "next/image";
 import FullPageHeader from "@/components/layout/FullPageHeader";
 import Maps from "@/components/home/Maps";
+import OpeningTimesNotice from "@/components/home/OpeningTimesNotice";
 
 export default function Home() {
   return (
@@ -30,7 +31,7 @@ export default function Home() {
       </div>
       <div className="flex w-full">
         <div className="w-full flex items-center flex-col text-black-main">
-          <p className="text-2xl">opening times</p>
+          <p className="text-2xl pb-5">opening times</p>
           <div className="text-black-main w-1/2 text-center grid grid-cols-2 ">
             <p>mon-fri</p>
             <p>6:30 - 3:00</p>
@@ -39,6 +40,7 @@ export default function Home() {
             <p>sun</p>
             <p>closed</p>
           </div>
+          <OpeningTimesNotice />
         </div>
         <div className="w-full flex-3/5">
           <Maps />

@@ -15,7 +15,7 @@ export default function Home() {
       <HomepageCarousel />
       <div className="flex h-[36rem]">
         <div className="flex flex-col justify-center text-black-main w-3/5 bg-white-main">
-          <p className="text-center text-lg md:text-2xl">our story</p>
+          <p className="text-center text-xl md:text-2xl">our story</p>
           <p className="text-center text-sm md:text-base p-5">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
             ullamcorper efficitur urna, et efficitur quam aliquam sit amet.
@@ -33,8 +33,8 @@ export default function Home() {
       </div>
       <div className="flex w-full">
         <div className="w-full flex items-center justify-center flex-col text-black-main">
-          <p className="text-2xl pb-5">opening times</p>
-          <div className="text-black-main w-1/2 text-center grid grid-cols-2 ">
+          <p className="md:text-2xl text-xl pb-5">opening times</p>
+          <div className="text-sm md:text-base text-black-main w-1/2 text-center grid grid-cols-2 ">
             <p>mon-fri</p>
             <p>6:30 - 3:00</p>
             <p>sat</p>

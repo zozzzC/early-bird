@@ -25,12 +25,10 @@ export default function Home() {
             eu nulla nibh.
           </p>
         </div>
-        <div className="w-full flex justify-end items-center">
+        <div className="w-full flex items-center justify-center bg-red-50" >
         <Image
             src={logoPhoto}
             alt="Company Logo"
-            width={500} 
-            height={200}
             className="object-contain"
           />
         </div>

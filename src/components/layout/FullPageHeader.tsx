@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logo from "@/test/logoipsum-361.svg";
+import logo from "@/test/early-bird-logo-removebg.png";
 import Link from "next/link";
 
 export default function FullPageHeader() {

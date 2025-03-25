@@ -5,6 +5,8 @@ import "@mantine/carousel/styles.css";
 import Image from "next/image";
 import FullPageHeader from "@/components/layout/FullPageHeader";
 import Maps from "@/components/home/Maps";
+import logoPhoto from "@/test/early-bird-logo-removebg.png";
+
 
 export default function Home() {
   return (
@@ -23,9 +25,14 @@ export default function Home() {
             eu nulla nibh.
           </p>
         </div>
-        <div className="w-full">
-          {/* write the code for the photo in here */}
-          {/* import the photo using Image component in Next.js */}
+        <div className="w-full flex justify-end items-center">
+        <Image
+            src={logoPhoto}
+            alt="Company Logo"
+            width={500} 
+            height={200}
+            className="object-contain"
+          />
         </div>
       </div>
       <div className="flex w-full">

@@ -6,6 +6,7 @@ export default async function Order() {
   return (
     <div className="pt-20">
       <p>order</p>
+
       <p>{JSON.stringify(orderItems)}</p>
     </div>
   );

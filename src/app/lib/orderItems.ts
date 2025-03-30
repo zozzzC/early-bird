@@ -10,8 +10,16 @@ export async function getOrderItems() {
   const dbId = process.env.NOTION_DB_ID;
 
   if (dbId) {
-    const res = await notion.databases.query({ database_id: dbId });
-    return res;
+    const res = await notion.databases.query({
+      database_id: dbId,
+      sorts: [
+        {
+          property: "category",
+          direction: "ascending",
+        },
+      ],
+    });
+    return res.results;
   }
   throw new Error("Notion DB ID not found.");
 }

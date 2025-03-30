@@ -1,7 +1,22 @@
 import { loadEnvConfig } from "@next/env";
 import { Client } from "@notionhq/client";
+import {
+  DatabaseObjectResponse,
+  PageObjectResponse,
+  PartialDatabaseObjectResponse,
+  PartialPageObjectResponse,
+  QueryDatabaseResponse,
+} from "@notionhq/client/build/src/api-endpoints";
+import { rawNotionOrderPage } from "../about/types/rawNotionDbRes";
 
-export async function getOrderItems() {
+export async function getOrderItems(): Promise<
+  (
+    | PageObjectResponse
+    | PartialPageObjectResponse
+    | PartialDatabaseObjectResponse
+    | DatabaseObjectResponse
+  )[]
+> {
   "use server";
   const notion = new Client({
     auth: process.env.NOTION_KEY,
@@ -10,7 +25,7 @@ export async function getOrderItems() {
   const dbId = process.env.NOTION_DB_ID;
 
   if (dbId) {
-    const res = await notion.databases.query({
+    const res: QueryDatabaseResponse = await notion.databases.query({
       database_id: dbId,
       sorts: [
         {
@@ -19,7 +34,15 @@ export async function getOrderItems() {
         },
       ],
     });
-    return res.results;
+    //TODO: change the below type to the custom type defined in rawNotionDbRes
+
+    const result: (
+      | PageObjectResponse
+      | PartialPageObjectResponse
+      | PartialDatabaseObjectResponse
+      | DatabaseObjectResponse
+    )[] = res.results;
+    return result;
   }
   throw new Error("Notion DB ID not found.");
 }

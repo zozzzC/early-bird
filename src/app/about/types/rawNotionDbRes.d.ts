@@ -1,21 +1,86 @@
-type rawNotionDbRes = {
+import { PartialUserObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+
+type rawNotionOrderPage = {
+  parent:
+    | {
+        type: "database_id";
+        database_id: string;
+      }
+    | {
+        type: "page_id";
+        page_id: string;
+      }
+    | {
+        type: "block_id";
+        block_id: string;
+      }
+    | {
+        type: "workspace";
+        workspace: true;
+      };
+  icon:
+    | {
+        type: "emoji";
+        emoji: EmojiRequest;
+      }
+    | null
+    | {
+        type: "external";
+        external: {
+          url: TextRequest;
+        };
+      }
+    | null
+    | {
+        type: "file";
+        file: {
+          url: string;
+          expiry_time: string;
+        };
+      }
+    | null
+    | {
+        type: "custom_emoji";
+        custom_emoji: CustomEmojiResponse;
+      }
+    | null;
   object: string;
   id: string;
   created_time: string;
   last_edited_time: string;
   created_by: objectUser;
   last_edited_by: objectUser;
-  cover: null | string;
+  cover:
+    | {
+        type: "external";
+        external: {
+          url: TextRequest;
+        };
+      }
+    | null
+    | {
+        type: "file";
+        file: {
+          url: string;
+          expiry_time: string;
+        };
+      }
+    | null;
   icon: null | string;
   parent: {
     type: string;
     database_id: string;
   };
+  created_by: PartialUserObjectResponse;
+  last_edited_by: PartialUserObjectResponse;
+  object: "page";
+  id: string;
+  created_time: string;
+  last_edited_time: string;
   archived: boolean;
   in_trash: boolean;
-  properties: rawNotionPropsRes;
   url: string;
-  public_url: string;
+  public_url: string | null;
 };
 
 type objectUser = {
@@ -23,7 +88,7 @@ type objectUser = {
   id: string;
 };
 
-type rawNotionPropsRes = {
+type rawNotionOrderProps = {
   category: selectItem;
   media: filesAndMediaItem;
   price: numberItem;
@@ -32,7 +97,7 @@ type rawNotionPropsRes = {
   size: multiSelectItem;
   extra: multiSelectItem;
   out_of_stock: checkboxItem;
-  Name: string;
+  name: string;
 };
 
 type numberItem = {
@@ -71,22 +136,29 @@ type richtextItem = {
 
 type filesAndMediaItem = {
   id: string;
-  type: "";
-  files: filesAndMediaOptions[];
-};
-
-type filesAndMediaOptions = {
-  name: string;
-  type: "file";
-  file: {
-    url: string;
-    expiry_time: string;
-  };
+  type: "files";
+  files: Array<
+    | {
+        file: {
+          url: string;
+          expiry_time: string;
+        };
+        name: StringRequest;
+        type?: "file";
+      }
+    | {
+        external: {
+          url: TextRequest;
+        };
+        name: StringRequest;
+        type?: "external";
+      }
+  >;
 };
 
 type titleItem = {
   id: string;
-  type: string;
+  type: "title";
   title: [
     {
       type: "text";

@@ -9,6 +9,7 @@ import {
 } from "@notionhq/client/build/src/api-endpoints";
 import { rawNotionOrderPage } from "../about/types/rawNotionDbRes";
 
+//TODO: please test if this works
 export async function getOrderItems(): Promise<
   (
     | PageObjectResponse
@@ -17,7 +18,6 @@ export async function getOrderItems(): Promise<
     | DatabaseObjectResponse
   )[]
 > {
-  "use server";
   const notion = new Client({
     auth: process.env.NOTION_KEY,
   });
@@ -44,5 +44,6 @@ export async function getOrderItems(): Promise<
     )[] = res.results;
     return result;
   }
-  throw new Error("Notion DB ID not found.");
+
+  throw new Error("Notion DB ID and/or Notion Key not found.");
 }

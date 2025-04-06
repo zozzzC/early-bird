@@ -1,13 +1,19 @@
 import { useContext, useState } from "react";
 import SingleSelectButton from "./SingleSelectButton";
 import { TotalContext } from "@/hooks/TotalContext";
+import { useTotalContext } from "@/hooks/useTotalContext";
 
 export default function SingleSelectManager() {
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
-  const { total, setTotal } = useContext(TotalContext);
+  const [selectedItemPrice, setSelectedItemPrice] = useState<number>(0);
+  const { total, setTotal } = useTotalContext();
 
-  function select(id: string) {
+  function select(id: string, price: number) {
     setSelectedItemId(id);
+    setTotal(total + price - selectedItemPrice);
+    setSelectedItemPrice(price);
+    console.log(price);
+    console.log(total);
   }
 
   return (

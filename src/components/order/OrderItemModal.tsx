@@ -23,10 +23,10 @@ export default function OrderItemModal({ id }: { id: number }) {
           />
         </div>
         <div className="flex-1">
-          <div className="flex flex-col h-full">
+          <div className="flex flex-col h-full justify-between">
             <div>
-              <p>Order Item {id}</p>
-              <p>
+              <p className="text-3xl">Order Item {id}</p>
+              <p className="text-md pb-5">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
                 consectetur sed orci sed sagittis. Aenean accumsan luctus justo,
                 non mattis enim ornare id. Aliquam justo nibh, sodales ut dui
@@ -40,21 +40,24 @@ export default function OrderItemModal({ id }: { id: number }) {
               <p>Add Ons</p>
               <MultiSelectManager />
             </div>
-            <div className="gap-5 pr-5 flex justify-end w-full items-center">
-              <NumberInput
-                size="md"
-                className="w-16"
-                variant="filled"
-                defaultValue={1}
-                min={1}
-              ></NumberInput>
-            </div>
-            <div className="flex justify-end w-full p-5">
-              <div className="">
-                <p className="text-lg">{total}</p>
+
+            <div className="w-full">
+              <div className="gap-5 pr-5 flex justify-end w-full items-center">
+                <NumberInput
+                  size="md"
+                  className="w-16"
+                  variant="filled"
+                  defaultValue={1}
+                  min={1}
+                ></NumberInput>
               </div>
+              <div className="flex justify-end w-full p-5">
+                <div className="">
+                  <p className="text-lg">{total}</p>
+                </div>
+              </div>
+              <Button>add to cart</Button>
             </div>
-            <Button>add to cart</Button>
           </div>
         </div>
       </TotalContext>

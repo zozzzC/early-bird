@@ -81,6 +81,7 @@ type rawNotionOrderPage = {
   in_trash: boolean;
   url: string;
   public_url: string | null;
+  properties: rawNotionOrderProps;
 };
 
 type objectUser = {

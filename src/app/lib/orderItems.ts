@@ -2,22 +2,16 @@ import { loadEnvConfig } from "@next/env";
 import { Client } from "@notionhq/client";
 import {
   DatabaseObjectResponse,
+  getPageProperty,
   PageObjectResponse,
   PartialDatabaseObjectResponse,
   PartialPageObjectResponse,
   QueryDatabaseResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 import { rawNotionOrderPage } from "../about/types/rawNotionDbRes";
+import formatNotionRes from "../helpers/formatNotionRes";
 
-//TODO: please test if this works
-export async function getOrderItems(): Promise<
-  (
-    | PageObjectResponse
-    | PartialPageObjectResponse
-    | PartialDatabaseObjectResponse
-    | DatabaseObjectResponse
-  )[]
-> {
+export async function getOrderItems(): Promise<rawNotionOrderPage[]> {
   const notion = new Client({
     auth: process.env.NOTION_KEY,
   });
@@ -34,15 +28,10 @@ export async function getOrderItems(): Promise<
         },
       ],
     });
-    //TODO: change the below type to the custom type defined in rawNotionDbRes
 
-    const result: (
-      | PageObjectResponse
-      | PartialPageObjectResponse
-      | PartialDatabaseObjectResponse
-      | DatabaseObjectResponse
-    )[] = res.results;
-    return result;
+    const data : rawNotionOrderPage[] = res.results as rawNotionOrderPage[];
+
+    return data;
   }
 
   throw new Error("Notion DB ID and/or Notion Key not found.");

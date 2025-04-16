@@ -1,7 +1,11 @@
 import { rawNotionOrderPage } from "../about/types/rawNotionDbRes";
 
-export default async function formatNotionRes(data: rawNotionOrderPage[]) {
-  let result : Array<any> = [];
+export default async function formatNotionRes<T>(
+  data: rawNotionOrderPage<T>[]
+) {
+  let res: Array<T> = [];
 
-  return result;
+  data.forEach((i) => res.push(i.properties));
+
+  return res;
 }

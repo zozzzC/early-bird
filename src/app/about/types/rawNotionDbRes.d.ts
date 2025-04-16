@@ -1,6 +1,6 @@
 import { PartialUserObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
-type rawNotionOrderPage = {
+type rawNotionOrderPage<T> = {
   parent:
     | {
         type: "database_id";
@@ -81,7 +81,7 @@ type rawNotionOrderPage = {
   in_trash: boolean;
   url: string;
   public_url: string | null;
-  properties: rawNotionOrderProps;
+  properties: T;
 };
 
 type objectUser = {

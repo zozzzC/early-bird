@@ -8,10 +8,10 @@ import {
   PartialPageObjectResponse,
   QueryDatabaseResponse,
 } from "@notionhq/client/build/src/api-endpoints";
-import { rawNotionOrderPage } from "../about/types/rawNotionDbRes";
+import { rawNotionOrderPage, rawNotionOrderProps } from "../about/types/rawNotionDbRes";
 import formatNotionRes from "../helpers/formatNotionRes";
 
-export async function getOrderItems(): Promise<rawNotionOrderPage[]> {
+export async function getOrderItems(): Promise<rawNotionOrderProps> {
   const notion = new Client({
     auth: process.env.NOTION_KEY,
   });
@@ -29,9 +29,9 @@ export async function getOrderItems(): Promise<rawNotionOrderPage[]> {
       ],
     });
 
-    const data : rawNotionOrderPage[] = res.results as rawNotionOrderPage[];
+    const data: rawNotionOrderPage<rawNotionOrderProps>[] = res.results as rawNotionOrderPage<rawNotionOrderProps>[];
 
-    return data;
+    return formatNotionRes(data);
   }
 
   throw new Error("Notion DB ID and/or Notion Key not found.");

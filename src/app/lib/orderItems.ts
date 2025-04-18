@@ -8,10 +8,13 @@ import {
   PartialPageObjectResponse,
   QueryDatabaseResponse,
 } from "@notionhq/client/build/src/api-endpoints";
-import { rawNotionOrderPage, rawNotionOrderProps } from "../about/types/rawNotionDbRes";
+import {
+  rawNotionOrderPage,
+  rawNotionOrderProps,
+} from "../about/types/rawNotionDbRes";
 import formatNotionRes from "../helpers/formatNotionRes";
 
-export async function getOrderItems(): Promise<rawNotionOrderProps> {
+export async function getOrderItems(): Promise<rawNotionOrderProps[]> {
   const notion = new Client({
     auth: process.env.NOTION_KEY,
   });
@@ -29,7 +32,8 @@ export async function getOrderItems(): Promise<rawNotionOrderProps> {
       ],
     });
 
-    const data: rawNotionOrderPage<rawNotionOrderProps>[] = res.results as rawNotionOrderPage<rawNotionOrderProps>[];
+    const data: rawNotionOrderPage<rawNotionOrderProps>[] =
+      res.results as rawNotionOrderPage<rawNotionOrderProps>[];
 
     return formatNotionRes(data);
   }

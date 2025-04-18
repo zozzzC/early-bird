@@ -98,7 +98,7 @@ type rawNotionOrderProps = {
   size: multiSelectItem;
   extra: multiSelectItem;
   out_of_stock: checkboxItem;
-  name: string;
+  name: titleItem;
 };
 
 type numberItem = {
@@ -138,23 +138,14 @@ type richtextItem = {
 type filesAndMediaItem = {
   id: string;
   type: "files";
-  files: Array<
-    | {
-        file: {
-          url: string;
-          expiry_time: string;
-        };
-        name: StringRequest;
-        type?: "file";
-      }
-    | {
-        external: {
-          url: TextRequest;
-        };
-        name: StringRequest;
-        type?: "external";
-      }
-  >;
+  files: Array<{
+    file: {
+      url: string;
+      expiry_time: string;
+    };
+    name: StringRequest;
+    type?: "file";
+  }>;
 };
 
 type titleItem = {

@@ -14,7 +14,12 @@ import {
 } from "../about/types/rawNotionDbRes";
 import formatNotionRes from "../helpers/formatNotionRes";
 
-export async function getOrderItems(): Promise<rawNotionOrderProps[]> {
+export async function getOrderItems(): Promise<
+  {
+    key: string;
+    value: rawNotionOrderProps;
+  }[]
+> {
   const notion = new Client({
     auth: process.env.NOTION_KEY,
   });

@@ -31,9 +31,7 @@ export default function RootLayout({
         <main className="flex-1 w-full">
           <MantineProvider>{children}</MantineProvider>
         </main>
-        <div className="">
-          <Footer />
-        </div>
+        <Footer />
       </body>
     </html>
   );

@@ -6,7 +6,7 @@ import { Button, NumberInput } from "@mantine/core";
 import { useState } from "react";
 import { TotalContext } from "@/hooks/TotalContext";
 
-export default function OrderItemModal({ id }: { id: number }) {
+export default function OrderItemModal({ id }: { id: string }) {
   const [quantity, setQuantity] = useState<number>(1);
   const [total, setTotal] = useState<number>(0.0);
 

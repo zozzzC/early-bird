@@ -36,7 +36,7 @@ export default function OrderItem({
         </Modal>
         <div className="h-full flex flex-col relative items-center">
           <div className="grow-1 object-cover w-full h-full max-w-80 relative aspect-square">
-            //TODO: add suspense while image is loading
+            {/* TODO: add suspense while image is loading */}
             <Image
               onClick={open}
               src={photo.toString()}

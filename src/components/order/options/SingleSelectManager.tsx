@@ -4,11 +4,13 @@ import { TotalContext } from "@/hooks/TotalContext";
 import { useTotalContext } from "@/hooks/useTotalContext";
 import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 
-export default function SingleSelectManager() {
-  const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
-  const [selectedItemPrice, setSelectedItemPrice] = useState<number>(0);
+export default function SingleSelectManager({ id }: { id: string }) {
   const { total, setTotal } = useTotalContext();
   const orderItem = useOrderItemContext();
+  const [selectedItemId, setSelectedItemId] = useState<string | null>(
+    JSON.stringify(id + orderItem.milk.multi_select[0].id)
+  );
+  const [selectedItemPrice, setSelectedItemPrice] = useState<number>(0);
 
   function select(id: string, price: number) {
     setSelectedItemId(id);
@@ -22,11 +24,13 @@ export default function SingleSelectManager() {
     <div className="flex flex-row gap-5">
       {orderItem.milk.multi_select.map((i) => (
         <SingleSelectButton
-        id={i.id}
-        name={i.name}
-        select={select}
-        price={0}
-        selectedItemId={selectedItemId}/>
+          key={JSON.stringify(id + i.id)}
+          id={JSON.stringify(id + i.id)}
+          name={i.name}
+          select={select}
+          price={0}
+          selectedItemId={selectedItemId}
+        />
       ))}
     </div>
   );

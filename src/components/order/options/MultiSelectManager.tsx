@@ -7,7 +7,7 @@ type itemsId = {
   id: string;
 };
 
-export default function MultiSelectManager() {
+export default function MultiSelectManager({ id }: { id: string }) {
   const [selectedItemsId, setSelectedItemsId] = useState<string[]>([]);
   const orderItem = useOrderItemContext();
 
@@ -26,7 +26,8 @@ export default function MultiSelectManager() {
     <div className="flex flex-row gap-5">
       {orderItem.extra.multi_select.map((i) => (
         <MultiSelectButton
-          id={i.id}
+          key={JSON.stringify(id + i.id)}
+          id={JSON.stringify(id + i.id)}
           name={i.name}
           price={0.0}
           select={select}

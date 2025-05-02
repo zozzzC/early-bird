@@ -46,9 +46,9 @@ export default function OrderItemModal({ id }: { id: string }) {
                 feugiat, in elementum sem accumsan.
               </p>
               <p>Options</p>
-              <SingleSelectManager />
+              <SingleSelectManager id={id}/>
               <p>Add Ons</p>
-              <MultiSelectManager />
+              <MultiSelectManager id={id}/>
             </div>
 
             <div className="w-full">

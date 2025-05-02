@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import MultiSelectButton from "./MultiSelectButton";
 import { TotalContext } from "@/hooks/TotalContext";
+import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 
 type itemsId = {
   id: string;
@@ -8,6 +9,7 @@ type itemsId = {
 
 export default function MultiSelectManager() {
   const [selectedItemsId, setSelectedItemsId] = useState<string[]>([]);
+  const orderItem = useOrderItemContext();
 
   function select(id: string, on: boolean) {
     setSelectedItemsId((items) => {
@@ -22,8 +24,14 @@ export default function MultiSelectManager() {
 
   return (
     <div className="flex flex-row gap-5">
-      <MultiSelectButton id={"1"} name={"name"} price={2} select={select} />
-      <MultiSelectButton id={"2"} name={"name 2"} price={2} select={select} />
+      {orderItem.extra.multi_select.map((i) => (
+        <MultiSelectButton
+          id={i.id}
+          name={i.name}
+          price={0.0}
+          select={select}
+        />
+      ))}
     </div>
   );
 }

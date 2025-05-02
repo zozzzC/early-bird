@@ -2,11 +2,13 @@ import { useContext, useState } from "react";
 import SingleSelectButton from "./SingleSelectButton";
 import { TotalContext } from "@/hooks/TotalContext";
 import { useTotalContext } from "@/hooks/useTotalContext";
+import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 
 export default function SingleSelectManager() {
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
   const [selectedItemPrice, setSelectedItemPrice] = useState<number>(0);
   const { total, setTotal } = useTotalContext();
+  const orderItem = useOrderItemContext();
 
   function select(id: string, price: number) {
     setSelectedItemId(id);
@@ -18,20 +20,14 @@ export default function SingleSelectManager() {
 
   return (
     <div className="flex flex-row gap-5">
-      <SingleSelectButton
-        id={"1"}
-        name={"name"}
+      {orderItem.milk.multi_select.map((i) => (
+        <SingleSelectButton
+        id={i.id}
+        name={i.name}
         select={select}
-        price={5}
-        selectedItemId={selectedItemId}
-      />
-      <SingleSelectButton
-        id={"2"}
-        name={"name"}
-        price={5}
-        select={select}
-        selectedItemId={selectedItemId}
-      />
+        price={0}
+        selectedItemId={selectedItemId}/>
+      ))}
     </div>
   );
 }

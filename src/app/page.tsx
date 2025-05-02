@@ -7,7 +7,6 @@ import FullPageHeader from "@/components/layout/FullPageHeader";
 import Maps from "@/components/home/Maps";
 import logoPhoto from "@/test/early-bird-logo-removebg.png";
 
-
 export default function Home() {
   return (
     <div className="-z-10 w-full top-0 h-full">
@@ -25,8 +24,8 @@ export default function Home() {
             eu nulla nibh.
           </p>
         </div>
-        <div className="w-full flex items-center justify-center bg-red-50" >
-        <Image
+        <div className="w-full flex items-center justify-center bg-red-50">
+          <Image
             src={logoPhoto}
             alt="Company Logo"
             className="object-contain"

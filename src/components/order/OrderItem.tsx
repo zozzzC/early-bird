@@ -5,38 +5,50 @@ import Image from "next/image";
 import { Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import OrderItemModal from "./OrderItemModal";
+import { useOrderItemContext } from "@/hooks/useOrderItemContext";
+import { OrderItemContext } from "@/hooks/OrderItemContext";
+import { Suspense } from "react";
 
-export default function OrderItem({ id, name, description, photo }: Item) {
+export default function OrderItem({
+  id,
+  name,
+  description,
+  photo,
+  orderItem,
+}: Item) {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
     <div className="h-full w-full">
-      <Modal
-        className="absolute z-10 h-full w-full"
-        opened={opened}
-        onClose={close}
-        centered
-        overlayProps={{
-          backgroundOpacity: 0.55,
-          blur: 3,
-        }}
-        size="100%"
-      >
-        <OrderItemModal id={id} />
-      </Modal>
-      <div className="h-full flex flex-col relative items-center">
-        <div className="grow-1 object-cover w-full h-full max-w-80 relative aspect-square">
-          <Image
-            onClick={open}
-            src={photo.toString()}
-            alt={name}
-            objectFit="cover"
-            fill
-          />
+      <OrderItemContext value={orderItem.value}>
+        <Modal
+          className="absolute z-10"
+          opened={opened}
+          onClose={close}
+          centered
+          overlayProps={{
+            backgroundOpacity: 0.55,
+            blur: 3,
+          }}
+          size="100%"
+        >
+          <OrderItemModal id={id} />
+        </Modal>
+        <div className="h-full flex flex-col relative items-center">
+          <div className="grow-1 object-cover w-full h-full max-w-80 relative aspect-square">
+            //TODO: add suspense while image is loading
+            <Image
+              onClick={open}
+              src={photo.toString()}
+              alt={name}
+              objectFit="cover"
+              fill
+            />
+          </div>
+          <p>{name}</p>
+          <p>{description}</p>
         </div>
-        <p>{name}</p>
-        <p>{description}</p>
-      </div>
+      </OrderItemContext>
     </div>
   );
 }

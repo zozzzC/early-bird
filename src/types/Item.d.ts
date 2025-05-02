@@ -1,6 +1,10 @@
 export type Item = {
-  id: string,
+  id: string;
   name: string;
   description: string;
   photo: string;
+  orderItem: {
+    key: string;
+    value: rawNotionOrderProps;
+  };
 };

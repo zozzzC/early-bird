@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full">
-      <body className={`flex flex-col min-h-screen ${dmSans.className}`}>
+      <body className={`flex flex-col min-h-screen  ${dmSans.className}`}>
         <div className="z-10 absolute top-0 w-full">
           <FullPageHeader />
         </div>

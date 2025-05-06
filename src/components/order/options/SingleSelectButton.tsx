@@ -18,20 +18,18 @@ export default function SingleSelectButton({
   const [on, setOn] = useState<boolean>(false);
 
   return (
-    <div>
-      <Button
-        onClick={() => {
-          select(id, price);
-        }}
-      >
-        <div className="flex gap-3 items-center">
-          {selectedItemId === id ? <CheckCircle2 /> : <Circle />}
-          <div className="flex flex-col">
-            <p>{name}</p>
-            {price ? <p>${price}</p> : null}
-          </div>
+    <Button
+      onClick={() => {
+        select(id, price);
+      }}
+    >
+      <div className="flex gap-3 items-center">
+        {selectedItemId === id ? <CheckCircle2 /> : <Circle />}
+        <div className="flex flex-col">
+          <p>{name}</p>
+          {price ? <p>${price}</p> : null}
         </div>
-      </Button>
-    </div>
+      </div>
+    </Button>
   );
 }

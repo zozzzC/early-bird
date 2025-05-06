@@ -21,7 +21,7 @@ export default function SingleSelectManager({ id }: { id: string }) {
   }
 
   return (
-    <div className="flex flex-row gap-5">
+    <div className="grid xl:grid-cols-3 gap-5 grid-cols-2">
       {orderItem.milk.multi_select.map((i) => (
         <SingleSelectButton
           key={JSON.stringify(id + i.id)}

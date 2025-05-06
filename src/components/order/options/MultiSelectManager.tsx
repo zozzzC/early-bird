@@ -23,7 +23,7 @@ export default function MultiSelectManager({ id }: { id: string }) {
   }
 
   return (
-    <div className="flex flex-row gap-5">
+    <div className="grid xl:grid-cols-3 grid-cols-2 gap-5">
       {orderItem.extra.multi_select.map((i) => (
         <MultiSelectButton
           key={JSON.stringify(id + i.id)}

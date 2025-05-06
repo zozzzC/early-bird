@@ -34,7 +34,7 @@ export default function OrderItemModal({ id }: { id: string }) {
         </div>
         <div className="flex-1">
           <div className="flex flex-col h-full justify-between">
-            <div>
+            <div className="flex flex-col">
               <p className="text-3xl">{orderItem.name.title[0].text.content}</p>
               <p className="text-md pb-5">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
@@ -46,9 +46,9 @@ export default function OrderItemModal({ id }: { id: string }) {
                 feugiat, in elementum sem accumsan.
               </p>
               <p>Options</p>
-              <SingleSelectManager id={id}/>
+              <SingleSelectManager id={id} />
               <p>Add Ons</p>
-              <MultiSelectManager id={id}/>
+              <MultiSelectManager id={id} />
             </div>
 
             <div className="w-full">

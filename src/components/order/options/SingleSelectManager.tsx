@@ -7,8 +7,23 @@ import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 export default function SingleSelectManager({ id }: { id: string }) {
   const { total, setTotal } = useTotalContext();
   const orderItem = useOrderItemContext();
-  const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
-  const [selectedItemPrice, setSelectedItemPrice] = useState<number>(0);
+  const [selectedItemId, setSelectedItemId] = useState<string | null>(
+    //TODO: while this does indeed work, the UI does not show that the item itself is selected yet.
+    (): string | null => {
+      if (orderItem.milk) {
+        return orderItem.milk[0].id + id;
+      }
+      return null;
+    }
+  );
+  const [selectedItemPrice, setSelectedItemPrice] = useState<number>(
+    (): number => {
+      if (orderItem.milk) {
+        return 0;
+      }
+      return 0;
+    }
+  );
 
   function select(id: string, price: number) {
     setSelectedItemId(id);

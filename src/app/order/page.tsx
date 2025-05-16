@@ -2,7 +2,6 @@ import OrderItem from "@/components/order/OrderItem";
 import data from "@/test/OrderSampleData.json";
 import { Item } from "@/types/Item";
 import { getOrderItems } from "../../lib/orderItems";
-import { Suspense } from "react";
 import { revalidatePath } from "next/cache";
 
 export default async function Order() {

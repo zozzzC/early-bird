@@ -10,7 +10,7 @@ import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 export default function OrderItemModal({ id }: { id: string }) {
   const [quantity, setQuantity] = useState<number>(1);
   const orderItem = useOrderItemContext();
-  const [total, setTotal] = useState<number>(orderItem.price.number);
+  const [total, setTotal] = useState<number>(orderItem.price);
 
   return (
     <div className="w-full grid lg:grid-cols-2 grid-cols-1 gap-5">

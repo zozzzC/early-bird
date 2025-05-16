@@ -20,7 +20,7 @@ export default function OrderItem({
 
   return (
     <div className="h-full w-full">
-      <OrderItemContext value={orderItem.value}>
+      <OrderItemContext value={orderItem}>
         <Modal
           className="absolute z-10"
           opened={opened}

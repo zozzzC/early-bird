@@ -1,25 +1,16 @@
-import { loadEnvConfig } from "@next/env";
+"use server";
 import { Client } from "@notionhq/client";
-import {
-  DatabaseObjectResponse,
-  getPageProperty,
-  PageObjectResponse,
-  PartialDatabaseObjectResponse,
-  PartialPageObjectResponse,
-  QueryDatabaseResponse,
-} from "@notionhq/client/build/src/api-endpoints";
+import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
 import {
   rawNotionOrderPage,
   rawNotionOrderProps,
-} from "../about/types/rawNotionDbRes";
+} from "../types/rawNotionDbRes";
 import formatNotionRes from "../helpers/formatNotionRes";
+import formatOrderModal from "../helpers/formatOrderModal";
+import { OrderModalResponse } from "@/types/OrderModalResponse";
+import { revalidatePath } from "next/cache";
 
-export async function getOrderItems(): Promise<
-  {
-    key: string;
-    value: rawNotionOrderProps;
-  }[]
-> {
+export async function getOrderItems(): Promise<Array<OrderModalResponse>> {
   const notion = new Client({
     auth: process.env.NOTION_KEY,
   });
@@ -40,8 +31,9 @@ export async function getOrderItems(): Promise<
     const data: rawNotionOrderPage<rawNotionOrderProps>[] =
       res.results as rawNotionOrderPage<rawNotionOrderProps>[];
 
-    return formatNotionRes(data);
+    return await formatOrderModal(await formatNotionRes(data));
   }
 
   throw new Error("Notion DB ID and/or Notion Key not found.");
 }
+

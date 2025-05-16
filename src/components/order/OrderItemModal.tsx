@@ -16,12 +16,8 @@ export default function OrderItemModal({ id }: { id: string }) {
     <div className="w-full grid lg:grid-cols-2 grid-cols-1 gap-5">
       <TotalContext value={{ total, setTotal }}>
         <div className="w-full lg:h-full lg:max-h-full aspect-square relative">
-          {orderItem.media.files[0] ? (
-            <Image
-              src={orderItem.media.files[0].file.url}
-              fill
-              alt="order image"
-            />
+          {orderItem.media ? (
+            <Image src={orderItem.media} fill alt="order image" />
           ) : (
             <Image
               src={
@@ -32,10 +28,10 @@ export default function OrderItemModal({ id }: { id: string }) {
             />
           )}
         </div>
-        <div className="flex-1">
+        <div className="flex-1 overflow-auto">
           <div className="flex flex-col h-full justify-between">
             <div className="flex flex-col">
-              <p className="text-3xl">{orderItem.name.title[0].text.content}</p>
+              <p className="text-3xl">{orderItem.name}</p>
               <p className="text-md pb-5">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
                 consectetur sed orci sed sagittis. Aenean accumsan luctus justo,
@@ -50,8 +46,7 @@ export default function OrderItemModal({ id }: { id: string }) {
               <p>Add Ons</p>
               <MultiSelectManager id={id} />
             </div>
-
-            <div className="w-full">
+            <div className="w-full pt-10">
               <div className="gap-5 pr-5 flex justify-end w-full items-center">
                 <NumberInput
                   size="md"

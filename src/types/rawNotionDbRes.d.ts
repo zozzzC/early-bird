@@ -132,7 +132,27 @@ type multiSelectOptions = {
 type richtextItem = {
   id: string;
   type: "rich_text";
-  rich_text: [];
+  rich_text:
+    | [
+        {
+          type: "text";
+          text: {
+            content: string | null;
+            link: string | null;
+          };
+          annotations: {
+            bold: boolean;
+            italic: boolean;
+            strikethrough: boolean;
+            underline: boolean;
+            code: boolean;
+            color: string;
+          };
+          plain_text: string;
+          href: null | string;
+        },
+      ]
+    | [];
 };
 
 type filesAndMediaItem = {

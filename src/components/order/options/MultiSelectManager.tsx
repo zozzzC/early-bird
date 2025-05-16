@@ -24,15 +24,17 @@ export default function MultiSelectManager({ id }: { id: string }) {
 
   return (
     <div className="grid xl:grid-cols-3 grid-cols-2 gap-5">
-      {orderItem.extra.multi_select.map((i) => (
-        <MultiSelectButton
-          key={JSON.stringify(id + i.id)}
-          id={JSON.stringify(id + i.id)}
-          name={i.name}
-          price={0.0}
-          select={select}
-        />
-      ))}
+      {orderItem.extra
+        ? orderItem.extra.map((i) => (
+            <MultiSelectButton
+              key={JSON.stringify(id + i.id)}
+              id={JSON.stringify(id + i.id)}
+              name={i.name}
+              price={0.0}
+              select={select}
+            />
+          ))
+        : null}
     </div>
   );
 }

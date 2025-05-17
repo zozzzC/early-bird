@@ -10,6 +10,7 @@ export interface ICartItem {
   extra: null | ICartAddOn[];
   size: null | ICartAddOn;
   price: number;
+  quantity: number;
 }
 
 export interface ICartAddOn {

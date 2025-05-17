@@ -41,10 +41,9 @@ export default function OrderItemModal({ id }: { id: string }) {
                 ante. In hac habitasse platea dictumst. Sed sodales sem a leo
                 feugiat, in elementum sem accumsan.
               </p>
-              <p>Options</p>
               <SingleSelectManager id={id} />
-              <p>Add Ons</p>
-              <MultiSelectManager id={id} />
+              <MultiSelectManager id={id} orderItemCategory="milk" />
+              <MultiSelectManager id={id} orderItemCategory="extra" />
             </div>
             <div className="w-full pt-10">
               <div className="gap-5 pr-5 flex justify-end w-full items-center">
@@ -62,6 +61,7 @@ export default function OrderItemModal({ id }: { id: string }) {
                 </div>
               </div>
               <Button>add to cart</Button>
+              {/* to format the order item to be put into the cart, we need to pass some things including: order item id, name, milk, extras, quantity, price */}
             </div>
           </div>
         </div>

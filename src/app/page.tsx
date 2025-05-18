@@ -7,11 +7,23 @@ import FullPageHeader from "@/components/layout/FullPageHeader";
 import Maps from "@/components/home/Maps";
 import logoPhoto from "@/test/early-bird-logo-removebg.png";
 
-
 export default function Home() {
   return (
     <div className="-z-10 w-full top-0 h-full">
-      <HomepageCarousel />
+      <div className="relative h-dvh">
+        <HomepageCarousel />
+        <div className="top-0 py-10 h-full px-10 flex flex-col items-center justify-center absolute z-10 w-full text-center">
+          <p className="text-5xl text-background">
+            lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </p>
+          <p className="pt-3 text-xl text-background">
+            sed ullamcorper efficitur urna, et efficitur quam aliquam sit amet.
+            curabitur sed posuere odio, vitae consectetur nisl. Etiam fermentum
+            vehicula sagittis. sed lobortis tincidunt lectus, quis congue velit
+            mattis consectetur.
+          </p>
+        </div>
+      </div>
       <div className="flex">
         <div className="flex flex-col w-2/5">
           <p className="text-center">our story</p>
@@ -25,8 +37,8 @@ export default function Home() {
             eu nulla nibh.
           </p>
         </div>
-        <div className="w-full flex items-center justify-center bg-red-50" >
-        <Image
+        <div className="w-full flex items-center justify-center bg-red-50">
+          <Image
             src={logoPhoto}
             alt="Company Logo"
             className="object-contain"

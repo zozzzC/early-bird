@@ -3,9 +3,18 @@ import SingleSelectButton from "./SingleSelectButton";
 import { TotalContext } from "@/hooks/TotalContext";
 import { useTotalContext } from "@/hooks/useTotalContext";
 import { useOrderItemContext } from "@/hooks/useOrderItemContext";
+import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
+import { ICartAddOn } from "@/types/Cart";
 
-export default function SingleSelectManager({ id }: { id: string }) {
+export default function SingleSelectManager({
+  id,
+  orderItemCategory,
+}: {
+  id: string;
+  orderItemCategory: "milk" | "size";
+}) {
   const { total, setTotal } = useTotalContext();
+  const orderInstance = useOrderInstanceContext();
   const orderItem = useOrderItemContext();
   //TODO: move state up to the order item modal.
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
@@ -18,7 +27,18 @@ export default function SingleSelectManager({ id }: { id: string }) {
     }
   );
 
-  function select(id: string, price: number) {
+  function select(id: string, name: string, price: number) {
+    if (selectedItemId) {
+      const field = orderItemCategory;
+
+      const value: ICartAddOn = {
+        id: id,
+        name: name,
+        price: price,
+      };
+
+      orderInstance.setOrderInstanceByField({ field, value });
+    }
     setSelectedItemId(id);
     setTotal(total + price - selectedItemPrice);
     setSelectedItemPrice(price);
@@ -26,22 +46,14 @@ export default function SingleSelectManager({ id }: { id: string }) {
     console.log(total);
   }
 
-  useEffect(() => {
-    if (orderItem.size) {
-      console.log(JSON.stringify(orderItem.size[0].id + id))
-      select(JSON.stringify(orderItem.size[0].id + id), 0);
-    }
-    //TODO: while this does indeed work, the UI does not show that the item itself is selected yet.
-  }, []);
-
   //TODO: the passing on off the id and name does not seem to work.
   return (
     <>
-      {orderItem.size ? (
+      {orderItem[orderItemCategory] ? (
         <>
-          <p>size</p>
+          <p>{orderItemCategory}</p>
           <div className="grid xl:grid-cols-3 gap-5 grid-cols-2">
-            {orderItem.size.map((i) => (
+            {orderItem[orderItemCategory].map((i) => (
               <SingleSelectButton
                 key={JSON.stringify(id + i.id)}
                 id={JSON.stringify(id + i.id)}

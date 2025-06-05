@@ -5,10 +5,10 @@ export interface ICart {
 export interface ICartItem {
   key: string;
   name: string;
-  category: string;
-  milk: null | ICartAddOn;
-  extra: null | ICartAddOn[];
-  size: null | ICartAddOn;
+  category: string | null;
+  milk: OrderInstanceType<"milk">;
+  extra: OrderInstanceType<"extra">;
+  size: OrderInstanceType<"size">;
   price: number;
   quantity: number;
 }
@@ -18,3 +18,6 @@ export interface ICartAddOn {
   name: string;
   price: number;
 }
+
+export type OrderInstanceType<T extends "milk" | "size" | "extra"> =
+  T extends "extra" ? ICartAddOn[] | null : ICartAddOn | null;

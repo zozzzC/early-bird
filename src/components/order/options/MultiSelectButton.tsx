@@ -13,7 +13,7 @@ export default function MultiSelectButton({
   id: string;
   name: string;
   price: number;
-  select(id: string, on: boolean): void;
+  select(id: string, name: string, price: number, on: boolean): void;
 }) {
   const [on, setOn] = useState<boolean>(false);
   const { total, setTotal } = useTotalContext();
@@ -22,10 +22,10 @@ export default function MultiSelectButton({
     <Button
       onClick={() => {
         if (on) {
-          select(id, on);
+          select(id, name, price, on);
           setTotal(() => total - price);
         } else {
-          select(id, on);
+          select(id, name, price, on);
           setTotal(() => total + price);
         }
         setOn(!on);

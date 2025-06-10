@@ -5,8 +5,10 @@ import { Item } from "@/types/Item";
 import { getOrderItems } from "../../lib/orderItems";
 import { revalidatePath } from "next/cache";
 import CartProviderComponent from "@/components/order/CartProviderComponent";
+import { getExtraCosts } from "@/lib/extraCosts";
 export default async function Order() {
   const orderItems = await getOrderItems();
+  const extraCosts = await getExtraCosts();
 
   return (
     <div className="w-full h-full">
@@ -45,6 +47,7 @@ export default async function Order() {
             </CartProviderComponent>
           </div>
         </div>
+        <p>{JSON.stringify(extraCosts)}</p>
         <p>{JSON.stringify(orderItems)}</p>
       </div>
     </div>

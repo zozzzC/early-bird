@@ -101,6 +101,12 @@ type rawNotionOrderProps = {
   name: titleItem;
 };
 
+type rawNotionExtraCostProps = {
+  name: titleItem;
+  type: selectItem;
+  price: numberItem;
+};
+
 type numberItem = {
   id: string;
   type: number;

@@ -1,5 +1,5 @@
 import { ICartAddOn, ICartItem } from "@/types/Cart";
-import { createContext, SetStateAction } from "react";
+import { createContext, Dispatch, SetStateAction } from "react";
 
 export const OrderInstanceContext = createContext<
   | {

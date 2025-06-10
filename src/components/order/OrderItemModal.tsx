@@ -3,14 +3,14 @@ import SingleSelectButton from "./options/SingleSelectButton";
 import SingleSelectManager from "./options/SingleSelectManager";
 import MultiSelectManager from "./options/MultiSelectManager";
 import { Button, NumberInput } from "@mantine/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TotalContext } from "@/hooks/TotalContext";
 import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 import { OrderInstanceContext } from "@/hooks/OrderInstanceContext";
 import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
+import { useCartContext } from "@/hooks/useCartContext";
 import CartButton from "./CartButton";
 import { ICartAddOn, ICartItem, OrderInstanceType } from "@/types/Cart";
-import NextNodeServer from "next/dist/server/next-server";
 
 export default function OrderItemModal({ id }: { id: string }) {
   const [quantity, setQuantity] = useState<number>(1);
@@ -27,6 +27,7 @@ export default function OrderItemModal({ id }: { id: string }) {
     quantity: 1,
   });
 
+  //TODO CHORE: move this into helpers
   function setOrderInstanceByField<T extends "milk" | "size" | "extra">({
     field,
     value,
@@ -91,6 +92,12 @@ export default function OrderItemModal({ id }: { id: string }) {
                     variant="filled"
                     defaultValue={1}
                     min={1}
+                    onChange={(e) =>
+                      setOrderInstance({
+                        ...orderInstance,
+                        quantity: e.valueOf(),
+                      } as ICartItem)
+                    }
                   ></NumberInput>
                 </div>
                 <div className="flex justify-end w-full p-5">
@@ -99,7 +106,6 @@ export default function OrderItemModal({ id }: { id: string }) {
                   </div>
                 </div>
                 <CartButton />
-                {/* to format the order item to be put into the cart, we need to pass some things including: order item id, name, milk, extras, quantity, price */}
               </div>
             </div>
           </div>

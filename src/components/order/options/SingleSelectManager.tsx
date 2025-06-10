@@ -28,17 +28,16 @@ export default function SingleSelectManager({
   );
 
   function select(id: string, name: string, price: number) {
-    if (selectedItemId) {
-      const field = orderItemCategory;
+    const field = orderItemCategory;
 
-      const value: ICartAddOn = {
-        id: id,
-        name: name,
-        price: price,
-      };
+    const value: ICartAddOn = {
+      id: id,
+      name: name,
+      price: price,
+    };
 
-      orderInstance.setOrderInstanceByField({ field, value });
-    }
+    orderInstance.setOrderInstanceByField({ field, value });
+
     setSelectedItemId(id);
     setTotal(total + price - selectedItemPrice);
     setSelectedItemPrice(price);
@@ -55,16 +54,15 @@ export default function SingleSelectManager({
           <div className="grid xl:grid-cols-3 gap-5 grid-cols-2">
             {orderItem[orderItemCategory].map((i) => (
               <SingleSelectButton
-                key={JSON.stringify(id + i.id)}
-                id={JSON.stringify(id + i.id)}
+                key={id + i.id}
+                id={id + i.id}
                 name={i.name}
                 select={select}
-                price={0}
+                price={1}
                 selectedItemId={selectedItemId}
               />
             ))}
           </div>
-          <p>{selectedItemId}</p>
         </>
       ) : null}
     </>

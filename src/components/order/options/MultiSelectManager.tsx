@@ -21,13 +21,17 @@ export default function MultiSelectManager({
   const orderInstance = useOrderInstanceContext();
 
   function select(id: string, name: string, price: number, on: boolean) {
-    const value = selectedItemsId;
+    var value = selectedItemsId;
 
     if (on) {
-      value.splice(value.indexOf({ id: id, name: name, price: price }));
+      value.splice(
+        value.findIndex((x) => x.id == id),
+        1
+      );
     } else {
       value.push({ id: id, name: name, price: price });
     }
+
     orderInstance.setOrderInstanceByField({ field: "extra", value: value });
     setSelectedItemsId(value);
   }
@@ -40,8 +44,8 @@ export default function MultiSelectManager({
           <div className="grid xl:grid-cols-3 grid-cols-2 gap-5">
             {orderItem[orderItemCategory].map((i) => (
               <MultiSelectButton
-                key={JSON.stringify(id + i.id)}
-                id={JSON.stringify(id + i.id)}
+                key={id + i.id}
+                id={id + i.id}
                 name={i.name}
                 price={1.0}
                 select={select}

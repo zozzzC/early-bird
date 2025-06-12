@@ -47,7 +47,7 @@ export default function MultiSelectManager({
                 key={id + i.id}
                 id={id + i.id}
                 name={i.name}
-                price={1.0}
+                price={i.price}
                 select={select}
               />
             ))}

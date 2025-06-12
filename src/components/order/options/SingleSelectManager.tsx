@@ -5,6 +5,8 @@ import { useTotalContext } from "@/hooks/useTotalContext";
 import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
 import { ICartAddOn } from "@/types/Cart";
+import { getExtraCosts } from "@/lib/extraCosts";
+import { ExtraCostsResponse } from "@/types/ExtraCostsResponse";
 
 export default function SingleSelectManager({
   id,
@@ -16,8 +18,11 @@ export default function SingleSelectManager({
   const { total, setTotal } = useTotalContext();
   const orderInstance = useOrderInstanceContext();
   const orderItem = useOrderItemContext();
+
   //TODO: move state up to the order item modal.
+  //TODO: do you still need this?
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
+
   const [selectedItemPrice, setSelectedItemPrice] = useState<number>(
     (): number => {
       if (orderItem.size) {
@@ -37,7 +42,7 @@ export default function SingleSelectManager({
     };
 
     orderInstance.setOrderInstanceByField({ field, value });
-
+    //TODO: check if i still need any of this
     setSelectedItemId(id);
     setTotal(total + price - selectedItemPrice);
     setSelectedItemPrice(price);
@@ -45,7 +50,6 @@ export default function SingleSelectManager({
     console.log(total);
   }
 
-  //TODO: the passing on off the id and name does not seem to work.
   return (
     <>
       {orderItem[orderItemCategory] ? (
@@ -58,7 +62,7 @@ export default function SingleSelectManager({
                 id={id + i.id}
                 name={i.name}
                 select={select}
-                price={1}
+                price={i.price}
                 selectedItemId={selectedItemId}
               />
             ))}

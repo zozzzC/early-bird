@@ -10,7 +10,8 @@ export interface OrderModalResponse {
   outOfStock: boolean;
 }
 
-export interface itemStringWithId { 
-    id: string,
-    name: string 
+export interface itemStringWithId {
+  id: string;
+  name: string;
+  price: number;
 }

@@ -5,6 +5,7 @@ import { Item } from "@/types/Item";
 import { getOrderItems } from "../../lib/orderItems";
 import { revalidatePath } from "next/cache";
 import CartProviderComponent from "@/components/order/CartProviderComponent";
+import { getExtraCosts } from "@/lib/extraCosts";
 export default async function Order() {
   const orderItems = await getOrderItems();
 

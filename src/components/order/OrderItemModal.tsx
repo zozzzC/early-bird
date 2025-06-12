@@ -13,7 +13,6 @@ import CartButton from "./CartButton";
 import { ICartAddOn, ICartItem, OrderInstanceType } from "@/types/Cart";
 
 export default function OrderItemModal({ id }: { id: string }) {
-  const [quantity, setQuantity] = useState<number>(1);
   const orderItem = useOrderItemContext();
   const [total, setTotal] = useState<number>(orderItem.price);
   const [orderInstance, setOrderInstance] = useState<ICartItem>({

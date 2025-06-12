@@ -2,41 +2,37 @@
 import { Client } from "@notionhq/client";
 import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
 import {
+  rawNotionExtraCostProps,
   rawNotionOrderPage,
   rawNotionOrderProps,
 } from "../types/rawNotionDbRes";
 import formatNotionRes from "../helpers/formatNotionRes";
 import formatOrderModal from "../helpers/formatOrderModal";
-import { OrderModalResponse } from "@/types/OrderModalResponse";
-import { revalidatePath } from "next/cache";
 import formatExtraCosts from "@/helpers/formatExtraCosts";
-import { getExtraCosts } from "./extraCosts";
+import { ExtraCostsResponse } from "@/types/ExtraCostsResponse";
 
-export async function getOrderItems(): Promise<Array<OrderModalResponse>> {
+export async function getExtraCosts(): Promise<ExtraCostsResponse> {
   const notion = new Client({
     auth: process.env.NOTION_KEY,
   });
 
-  const dbId = process.env.NOTION_ORDER_ITEMS_DB_ID;
+  const dbId = process.env.NOTION_EXTRA_COSTS_DB_ID;
 
   if (dbId) {
     const res: QueryDatabaseResponse = await notion.databases.query({
       database_id: dbId,
       sorts: [
         {
-          property: "category",
+          property: "type",
           direction: "ascending",
         },
       ],
     });
 
-    const data: rawNotionOrderPage<rawNotionOrderProps>[] =
-      res.results as rawNotionOrderPage<rawNotionOrderProps>[];
+    const data: rawNotionOrderPage<rawNotionExtraCostProps>[] =
+      res.results as rawNotionOrderPage<rawNotionExtraCostProps>[];
 
-    return await formatOrderModal(
-      await formatNotionRes(data),
-      await getExtraCosts()
-    );
+    return await formatExtraCosts(await formatNotionRes(data));
   }
 
   throw new Error("Notion DB ID and/or Notion Key not found.");

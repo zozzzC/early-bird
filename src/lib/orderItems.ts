@@ -15,7 +15,7 @@ export async function getOrderItems(): Promise<Array<OrderModalResponse>> {
     auth: process.env.NOTION_KEY,
   });
 
-  const dbId = process.env.NOTION_DB_ID;
+  const dbId = process.env.NOTION_ORDER_ITEMS_DB_ID;
 
   if (dbId) {
     const res: QueryDatabaseResponse = await notion.databases.query({
@@ -36,4 +36,3 @@ export async function getOrderItems(): Promise<Array<OrderModalResponse>> {
 
   throw new Error("Notion DB ID and/or Notion Key not found.");
 }
-

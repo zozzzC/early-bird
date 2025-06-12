@@ -9,6 +9,8 @@ import formatNotionRes from "../helpers/formatNotionRes";
 import formatOrderModal from "../helpers/formatOrderModal";
 import { OrderModalResponse } from "@/types/OrderModalResponse";
 import { revalidatePath } from "next/cache";
+import formatExtraCosts from "@/helpers/formatExtraCosts";
+import { getExtraCosts } from "./extraCosts";
 
 export async function getOrderItems(): Promise<Array<OrderModalResponse>> {
   const notion = new Client({
@@ -31,9 +33,11 @@ export async function getOrderItems(): Promise<Array<OrderModalResponse>> {
     const data: rawNotionOrderPage<rawNotionOrderProps>[] =
       res.results as rawNotionOrderPage<rawNotionOrderProps>[];
 
-    return await formatOrderModal(await formatNotionRes(data));
+    return await formatOrderModal(
+      await formatNotionRes(data),
+      await getExtraCosts()
+    );
   }
 
   throw new Error("Notion DB ID and/or Notion Key not found.");
 }
-

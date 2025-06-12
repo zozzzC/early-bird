@@ -47,7 +47,6 @@ export default async function Order() {
             </CartProviderComponent>
           </div>
         </div>
-        <p>{JSON.stringify(extraCosts)}</p>
         <p>{JSON.stringify(orderItems)}</p>
       </div>
     </div>

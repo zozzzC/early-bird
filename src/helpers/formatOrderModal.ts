@@ -3,13 +3,15 @@ import {
   itemStringWithId,
   OrderModalResponse,
 } from "@/types/OrderModalResponse";
+import { ExtraCostsResponse } from "@/types/ExtraCostsResponse";
 
 export default async function formatOrderModal(
-  data: Array<{ key: string; value: rawNotionOrderProps }>
+  order: Array<{ key: string; value: rawNotionOrderProps }>,
+  extraCosts: ExtraCostsResponse
 ): Promise<Array<OrderModalResponse>> {
   let res: Array<OrderModalResponse> = [];
 
-  data.forEach((i) => {
+  order.forEach((i) => {
     let media: string | null = null;
 
     if (i.value.media.files.length != 0) {
@@ -29,10 +31,17 @@ export default async function formatOrderModal(
     if (i.value.extra.multi_select.length != 0) {
       extra = [];
       i.value.extra.multi_select.forEach((i) => {
-        extra.push({
-          id: i.id,
-          name: i.name,
-        });
+        if (extraCosts[i.name]) {
+          extra.push({
+            id: i.id,
+            name: i.name,
+            price: extraCosts[i.name] ? extraCosts[i.name].price : 0,
+          });
+        } else {
+          console.log(
+            `Skipping ${i.name} because it does not have a price. Please specify the price.`
+          );
+        }
       });
     }
 
@@ -47,10 +56,17 @@ export default async function formatOrderModal(
     if (i.value.milk.multi_select.length != 0) {
       milk = [];
       i.value.milk.multi_select.forEach((i) => {
-        milk.push({
-          id: i.id,
-          name: i.name,
-        });
+        if (extraCosts[i.name]) {
+          milk.push({
+            id: i.id,
+            name: i.name,
+            price: extraCosts[i.name].price,
+          });
+        } else {
+          console.log(
+            `Skipping ${i.name} because it does not have a price. Please specify the price.`
+          );
+        }
       });
     }
 
@@ -59,10 +75,17 @@ export default async function formatOrderModal(
     if (i.value.size.multi_select.length != 0) {
       size = [];
       i.value.size.multi_select.forEach((i) => {
-        size.push({
-          id: i.id,
-          name: i.name,
-        });
+        if (extraCosts[i.name]) {
+          size.push({
+            id: i.id,
+            name: i.name,
+            price: extraCosts[i.name].price,
+          });
+        } else {
+          console.log(
+            `Skipping ${i.name} because it does not have a price. Please specify the price.`
+          );
+        }
       });
     }
 

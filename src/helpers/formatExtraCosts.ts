@@ -5,12 +5,12 @@ import {
 import { rawNotionExtraCostProps } from "@/types/rawNotionDbRes";
 
 export default async function formatExtraCosts(
-  data: Array<{ key: string; value: rawNotionExtraCostProps }>
+  extraCosts: Array<{ key: string; value: rawNotionExtraCostProps }>
 ): Promise<ExtraCostsResponse> {
   //we want the response to be an object with key value pairs, since we will be using the name as the key
   const res: ExtraCostsResponse = {};
 
-  data.forEach((i) => {
+  extraCosts.forEach((i) => {
     const name = i.value.name.title[0].text.content;
     const price = i.value.price.number;
 

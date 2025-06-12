@@ -8,7 +8,6 @@ import CartProviderComponent from "@/components/order/CartProviderComponent";
 import { getExtraCosts } from "@/lib/extraCosts";
 export default async function Order() {
   const orderItems = await getOrderItems();
-  const extraCosts = await getExtraCosts();
 
   return (
     <div className="w-full h-full">

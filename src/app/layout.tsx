@@ -5,6 +5,7 @@ import "./globals.css";
 import { MantineProvider } from "@mantine/core";
 import FullPageHeader from "@/components/layout/FullPageHeader";
 import Footer from "@/components/layout/Footer";
+import CartProviderComponent from "@/components/order/CartProviderComponent";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -30,7 +31,9 @@ export default function RootLayout({
           <FullPageHeader />
         </div>
         <main className="flex-1 w-full">
-          <MantineProvider theme={mantineTheme}>{children}</MantineProvider>
+          <CartProviderComponent>
+            <MantineProvider theme={mantineTheme}>{children}</MantineProvider>
+          </CartProviderComponent>
         </main>
         <Footer />
       </body>

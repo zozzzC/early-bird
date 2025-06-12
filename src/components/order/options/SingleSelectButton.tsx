@@ -12,7 +12,7 @@ export default function SingleSelectButton({
   id: string;
   name: string;
   price: number;
-  select(id: string, price: number): void;
+  select(id: string, name: string, price: number): void;
   selectedItemId: string | null;
 }) {
   const [on, setOn] = useState<boolean>(false);
@@ -20,7 +20,7 @@ export default function SingleSelectButton({
   return (
     <Button
       onClick={() => {
-        select(id, price);
+        select(id, name, price);
       }}
     >
       <div className="flex gap-3 items-center">

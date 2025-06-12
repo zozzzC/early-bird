@@ -1,5 +1,3 @@
-import { ComboboxStringItem } from "@mantine/core";
-
 export interface OrderModalResponse {
   key: string;
   name: string;

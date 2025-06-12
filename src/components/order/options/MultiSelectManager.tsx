@@ -1,40 +1,59 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import MultiSelectButton from "./MultiSelectButton";
 import { TotalContext } from "@/hooks/TotalContext";
 import { useOrderItemContext } from "@/hooks/useOrderItemContext";
+import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
+import { ICartAddOn } from "@/types/Cart";
 
 type itemsId = {
   id: string;
 };
 
-export default function MultiSelectManager({ id }: { id: string }) {
-  const [selectedItemsId, setSelectedItemsId] = useState<string[]>([]);
+export default function MultiSelectManager({
+  id,
+  orderItemCategory,
+}: {
+  id: string;
+  orderItemCategory: "extra";
+}) {
+  const [selectedItemsId, setSelectedItemsId] = useState<ICartAddOn[]>([]);
   const orderItem = useOrderItemContext();
+  const orderInstance = useOrderInstanceContext();
 
-  function select(id: string, on: boolean) {
-    setSelectedItemsId((items) => {
-      if (on) {
-        items.splice(items.indexOf(id));
-      } else {
-        items.push(id);
-      }
-      return items;
-    });
+  function select(id: string, name: string, price: number, on: boolean) {
+    var value = selectedItemsId;
+
+    if (on) {
+      value.splice(
+        value.findIndex((x) => x.id == id),
+        1
+      );
+    } else {
+      value.push({ id: id, name: name, price: price });
+    }
+
+    orderInstance.setOrderInstanceByField({ field: "extra", value: value });
+    setSelectedItemsId(value);
   }
 
   return (
-    <div className="grid xl:grid-cols-3 grid-cols-2 gap-5">
-      {orderItem.extra
-        ? orderItem.extra.map((i) => (
-            <MultiSelectButton
-              key={JSON.stringify(id + i.id)}
-              id={JSON.stringify(id + i.id)}
-              name={i.name}
-              price={0.0}
-              select={select}
-            />
-          ))
-        : null}
-    </div>
+    <>
+      {orderItem[orderItemCategory] ? (
+        <>
+          <p>{orderItemCategory}</p>
+          <div className="grid xl:grid-cols-3 grid-cols-2 gap-5">
+            {orderItem[orderItemCategory].map((i) => (
+              <MultiSelectButton
+                key={id + i.id}
+                id={id + i.id}
+                name={i.name}
+                price={1.0}
+                select={select}
+              />
+            ))}
+          </div>
+        </>
+      ) : null}
+    </>
   );
 }

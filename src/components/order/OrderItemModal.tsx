@@ -1,16 +1,13 @@
 import Image from "next/image";
-import SingleSelectButton from "./options/SingleSelectButton";
 import SingleSelectManager from "./options/SingleSelectManager";
 import MultiSelectManager from "./options/MultiSelectManager";
-import { Button, NumberInput } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { NumberInput } from "@mantine/core";
+import { useState } from "react";
 import { TotalContext } from "@/hooks/TotalContext";
 import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 import { OrderInstanceContext } from "@/hooks/OrderInstanceContext";
-import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
-import { useCartContext } from "@/hooks/useCartContext";
-import CartButton from "./CartButton";
 import { ICartAddOn, ICartItem, OrderInstanceType } from "@/types/Cart";
+import AddToCartButton from "./AddToCartButton";
 
 export default function OrderItemModal({ id }: { id: string }) {
   const orderItem = useOrderItemContext();
@@ -104,7 +101,7 @@ export default function OrderItemModal({ id }: { id: string }) {
                     <p className="text-lg">{total}</p>
                   </div>
                 </div>
-                <CartButton />
+                <AddToCartButton />
               </div>
             </div>
           </div>

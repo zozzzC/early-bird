@@ -1,12 +1,11 @@
+import "@mantine/core/styles.css";
 import HomepageCarousel from "@/components/home/HomepageCarousel";
 import { Carousel } from "@mantine/carousel";
-import "@mantine/core/styles.css";
 import "@mantine/carousel/styles.css";
 import Image from "next/image";
 import FullPageHeader from "@/components/layout/FullPageHeader";
 import Maps from "@/components/home/Maps";
 import logoPhoto from "@/test/early-bird-logo-removebg.png";
-
 
 export default function Home() {
   return (
@@ -25,8 +24,8 @@ export default function Home() {
             eu nulla nibh.
           </p>
         </div>
-        <div className="w-full flex items-center justify-center bg-red-50" >
-        <Image
+        <div className="w-full flex items-center justify-center bg-red-50">
+          <Image
             src={logoPhoto}
             alt="Company Logo"
             className="object-contain"

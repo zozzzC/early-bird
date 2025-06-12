@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { mantineTheme } from "@/components/MantineTheme";
 import { DM_Sans, Bokor } from "next/font/google";
 import "./globals.css";
 import { MantineProvider } from "@mantine/core";
@@ -24,16 +25,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full">
-      <body className={`flex flex-col min-h-screen ${dmSans.className}`}>
+      <body className={`flex flex-col min-h-screen  ${dmSans.className}`}>
         <div className="z-10 absolute top-0 w-full">
           <FullPageHeader />
         </div>
         <main className="flex-1 w-full">
-          <MantineProvider>{children}</MantineProvider>
+          <MantineProvider theme={mantineTheme}>{children}</MantineProvider>
         </main>
-        <div className="">
-          <Footer />
-        </div>
+        <Footer />
       </body>
     </html>
   );

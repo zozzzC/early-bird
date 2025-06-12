@@ -98,7 +98,7 @@ type rawNotionOrderProps = {
   size: multiSelectItem;
   extra: multiSelectItem;
   out_of_stock: checkboxItem;
-  name: string;
+  name: titleItem;
 };
 
 type numberItem = {
@@ -132,29 +132,40 @@ type multiSelectOptions = {
 type richtextItem = {
   id: string;
   type: "rich_text";
-  rich_text: [];
+  rich_text:
+    | [
+        {
+          type: "text";
+          text: {
+            content: string | null;
+            link: string | null;
+          };
+          annotations: {
+            bold: boolean;
+            italic: boolean;
+            strikethrough: boolean;
+            underline: boolean;
+            code: boolean;
+            color: string;
+          };
+          plain_text: string;
+          href: null | string;
+        },
+      ]
+    | [];
 };
 
 type filesAndMediaItem = {
   id: string;
   type: "files";
-  files: Array<
-    | {
-        file: {
-          url: string;
-          expiry_time: string;
-        };
-        name: StringRequest;
-        type?: "file";
-      }
-    | {
-        external: {
-          url: TextRequest;
-        };
-        name: StringRequest;
-        type?: "external";
-      }
-  >;
+  files: Array<{
+    file: {
+      url: string;
+      expiry_time: string;
+    };
+    name: StringRequest;
+    type?: "file";
+  }>;
 };
 
 type titleItem = {

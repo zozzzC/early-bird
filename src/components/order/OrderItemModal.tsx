@@ -12,19 +12,32 @@ import { useCartContext } from "@/hooks/useCartContext";
 import CartButton from "./CartButton";
 import { ICartAddOn, ICartItem, OrderInstanceType } from "@/types/Cart";
 
-export default function OrderItemModal({ id }: { id: string }) {
+export default function OrderItemModal({
+  id,
+  cartItem,
+}: {
+  id: string;
+  cartItem?: ICartItem; //this should only be true / assigned if we are accessing the modal in the checkout page
+}) {
   const orderItem = useOrderItemContext();
   const [total, setTotal] = useState<number>(orderItem.price);
-  const [orderInstance, setOrderInstance] = useState<ICartItem>({
-    key: orderItem.key,
-    name: orderItem.name,
-    category: orderItem.category,
-    size: null,
-    milk: null,
-    extra: null,
-    price: total,
-    quantity: 1,
+  const [orderInstance, setOrderInstance] = useState<ICartItem>(() => {
+    if (cartItem) {
+      return cartItem;
+    }
+
+    return {
+      key: orderItem.key,
+      name: orderItem.name,
+      category: orderItem.category,
+      size: null,
+      milk: null,
+      extra: null,
+      price: total,
+      quantity: 1,
+    };
   });
+  const cart = useCartContext();
 
   //TODO CHORE: move this into helpers
   function setOrderInstanceByField<T extends "milk" | "size" | "extra">({
@@ -70,18 +83,9 @@ export default function OrderItemModal({ id }: { id: string }) {
             <div className="flex flex-col h-full justify-between">
               <div className="flex flex-col">
                 <p className="text-3xl">{orderItem.name}</p>
-                <p className="text-md pb-5">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  consectetur sed orci sed sagittis. Aenean accumsan luctus
-                  justo, non mattis enim ornare id. Aliquam justo nibh, sodales
-                  ut dui vel, varius mattis ipsum. Morbi venenatis, odio sed
-                  rutrum tincidunt, arcu felis sodales velit, a porta lorem
-                  felis eu ante. In hac habitasse platea dictumst. Sed sodales
-                  sem a leo feugiat, in elementum sem accumsan.
-                </p>
                 <SingleSelectManager id={id} orderItemCategory="size" />
                 <SingleSelectManager id={id} orderItemCategory="milk" />
-                <MultiSelectManager id={id} orderItemCategory="extra" />
+                <MultiSelectManager id={id} orderItemCategory="extra" selectedItems={orderInstance.extra} />
               </div>
               <div className="w-full pt-10">
                 <div className="gap-5 pr-5 flex justify-end w-full items-center">

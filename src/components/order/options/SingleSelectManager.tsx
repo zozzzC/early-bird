@@ -11,9 +11,11 @@ import { ExtraCostsResponse } from "@/types/ExtraCostsResponse";
 export default function SingleSelectManager({
   id,
   orderItemCategory,
+  selectedItems,
 }: {
   id: string;
   orderItemCategory: "milk" | "size";
+  selectedItems: ICartAddOn | null;
 }) {
   const { total, setTotal } = useTotalContext();
   const orderInstance = useOrderInstanceContext();
@@ -21,7 +23,12 @@ export default function SingleSelectManager({
 
   //TODO: move state up to the order item modal.
   //TODO: do you still need this?
-  const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
+  const [selectedItemId, setSelectedItemId] = useState<string | null>(() => {
+    if (selectedItems) {
+      return selectedItems.id;
+    }
+    return null;
+  });
 
   const [selectedItemPrice, setSelectedItemPrice] = useState<number>(
     (): number => {

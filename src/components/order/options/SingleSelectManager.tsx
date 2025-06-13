@@ -12,10 +12,12 @@ export default function SingleSelectManager({
   id,
   orderItemCategory,
   selectedItems,
+  editable,
 }: {
   id: string;
   orderItemCategory: "milk" | "size";
   selectedItems: ICartAddOn | null;
+  editable: boolean;
 }) {
   const { total, setTotal } = useTotalContext();
   const orderInstance = useOrderInstanceContext();
@@ -24,7 +26,7 @@ export default function SingleSelectManager({
   //TODO: move state up to the order item modal.
   //TODO: do you still need this?
   const [selectedItemId, setSelectedItemId] = useState<string | null>(() => {
-    if (selectedItems) {
+    if (selectedItems && editable) {
       return selectedItems.id;
     }
     return null;

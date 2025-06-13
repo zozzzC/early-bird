@@ -13,13 +13,15 @@ export default function MultiSelectManager({
   id,
   orderItemCategory,
   selectedItems,
+  editable,
 }: {
   id: string;
   orderItemCategory: "extra";
   selectedItems: ICartAddOn[] | null;
+  editable: boolean;
 }) {
   const [selectedItemsId, setSelectedItemsId] = useState<ICartAddOn[]>(() => {
-    if (selectedItems) {
+    if (selectedItems && editable) {
       return selectedItems;
     }
     return [];
@@ -43,8 +45,8 @@ export default function MultiSelectManager({
     setSelectedItemsId(value);
   }
 
-  function checkIfSelected(addOn : ICartAddOn) {
-    if (selectedItems?.findIndex((x) => x.id = addOn.id)) {
+  function checkIfSelected(addOn: ICartAddOn) {
+    if (selectedItems?.findIndex((x) => (x.id = addOn.id))) {
       return true;
     }
     return false;
@@ -63,7 +65,7 @@ export default function MultiSelectManager({
                 name={i.name}
                 price={i.price}
                 select={select}
-                selected={checkIfSelected(i)} 
+                selected={checkIfSelected(i)}
               />
             ))}
           </div>

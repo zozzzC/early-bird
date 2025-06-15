@@ -2,12 +2,13 @@ import OrderItem from "@/components/order/OrderItem";
 
 import data from "@/test/OrderSampleData.json";
 import { Item } from "@/types/Item";
-import { getOrderItems } from "../../lib/orderItems";
 import { revalidatePath } from "next/cache";
 import CartProviderComponent from "@/components/order/CartProviderComponent";
 import { getExtraCosts } from "@/lib/extraCosts";
 import CartButton from "@/components/order/cart/CartButton";
+import { getOrderItems } from "@/lib/orderItems";
 export default async function Order() {
+  // const orderItems = await getOrderItems();
   const orderItems = await getOrderItems();
 
   return (

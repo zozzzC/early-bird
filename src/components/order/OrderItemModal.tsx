@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import SingleSelectManager from "./options/SingleSelectManager";
 import MultiSelectManager from "./options/MultiSelectManager";
@@ -12,11 +14,11 @@ import AddToCartButton from "./AddToCartButton";
 export default function OrderItemModal({
   id,
   cartItem,
-  editable
+  editable,
 }: {
   id: string;
   cartItem?: ICartItem; //this should only be assigned if we are accessing the modal in the checkout page
-  editable : boolean //tells us if we want to manually select the orderInstance buttons, true if in checkout page
+  editable: boolean; //tells us if we want to manually select the orderInstance buttons, true if in checkout page
 }) {
   const orderItem = useOrderItemContext();
   const [total, setTotal] = useState<number>(orderItem.price);
@@ -81,9 +83,24 @@ export default function OrderItemModal({
             <div className="flex flex-col h-full justify-between">
               <div className="flex flex-col">
                 <p className="text-3xl">{orderItem.name}</p>
-                <SingleSelectManager id={id} orderItemCategory="size" selectedItems={orderInstance.size} editable={editable}/>
-                <SingleSelectManager id={id} orderItemCategory="milk" editable={editable}/>
-                <MultiSelectManager id={id} orderItemCategory="extra" selectedItems={orderInstance.extra} editable={editable}/>
+                <SingleSelectManager
+                  id={id}
+                  orderItemCategory="size"
+                  selectedItems={orderInstance.size}
+                  editable={editable}
+                />
+                <SingleSelectManager
+                  id={id}
+                  orderItemCategory="milk"
+                  selectedItems={orderInstance.milk}
+                  editable={editable}
+                />
+                <MultiSelectManager
+                  id={id}
+                  orderItemCategory="extra"
+                  selectedItems={orderInstance.extra}
+                  editable={editable}
+                />
               </div>
               <div className="w-full pt-10">
                 <div className="gap-5 pr-5 flex justify-end w-full items-center">
@@ -91,7 +108,7 @@ export default function OrderItemModal({
                     size="md"
                     className="w-16"
                     variant="filled"
-                    defaultValue={1}
+                    defaultValue={orderInstance.quantity}
                     min={1}
                     onChange={(e) =>
                       setOrderInstance({

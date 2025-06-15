@@ -15,7 +15,6 @@ export default function SingleSelectButton({
   select(id: string, name: string, price: number): void;
   selectedItemId: string | null;
 }) {
-  const [on, setOn] = useState<boolean>(false);
 
   return (
     <Button

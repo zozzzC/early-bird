@@ -19,5 +19,9 @@ export interface ICartAddOn {
   price: number;
 }
 
+export interface ICartItemWithId extends ICartItem {
+  id: string;
+}
+
 export type OrderInstanceType<T extends "milk" | "size" | "extra"> =
   T extends "extra" ? ICartAddOn[] | null : ICartAddOn | null;

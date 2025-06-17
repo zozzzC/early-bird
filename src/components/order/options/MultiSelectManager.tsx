@@ -4,6 +4,7 @@ import { TotalContext } from "@/hooks/TotalContext";
 import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
 import { ICartAddOn } from "@/types/Cart";
+import checkIfSelected from "@/helpers/ButtonManagers/checkIfSelected";
 
 type itemsId = {
   id: string;
@@ -45,12 +46,6 @@ export default function MultiSelectManager({
     setSelectedItemsId(value);
   }
 
-  function checkIfSelected(addOn: ICartAddOn) {
-    if (selectedItems?.findIndex((x) => (x.id = addOn.id))) {
-      return true;
-    }
-    return false;
-  }
 
   return (
     <>
@@ -60,12 +55,12 @@ export default function MultiSelectManager({
           <div className="grid xl:grid-cols-3 grid-cols-2 gap-5">
             {orderItem[orderItemCategory].map((i) => (
               <MultiSelectButton
-                key={id + i.id}
-                id={id + i.id}
+                key={i.id}
+                id={i.id}
                 name={i.name}
                 price={i.price}
                 select={select}
-                selected={checkIfSelected(i)}
+                selected={checkIfSelected(i, selectedItems, editable)}
               />
             ))}
           </div>

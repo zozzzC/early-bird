@@ -27,6 +27,11 @@ export default function SingleSelectManager({
   //TODO: do you still need this?
   const [selectedItemId, setSelectedItemId] = useState<string | null>(() => {
     if (selectedItems && editable) {
+      console.log(
+        "single select selectedItems editable" +
+          JSON.stringify(selectedItems) +
+          JSON.stringify(editable)
+      );
       return selectedItems.id;
     }
     return null;
@@ -50,13 +55,14 @@ export default function SingleSelectManager({
       price: price,
     };
 
-    orderInstance.setOrderInstanceByField({ field, value });
-    //TODO: check if i still need any of this
+    //TODO: refactor setTotal (yes right now i still need it in order to display the correct price in the modal)
+    //but there might be a better way of going about showing the price instead.  
     setSelectedItemId(id);
+    orderInstance.setOrderInstanceByField({ field, value });
     setTotal(total + price - selectedItemPrice);
     setSelectedItemPrice(price);
-    console.log(price);
-    console.log(total);
+    // console.log(price);
+    // console.log(total);
   }
 
   return (
@@ -65,16 +71,18 @@ export default function SingleSelectManager({
         <>
           <p>{orderItemCategory}</p>
           <div className="grid xl:grid-cols-3 gap-5 grid-cols-2">
-            {orderItem[orderItemCategory].map((i) => (
-              <SingleSelectButton
-                key={id + i.id}
-                id={id + i.id}
-                name={i.name}
-                select={select}
-                price={i.price}
-                selectedItemId={selectedItemId}
-              />
-            ))}
+            {orderItem[orderItemCategory].map((i) => {
+              return (
+                <SingleSelectButton
+                  key={i.id}
+                  id={i.id}
+                  name={i.name}
+                  select={select}
+                  price={i.price}
+                  selectedItemId={selectedItemId}
+                />
+              );
+            })}
           </div>
         </>
       ) : null}

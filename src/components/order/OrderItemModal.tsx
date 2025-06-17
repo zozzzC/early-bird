@@ -10,19 +10,25 @@ import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 import { OrderInstanceContext } from "@/hooks/OrderInstanceContext";
 import { ICartAddOn, ICartItem, OrderInstanceType } from "@/types/Cart";
 import AddToCartButton from "./AddToCartButton";
+import EditCartButton from "./EditCartButton";
 
 export default function OrderItemModal({
   id,
   cartItem,
   editable,
+ orderHash 
 }: {
   id: string;
   cartItem?: ICartItem; //this should only be assigned if we are accessing the modal in the checkout page
   editable: boolean; //tells us if we want to manually select the orderInstance buttons, true if in checkout page
+  orderHash?: string //tells us the hash of the currently editing orderInstance. only exists if editable is true 
 }) {
   const orderItem = useOrderItemContext();
-  const [total, setTotal] = useState<number>(orderItem.price);
+  const [total, setTotal] = useState<number>(() => {
+    return cartItem?.price ? cartItem.price : orderItem.price;
+  });
   const [orderInstance, setOrderInstance] = useState<ICartItem>(() => {
+    console.log("setOrderInstance " + JSON.stringify(cartItem));
     if (cartItem) {
       return cartItem;
     }
@@ -35,6 +41,7 @@ export default function OrderItemModal({
       milk: null,
       extra: null,
       price: total,
+      basePrice: orderItem.price,
       quantity: 1,
     };
   });
@@ -53,6 +60,7 @@ export default function OrderItemModal({
     //we have to ASSERT the type of value since OrderInstanceType<T> and ICartItem[T] are not necessarily the same value for every T.
     //hence we have to ensure that ICartItem is indeed that type
     newOrderInstance[field] = value as ICartItem[typeof field];
+    cartItem ? console.log(cartItem) : null;
     console.log(newOrderInstance);
     setOrderInstance(newOrderInstance);
   }
@@ -108,7 +116,9 @@ export default function OrderItemModal({
                     size="md"
                     className="w-16"
                     variant="filled"
-                    defaultValue={orderInstance.quantity}
+                    defaultValue={
+                      cartItem ? cartItem.quantity : orderInstance.quantity
+                    }
                     min={1}
                     onChange={(e) =>
                       setOrderInstance({
@@ -123,7 +133,11 @@ export default function OrderItemModal({
                     <p className="text-lg">{total}</p>
                   </div>
                 </div>
-                <AddToCartButton />
+                {editable && cartItem && orderHash ? (
+                  <EditCartButton oldOrderHash={orderHash} />
+                ) : (
+                  <AddToCartButton />
+                )}
               </div>
             </div>
           </div>

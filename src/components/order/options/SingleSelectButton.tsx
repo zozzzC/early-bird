@@ -16,10 +16,13 @@ export default function SingleSelectButton({
   selectedItemId: string | null;
 }) {
 
+  //TODO: fix issue where the selected item ID suddenly turns to null for some reason ?
+
   return (
     <Button
       onClick={() => {
         select(id, name, price);
+        
       }}
     >
       <div className="flex gap-3 items-center">

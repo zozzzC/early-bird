@@ -21,11 +21,7 @@ export default function MultiSelectButton({
   const { total, setTotal } = useTotalContext();
 
   useEffect(() => {
-    if (selected) {
-      select(id, name, price, on);
-      setTotal(() => total - price);
-      setOn(true);
-    }
+    setOn(selected);
   }, []);
 
   return (

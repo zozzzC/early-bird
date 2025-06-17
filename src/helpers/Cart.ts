@@ -1,27 +1,33 @@
-import { ICart, ICartItem } from "@/types/Cart";
+import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
 import { createHash } from "crypto";
 
 export class Cart {
   //A cart is shared throughout the app using context.
   items: ICart;
-  
+  itemsArray: ICartItemWithId[];
 
   constructor() {
     this.items = {};
+    this.itemsArray = [];
   }
 
   //To prevent abuse, we require that the ID of each options is also passed in, EG: milk requires both the name AND the id.
   addCartItem(cartItem: ICartItem) {
     const hash = this.getCartItemId(cartItem);
-    //TODO: quantity is not found
     console.log("add cart item");
     //check if hash exists already
 
     if (this.items[hash]) {
+      const index = this.itemsArray.findIndex((x) => {
+        x.id === hash;
+      });
       this.items[hash].quantity++;
+      this.getOrderInstanceTotal(this.items[hash]);
+      this.itemsArray[index] = { id: hash, ...this.items[hash] };
     } else {
       this.getOrderInstanceTotal(cartItem);
       this.items[hash] = cartItem;
+      this.itemsArray.push({ id: hash, ...this.items[hash] });
     }
     console.log(this.items);
   }
@@ -37,6 +43,8 @@ export class Cart {
     }
     console.log(JSON.stringify(this.items));
   }
+
+  editCartItem(cartItem: ICartItem) {}
 
   getCartItemId(cartItem: ICartItem) {
     const cartItemNoQuantity: ICartItem | any = structuredClone(

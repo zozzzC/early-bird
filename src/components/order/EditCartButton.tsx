@@ -5,13 +5,15 @@ import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
 
 export default function EditCartButton({
   oldOrderHash,
+  close,
 }: {
   oldOrderHash: string;
+  close: () => void;
 }) {
   const orderInstance = useOrderInstanceContext();
   const cart = useCartContext();
 
-  //TODO: problem, it seems like orderInstance and oldOrderInstance are identical 
+  //TODO: problem, it seems like orderInstance and oldOrderInstance are identical
 
   return (
     <div>
@@ -19,8 +21,9 @@ export default function EditCartButton({
         onClick={() => {
           if (orderInstance.orderInstance != null) {
             cart.editCartItem(orderInstance.orderInstance, oldOrderHash);
-            console.log((cart));
+            console.log(cart);
           }
+          close();
         }}
       >
         Edit Item

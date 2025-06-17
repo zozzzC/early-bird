@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import SingleSelectManager from "./options/SingleSelectManager";
 import MultiSelectManager from "./options/MultiSelectManager";
@@ -16,12 +14,14 @@ export default function OrderItemModal({
   id,
   cartItem,
   editable,
- orderHash 
+  orderHash,
+  close,
 }: {
   id: string;
   cartItem?: ICartItem; //this should only be assigned if we are accessing the modal in the checkout page
   editable: boolean; //tells us if we want to manually select the orderInstance buttons, true if in checkout page
-  orderHash?: string //tells us the hash of the currently editing orderInstance. only exists if editable is true 
+  orderHash?: string; //tells us the hash of the currently editing orderInstance. only exists if editable is true
+  close: () => void;
 }) {
   const orderItem = useOrderItemContext();
   const [total, setTotal] = useState<number>(() => {
@@ -134,7 +134,7 @@ export default function OrderItemModal({
                   </div>
                 </div>
                 {editable && cartItem && orderHash ? (
-                  <EditCartButton oldOrderHash={orderHash} />
+                  <EditCartButton oldOrderHash={orderHash} close={close} />
                 ) : (
                   <AddToCartButton />
                 )}

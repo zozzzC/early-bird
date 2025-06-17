@@ -18,7 +18,7 @@ export class Cart {
 
     if (this.items[hash]) {
       const index = this.itemsArray.findIndex((x) => {
-        x.id === hash;
+        return x.id === hash;
       });
 
       this.items[hash].quantity += cartItem.quantity;
@@ -133,6 +133,7 @@ export class Cart {
       cartItem
     ) as ICartItem;
     delete cartItemNoQuantity.quantity;
+    delete cartItemNoQuantity.price;
     const hash = createHash("sha256");
     hash.update(JSON.stringify(cartItemNoQuantity));
     return hash.digest("hex");

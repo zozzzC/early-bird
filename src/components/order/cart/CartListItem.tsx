@@ -10,11 +10,11 @@ import { ICartItem } from "@/types/Cart";
 export default function CartListItem({
   orderModalResponse,
   orderInstance,
-  orderHash
+  orderHash,
 }: {
   orderModalResponse: OrderModalResponse;
   orderInstance: ICartItem;
-  orderHash: string
+  orderHash: string;
 }) {
   const cart = useCartContext();
   const [opened, { open, close }] = useDisclosure(false);
@@ -36,6 +36,7 @@ export default function CartListItem({
           editable={true}
           cartItem={orderInstance}
           orderHash={orderHash}
+          close={close}
         />
       </Modal>
 

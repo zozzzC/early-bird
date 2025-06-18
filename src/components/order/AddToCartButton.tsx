@@ -4,7 +4,7 @@ import { Button } from "@mantine/core";
 
 export default function AddToCartButton() {
   const orderInstance = useOrderInstanceContext();
-  const { cart, setCart } = useCartContext();
+  const { addCartItem  } = useCartContext();
 
   return (
     <>
@@ -12,8 +12,7 @@ export default function AddToCartButton() {
         onClick={() => {
           if (orderInstance.orderInstance != null) {
             console.log(orderInstance.orderInstance);
-            cart.addCartItem(orderInstance.orderInstance);
-            setCart(cart)
+            addCartItem(orderInstance.orderInstance);
           }
         }}
       >

@@ -16,7 +16,7 @@ export default function CartList({
 }: {
   orderItems: OrderModalResponse[];
 }) {
-  const {c, setCart} = useCartContext();
+  const {itemsArray} = useCartContext();
 
   //if the cart is changed for any reason, then update the cartState
 
@@ -26,7 +26,7 @@ export default function CartList({
   //TODO: orderHash can change, and in the case that it does we must rerender, so the orderHashes and the cart should probably be in some sort of state
   return (
     <>
-      {c.itemsArray.map((i, key) => {
+      {itemsArray.map((i, key) => {
         const orderModalResponse = orderItems.find(
           (x) => (x.key as string) === (i.key as string)
         );

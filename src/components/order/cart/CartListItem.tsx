@@ -16,7 +16,7 @@ export default function CartListItem({
   orderInstance: ICartItem;
   orderHash: string;
 }) {
-  const {cart, setCart} = useCartContext();
+  const { getCartItemId } = useCartContext();
   const [opened, { open, close }] = useDisclosure(false);
   console.log("Cart list item order hash: ");
   console.log(orderHash);
@@ -34,7 +34,7 @@ export default function CartListItem({
         size="100%"
       >
         <OrderItemModal
-          id={cart.getCartItemId(orderInstance)}
+          id={getCartItemId(orderInstance)}
           editable={true}
           cartItem={orderInstance}
           orderHash={orderHash}

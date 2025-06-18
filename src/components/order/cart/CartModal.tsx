@@ -8,7 +8,7 @@ export default function CartModal({
   showCartModal: boolean;
   setShowCartModal: (value: SetStateAction<boolean>) => void;
 }) {
-  const { cart, setCart } = useCartContext();
+  const { items } = useCartContext();
 
   return (
     <div
@@ -16,12 +16,12 @@ export default function CartModal({
       onMouseEnter={() => setShowCartModal(true)}
       onMouseLeave={() => setShowCartModal(false)}
     >
-      {Object.keys(cart.items).map((i) => {
+      {Object.keys(items).map((i) => {
         return (
           <div key={i}>
-            <h1>{cart.items[i].name}</h1>
-            <p>{cart.items[i].price}</p>
-            <p>{cart.items[i].quantity}</p>
+            <h1>{items[i].name}</h1>
+            <p>{items[i].price}</p>
+            <p>{items[i].quantity}</p>
           </div>
         );
       })}

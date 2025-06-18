@@ -1,5 +1,5 @@
 import { OrderItemContext } from "@/hooks/OrderItemContext";
-import { Modal } from "@mantine/core";
+import { Button, Modal } from "@mantine/core";
 import OrderItemModal from "../OrderItemModal";
 import { OrderModalResponse } from "@/types/OrderModalResponse";
 import { useCartContext } from "@/hooks/useCartContext";
@@ -41,41 +41,42 @@ export default function CartListItem({
           close={close}
         />
       </Modal>
+      <div className="pr-10">
+        <h1>{orderInstance.name}</h1>
 
-      <h1>{orderInstance.name}</h1>
+        {orderInstance.milk ? (
+          <>
+            <h1>milk</h1>
+            <p>{orderInstance.milk.name}</p>
+            <p>{orderInstance.milk.price}</p>
+          </>
+        ) : null}
 
-      {orderInstance.milk ? (
-        <>
-          <h1>milk</h1>
-          <p>{orderInstance.milk.name}</p>
-          <p>{orderInstance.milk.price}</p>
-        </>
-      ) : null}
+        {orderInstance.extra ? (
+          <>
+            <h1>extra</h1>
+            {orderInstance.extra?.map((i) => {
+              return (
+                <div key={i.id}>
+                  <p>{i.name}</p>
+                  <p>{i.price}</p>
+                </div>
+              );
+            })}
+          </>
+        ) : null}
 
-      {orderInstance.extra ? (
-        <>
-          <h1>extra</h1>
-          {orderInstance.extra?.map((i) => {
-            return (
-              <div key={i.id}>
-                <p>{i.name}</p>
-                <p>{i.price}</p>
-              </div>
-            );
-          })}
-        </>
-      ) : null}
-
-      <p>{orderInstance.quantity}</p>
-      <p>{orderInstance.price}</p>
-      <button
-        onClick={() => {
-          console.log(orderInstance.name);
-          open();
-        }}
-      >
-        edit
-      </button>
+        <p>{orderInstance.quantity}</p>
+        <p>{orderInstance.price}</p>
+        <Button
+          onClick={() => {
+            console.log(orderInstance.name);
+            open();
+          }}
+        >
+          edit
+        </Button>
+      </div>
     </OrderItemContext>
   );
 }

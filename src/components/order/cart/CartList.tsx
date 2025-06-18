@@ -16,16 +16,13 @@ export default function CartList({
 }: {
   orderItems: OrderModalResponse[];
 }) {
-  const {itemsArray} = useCartContext();
+  const { itemsArray } = useCartContext();
 
   //if the cart is changed for any reason, then update the cartState
 
-  
-
-
   //TODO: orderHash can change, and in the case that it does we must rerender, so the orderHashes and the cart should probably be in some sort of state
   return (
-    <>
+    <div className="p-10">
       {itemsArray.map((i, key) => {
         const orderModalResponse = orderItems.find(
           (x) => (x.key as string) === (i.key as string)
@@ -34,7 +31,7 @@ export default function CartList({
         console.log("cart Item: " + i.name + i.id);
 
         return (
-          <div key={key}>
+          <div key={key} className="pb-10">
             {orderModalResponse ? (
               <CartListItem
                 orderModalResponse={orderModalResponse}
@@ -47,6 +44,6 @@ export default function CartList({
           </div>
         );
       })}
-    </>
+    </div>
   );
 }

@@ -44,73 +44,56 @@ export default function CartProviderComponent({
   function editCartItem(newCartItem: ICartItem, oldOrderHash: string) {
     const itemsT = items;
     const itemsArrayT = itemsArray;
+    const newCartItemHash = getCartItemId(newCartItem);
+    const indexOfOldOrderHash = itemsArrayT.findIndex((x) => {
+      return x.id === oldOrderHash;
+    });
 
-    // const newCartItemHash = this.getCartItemId(newCartItem);
-
-    //whatever the case is, we must always delete the item aassociated with the oldOrderHash
-
-    //in the case where the newCartItem's hash and the oldOrderHash are identical, that must mean that we edited the qty
-    //TODO: needs testing
-    if (getCartItemId(newCartItem) === oldOrderHash) {
-      const index = itemsArrayT.findIndex((x) => {
-        return x.id === oldOrderHash;
-      });
-
+    //TODO: needs extensive testing
+    if (newCartItemHash === oldOrderHash) {
+      //in the case where the newCartItem's hash and the oldOrderHash are identical, that must mean that we edited the qty
       itemsT[oldOrderHash].quantity = newCartItem.quantity;
-
       getOrderInstanceTotal(itemsT[oldOrderHash]);
-
-      itemsArray[index] = {
+      itemsArrayT[indexOfOldOrderHash] = {
         ...itemsT[oldOrderHash],
         id: oldOrderHash,
       };
+    } else if (itemsT[newCartItemHash]) {
+      //in this case whatever we updated the item to already exists in the array
+      const index = itemsArrayT.findIndex((x) => {
+        return x.id === newCartItemHash;
+      });
+      itemsT[newCartItemHash].quantity += newCartItem.quantity;
+      //TODO: proper deletion is not working.
+      delete itemsT[oldOrderHash];
+
+      getOrderInstanceTotal(itemsT[newCartItemHash]);
+
+      itemsArrayT[index] = { ...itemsT[newCartItemHash], id: newCartItemHash };
+    } else {
+      //in this case we completely create a new item that does not already exist inside our array
+
+      console.log("attempting deletion");
+      console.log(itemsT[oldOrderHash]);
+      console.log("Deleting: " + itemsT[oldOrderHash]);
+
+      delete itemsT[oldOrderHash];
+
+      getOrderInstanceTotal(newCartItem);
+      itemsT[newCartItemHash] = newCartItem;
+      itemsArrayT[indexOfOldOrderHash] = {
+        ...itemsT[newCartItemHash],
+        id: newCartItemHash,
+      };
     }
 
-    //find that order in the array
+    console.log(itemsT);
     console.log(itemsArrayT);
-
-    const indexOfOldOrder = itemsArrayT.findIndex((x) => {
-      x.id === oldOrderHash;
-    });
-
-    console.log("old order hash : " + oldOrderHash);
-    console.log(itemsArrayT[indexOfOldOrder]);
-    console.log(itemsT[oldOrderHash]);
-
-    delete itemsT[oldOrderHash];
-
-    //TODO: this is deleting the wrong index
-    itemsArrayT.splice(indexOfOldOrder, 1);
 
     setItems(itemsT);
     setItemsArray(itemsArrayT);
 
-    addCartItem(newCartItem);
-
-    // //if the newCartItemHash is already in items, then we adjust the quantity of items
-    // if (this.items[newCartItemHash]) {
-    //   //first, we get the item itself
-
-    //   const editExistingItem = this.items[newCartItemHash];
-    //   editExistingItem.quantity =
-    //     editExistingItem.quantity + newCartItem.quantity;
-
-    //   //now we must also search for that item in the array
-
-    //   const indexOfEditExistingItem = this.itemsArray.findIndex((x) => {
-    //     x.id === newCartItemHash;
-    //   });
-
-    //   //now that we have its index, we want to change the value of this index to our editExistingItem
-
-    //   this.itemsArray[indexOfEditExistingItem] = {
-    //     ...editExistingItem,
-    //     id: newCartItemHash,
-    //   };
-    // } else {
-    //   //if the newCartItemHash is not already in items, then we have to:
-
-    // }
+    // addCartItem(newCartItem);
   }
 
   //TODO: redo this function
@@ -122,7 +105,7 @@ export default function CartProviderComponent({
       //since we reduced the quantity we want to re-calculate the total
       getOrderInstanceTotal(cartItem);
       const index = itemsArray.findIndex((i) => {
-        i.id === hash;
+        return i.id === hash;
       });
       itemsArray[index] = { id: hash, ...cartItem };
     } else {

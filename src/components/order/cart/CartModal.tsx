@@ -8,7 +8,7 @@ export default function CartModal({
   showCartModal: boolean;
   setShowCartModal: (value: SetStateAction<boolean>) => void;
 }) {
-  const cart = useCartContext();
+  const { cart, setCart } = useCartContext();
 
   return (
     <div

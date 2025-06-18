@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function CartButton() {
   const [showCartModal, setShowCartModal] = useState<boolean>(false);
-  const cart = useCartContext();
+  const {cart, setCart} = useCartContext();
 
   return (
     <>

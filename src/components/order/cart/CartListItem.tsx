@@ -16,8 +16,10 @@ export default function CartListItem({
   orderInstance: ICartItem;
   orderHash: string;
 }) {
-  const cart = useCartContext();
+  const {cart, setCart} = useCartContext();
   const [opened, { open, close }] = useDisclosure(false);
+  console.log("Cart list item order hash: ");
+  console.log(orderHash);
   return (
     <OrderItemContext value={orderModalResponse}>
       <Modal

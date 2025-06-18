@@ -1,5 +1,6 @@
 import { ICart, ICartItem, ICartItemArray } from "@/types/Cart";
 import { createHash } from "crypto";
+import { useState } from "react";
 
 export class Cart {
   //A cart is shared throughout the app using context.
@@ -33,34 +34,29 @@ export class Cart {
 
       this.itemsArray.push({ ...this.items[hash], id: hash });
     }
-
-    // const hash = this.getCartItemId(cartItem);
-    // console.log("add cart item");
-    // //check if hash exists already
-
-    // if (this.items[hash]) {
-    //   this.items[hash].quantity = this.items[hash].quantity + cartItem.quantity;
-    //   this.getOrderInstanceTotal(this.items[hash]);
-
-    //   //go into the array and replace the cartItem with the new cartItem
-    //   const index = this.itemsArray.findIndex((i) => {
-    //     i.id === hash;
-    //   });
-    //   this.itemsArray[index] = { id: hash, ...(this.items[hash] as ICartItem) };
-    // } else {
-    //   this.getOrderInstanceTotal(cartItem);
-    //   this.items[hash] = cartItem;
-    //   //add the new item into the array
-    //   this.itemsArray.push({ id: hash, ...cartItem });
-    // }
-
-    // console.log(this.items);
   }
 
   editCartItem(newCartItem: ICartItem, oldOrderHash: string) {
     // const newCartItemHash = this.getCartItemId(newCartItem);
 
     //whatever the case is, we must always delete the item aassociated with the oldOrderHash
+
+    //in the case where the newCartItem's hash and the oldOrderHash are identical, that must mean that we edited the qty
+    //TODO: needs testing
+    if (this.getCartItemId(newCartItem) === oldOrderHash) {
+      const index = this.itemsArray.findIndex((x) => {
+        return x.id === oldOrderHash;
+      });
+
+      this.items[oldOrderHash].quantity = newCartItem.quantity;
+
+      this.getOrderInstanceTotal(this.items[oldOrderHash]);
+
+      this.itemsArray[index] = {
+        ...this.items[oldOrderHash],
+        id: oldOrderHash,
+      };
+    }
 
     //find that order in the array
     console.log(this.itemsArray);
@@ -73,7 +69,6 @@ export class Cart {
     console.log(this.itemsArray[indexOfOldOrder]);
     console.log(this.items[oldOrderHash]);
 
-    //TODO: delete does not work
     delete this.items[oldOrderHash];
 
     //TODO: this is deleting the wrong index

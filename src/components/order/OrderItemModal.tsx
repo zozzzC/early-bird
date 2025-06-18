@@ -46,7 +46,7 @@ export default function OrderItemModal({
     };
   });
 
-  //TODO CHORE: move this into helpers
+  //TODO CHORE: move this into helpers, but this may mean having to move both setOrderInstance and newOrderInstance as these are unaccessible by the single and multiselect buttons/managers
   function setOrderInstanceByField<T extends "milk" | "size" | "extra">({
     field,
     value,
@@ -62,6 +62,8 @@ export default function OrderItemModal({
     newOrderInstance[field] = value as ICartItem[typeof field];
     cartItem ? console.log(cartItem) : null;
     console.log(newOrderInstance);
+    console.log(cartItem);
+    console.log(cartItem === orderInstance);
     setOrderInstance(newOrderInstance);
   }
 
@@ -138,6 +140,14 @@ export default function OrderItemModal({
                 ) : (
                   <AddToCartButton />
                 )}
+                {/* TODO: not working */}
+                {/* {editable && cartItem && orderHash ? (
+                  JSON.stringify(cartItem) !== JSON.stringify(orderInstance) ? (
+                    <EditCartButton oldOrderHash={orderHash} close={close} />
+                  ) : null
+                ) : (
+                  <AddToCartButton />
+                )} */}
               </div>
             </div>
           </div>

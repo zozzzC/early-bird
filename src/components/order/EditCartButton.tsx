@@ -11,7 +11,7 @@ export default function EditCartButton({
   close: () => void;
 }) {
   const orderInstance = useOrderInstanceContext();
-  const cart = useCartContext();
+  const {cart, setCart} = useCartContext();
 
   //TODO: problem, it seems like orderInstance and oldOrderInstance are identical
 
@@ -22,6 +22,7 @@ export default function EditCartButton({
           if (orderInstance.orderInstance != null) {
             cart.editCartItem(orderInstance.orderInstance, oldOrderHash);
             console.log(cart);
+            setCart(cart)
           }
           close();
         }}

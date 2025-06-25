@@ -4,6 +4,7 @@ import { Cart } from "@/helpers/Cart";
 import { useState } from "react";
 import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
 import { createHash } from "crypto";
+import { cloneDeep } from "lodash";
 
 //NOTE: This had to be made into a seperate use-client component because we cannot do this directly in the server component (see below error)
 //Only plain objects, and a few built-ins, can be passed to Client Components from Server Components. Classes or null prototypes are not supported.
@@ -70,12 +71,19 @@ export default function CartProviderComponent({
   function editCartItem(cartItem: ICartItem, oldCartItem: ICartItem) {
     //check that the cartItems are not identical, if they are then the user didn't edit anything.
 
+    console.log(cartItem);
+    console.log(oldCartItem);
+
     if (JSON.stringify(cartItem) === JSON.stringify(oldCartItem)) {
       return;
     }
 
+    //TODO: the old and new hash are the same for some reason?
     const oldHash = getCartItemId(oldCartItem);
     const newHash = getCartItemId(cartItem);
+
+    console.log("old hash: " + oldHash);
+    console.log("new hash: " + newHash);
 
     const itemsArrayMutate = [...itemsArray];
     const itemsMutate = { ...items };
@@ -86,6 +94,8 @@ export default function CartProviderComponent({
     //this means we have just have to change the quantity and price of the item.
     //so we delete the item in items and replace it
     //but only edit the item in itemsArray
+
+    //TODO: for some reason the old hash is always equal to the new one, even it it shouldnt be.
     if (oldHash === newHash) {
       //check if the quantity is 0, if it is, then we just delete the item entirely.
       console.log("Quantity changed.");
@@ -105,7 +115,7 @@ export default function CartProviderComponent({
 
         itemsArrayMutate[editItem] = { id: newHash, ...cartItem };
       }
-    } else if (itemsMutate[newHash]) {
+    } else if (newHash in itemsMutate) {
       //if this already exists in itemsMutate, we just need to change the quantity of that new item.
       if (cartItem.quantity != 0) {
         const exists = itemsMutate[newHash];
@@ -139,15 +149,19 @@ export default function CartProviderComponent({
       });
       itemsArrayMutate.splice(deleteItem, 1);
       addCartItem(cartItem, [...itemsArrayMutate], { ...itemsMutate });
+      console.log({ ...itemsMutate });
+      console.log([...itemsArrayMutate]);
       return;
     }
     setItems({ ...itemsMutate });
     setItemsArray([...itemsArrayMutate]);
+
+    console.log({ ...itemsMutate });
+    console.log([...itemsArrayMutate]);
   }
 
   function getCartItemId(cartItem: ICartItem) {
-    const cartItemNoQuantity: ICartItem | any = JSON.parse(
-      JSON.stringify(cartItem)
+    const cartItemNoQuantity: ICartItem | any = cloneDeep((cartItem)
     ) as ICartItem;
     delete cartItemNoQuantity.quantity;
     delete cartItemNoQuantity.price;
@@ -179,7 +193,7 @@ export default function CartProviderComponent({
   }
 
   function getOrderInstanceByHash(hash: string): ICartItem | undefined {
-    if (items[hash]) {
+    if (hash in items) {
       return items[hash];
     }
     return undefined;

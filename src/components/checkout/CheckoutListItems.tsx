@@ -6,6 +6,8 @@ import { useDisclosure } from "@mantine/hooks";
 import Image from "next/image";
 import OrderItemModal from "../order/OrderItemModal";
 import { OrderItemContext } from "@/hooks/OrderItemContext";
+import { cloneDeep } from "lodash";
+import { useCartContext } from "@/hooks/useCartContext";
 
 export default function CheckoutListItems({
   cartItem,
@@ -15,6 +17,8 @@ export default function CheckoutListItems({
   orderModal: OrderModalResponse | undefined;
 }) {
   const [opened, { open, close }] = useDisclosure(false);
+  const { getOrderInstanceByHash } = useCartContext();
+
   return (
     <OrderItemContext value={orderModal}>
       {orderModal ? (
@@ -30,7 +34,15 @@ export default function CheckoutListItems({
             }}
             size="100%"
           >
-            <OrderItemModal id={cartItem.key} orderHash={cartItem.id} close={close}/>
+            <OrderItemModal
+              id={cartItem.key}
+              orderHash={cartItem.id}
+              orderInstanceClone={cloneDeep(
+                getOrderInstanceByHash(cartItem.id)
+              )}
+              close={close}
+              isOpen={opened}
+            />
           </Modal>
 
           <div key={cartItem.id}>
@@ -43,6 +55,7 @@ export default function CheckoutListItems({
               alt={"image of " + orderModal.name}
             /> */}
             <p className="text-2xl">{cartItem.name}</p>
+            <p>{cartItem.id}</p>
             <Button
               onClick={() => {
                 open();
@@ -50,7 +63,6 @@ export default function CheckoutListItems({
             >
               edit item
             </Button>
-            <p></p>
           </div>
         </div>
       ) : null}

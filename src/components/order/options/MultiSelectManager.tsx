@@ -3,6 +3,7 @@ import MultiSelectButton from "./MultiSelectButton";
 import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
 import { ICartAddOn } from "@/types/Cart";
+import { cloneDeep } from "lodash";
 
 type itemsId = {
   id: string;
@@ -19,7 +20,10 @@ export default function MultiSelectManager({
 }) {
   const [selectedItemsId, setSelectedItemsId] = useState<ICartAddOn[]>(() => {
     if (selectedItems) {
-      return selectedItems;
+      //NOTE: this is extremely important. 
+      //if we don't clone selectedItems, then the value that is mutated in the select() function is 
+      //the same array as the one being used by the orderHash. this casues a lot of problems.  
+      return cloneDeep(selectedItems);
     }
 
     return [];
@@ -39,7 +43,7 @@ export default function MultiSelectManager({
       value.push({ id: id, name: name, price: price });
     }
 
-    orderInstance.setOrderInstanceByField({ field: "extra", value: value });
+    orderInstance.setOrderInstanceByField({ field: "extra", value: cloneDeep(value) });
     setSelectedItemsId(value); 
   }
 

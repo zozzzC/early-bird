@@ -13,32 +13,57 @@ import { ICartAddOn, ICartItem, OrderInstanceType } from "@/types/Cart";
 import { useCartContext } from "@/hooks/useCartContext";
 import getDefaultSelection from "@/helpers/getDefaultSelection";
 import EditButton from "../checkout/EditButton";
+import cloneDeep from "lodash/cloneDeep";
 
 //orderHash is provided if we are editing an existing item
 export default function OrderItemModal({
   id,
   orderHash,
+  orderInstanceClone,
   close,
+  isOpen,
 }: {
   id: string;
   orderHash?: string;
+  orderInstanceClone?: ICartItem;
   close: () => void;
+  isOpen: boolean;
 }) {
   const orderItem = useOrderItemContext();
-  const { getOrderInstanceByHash, getOrderInstanceTotal } = useCartContext();
+  const { items, getOrderInstanceByHash, getOrderInstanceTotal } =
+    useCartContext();
   const [total, setTotal] = useState<number>(
     orderHash
       ? getOrderInstanceByHash(orderHash)
-        ? (getOrderInstanceByHash(orderHash) as ICartItem).price
+        ? JSON.parse(
+            JSON.stringify(getOrderInstanceByHash(orderHash) as ICartItem)
+          ).price
         : orderItem.basePrice
       : orderItem.price
   );
 
+  //TODO: items appears to be directly being edited as the object is being passed by reference.
+  //this causes problems as orderInstance and getOrderInstanceByHash(orderHash) where the orderHash is the
+  //old order hash is not working as we are directly editing the cartItem object that is in items
+  //however, i am not sure how to fix this
   const [orderInstance, setOrderInstance] = useState<ICartItem>(() => {
-    if (orderHash) {
-      if (getOrderInstanceByHash(orderHash)) {
-        return getOrderInstanceByHash(orderHash) as ICartItem;
+    if (orderInstanceClone) {
+      // console.log(`order hash received ${orderHash}`);
+      // console.log("order item related to order hash:");
+      // console.log(JSON.stringify(getOrderInstanceByHash(orderHash)));
+      const extraClone: ICartAddOn[] | null = cloneDeep(
+        orderInstanceClone.extra
+      );
+
+      if (extraClone) {
+        orderInstanceClone["extra"] = extraClone;
       }
+
+      return orderInstanceClone;
+      // if (getOrderInstanceByHash(orderHash)) {
+      //   const val = cloneDeep(getOrderInstanceByHash(orderHash)) as ICartItem;
+      //   return val;
+      // }
     }
 
     return {
@@ -54,6 +79,13 @@ export default function OrderItemModal({
     };
   });
 
+  console.log("Modal opened.");
+  console.log("Order Instance:");
+  console.log(JSON.stringify(orderInstance));
+  console.log("Original Instance:");
+  console.log(orderHash);
+  console.log(JSON.stringify(getOrderInstanceByHash(orderHash as string)));
+
   //TODO CHORE: move this into helpers
   function setOrderInstanceByField<T extends "milk" | "size" | "extra">({
     field,
@@ -62,12 +94,19 @@ export default function OrderItemModal({
     field: T;
     value: OrderInstanceType<T>;
   }): void {
-    const newOrderInstance = orderInstance;
+    const newOrderInstance: ICartItem = cloneDeep(orderInstance);
+    const extraClone: ICartAddOn[] | null = cloneDeep(orderInstance.extra);
+    console.log(
+      "Extra array same ref?",
+      orderInstance?.extra === getOrderInstanceByHash(orderHash!)?.extra
+    );
+    //TODO: this says no, but it clearly is the same ref.
+
     //ICartItem[typeof field] is a lookup type. this checks the type of ICartItem at the type of field
     //EG: if field is 'milk' the ICartItem['milk'] = OrderInstanceType<"milk">
     //we have to ASSERT the type of value since OrderInstanceType<T> and ICartItem[T] are not necessarily the same value for every T.
     //hence we have to ensure that ICartItem is indeed that type
-    newOrderInstance[field] = value as ICartItem[typeof field];
+    newOrderInstance[field] = cloneDeep(value as ICartItem[typeof field]);
     console.log(newOrderInstance);
     getOrderInstanceTotal(newOrderInstance);
     setTotal(newOrderInstance.price);
@@ -99,6 +138,9 @@ export default function OrderItemModal({
           <div className="flex flex-col h-full justify-between">
             <div className="flex flex-col">
               <p className="text-3xl">{orderItem.name}</p>
+              <p>
+                {JSON.stringify(getOrderInstanceByHash(orderHash as string))}
+              </p>
               <SingleSelectManager
                 id={id}
                 orderItemCategory="size"

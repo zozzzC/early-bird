@@ -4,6 +4,7 @@ import { ICartItemWithId } from "@/types/Cart";
 import { OrderModalResponse } from "@/types/OrderModalResponse";
 import Image from "next/image";
 import CheckoutListItems from "./CheckoutListItems";
+import ViewCartJsx from "../test/ViewCartJsx";
 
 export default function CheckoutList({
   orderItems,
@@ -11,6 +12,7 @@ export default function CheckoutList({
   orderItems: OrderModalResponse[];
 }) {
   const { itemsArray } = useCartContext();
+  console.log(itemsArray);
 
   function getModal(
     orderItem: ICartItemWithId,
@@ -32,6 +34,7 @@ export default function CheckoutList({
           />
         );
       })}
+      <ViewCartJsx showItems={true} showItemsArray={true} />
     </div>
   );
 }

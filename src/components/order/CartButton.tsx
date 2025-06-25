@@ -6,7 +6,7 @@ import { Button } from "@mantine/core";
 export default function CartButton({
   close,
 }: {
-  close(): void;
+  close?(): void;
 }): React.ReactNode {
   const { orderInstance } = useOrderInstanceContext();
   const { addCartItem } = useCartContext();
@@ -19,7 +19,9 @@ export default function CartButton({
           if (orderInstance != null) {
             addCartItem(orderInstance);
           }
-          close();
+          if (close) {
+            close();
+          }
         }}
       >
         add to cart

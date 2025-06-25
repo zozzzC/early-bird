@@ -79,12 +79,12 @@ export default function OrderItemModal({
     };
   });
 
-  console.log("Modal opened.");
-  console.log("Order Instance:");
-  console.log(JSON.stringify(orderInstance));
-  console.log("Original Instance:");
-  console.log(orderHash);
-  console.log(JSON.stringify(getOrderInstanceByHash(orderHash as string)));
+  // console.log("Modal opened.");
+  // console.log("Order Instance:");
+  // console.log(JSON.stringify(orderInstance));
+  // console.log("Original Instance:");
+  // console.log(orderHash);
+  // console.log(JSON.stringify(getOrderInstanceByHash(orderHash as string)));
 
   //TODO CHORE: move this into helpers
   function setOrderInstanceByField<T extends "milk" | "size" | "extra">({
@@ -95,13 +95,6 @@ export default function OrderItemModal({
     value: OrderInstanceType<T>;
   }): void {
     const newOrderInstance: ICartItem = cloneDeep(orderInstance);
-    const extraClone: ICartAddOn[] | null = cloneDeep(orderInstance.extra);
-    console.log(
-      "Extra array same ref?",
-      orderInstance?.extra === getOrderInstanceByHash(orderHash!)?.extra
-    );
-    //TODO: this says no, but it clearly is the same ref.
-
     //ICartItem[typeof field] is a lookup type. this checks the type of ICartItem at the type of field
     //EG: if field is 'milk' the ICartItem['milk'] = OrderInstanceType<"milk">
     //we have to ASSERT the type of value since OrderInstanceType<T> and ICartItem[T] are not necessarily the same value for every T.

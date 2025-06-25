@@ -20,9 +20,9 @@ export default function MultiSelectManager({
 }) {
   const [selectedItemsId, setSelectedItemsId] = useState<ICartAddOn[]>(() => {
     if (selectedItems) {
-      //NOTE: this is extremely important. 
-      //if we don't clone selectedItems, then the value that is mutated in the select() function is 
-      //the same array as the one being used by the orderHash. this casues a lot of problems.  
+      //NOTE: this is extremely important.
+      //if we don't clone selectedItems, then the value that is mutated in the select() function is
+      //the same array as the one being used by the orderHash. this casues a lot of problems.
       return cloneDeep(selectedItems);
     }
 
@@ -43,8 +43,11 @@ export default function MultiSelectManager({
       value.push({ id: id, name: name, price: price });
     }
 
-    orderInstance.setOrderInstanceByField({ field: "extra", value: cloneDeep(value) });
-    setSelectedItemsId(value); 
+    orderInstance.setOrderInstanceByField({
+      field: "extra",
+      value: cloneDeep(value.length === 0 ? null : value),
+    });
+    setSelectedItemsId(value);
   }
 
   function checkIfSelected(orderItemId: string): boolean {

@@ -6,6 +6,7 @@ import { getOrderItems } from "../../lib/orderItems";
 import { revalidatePath } from "next/cache";
 import CartProviderComponent from "@/components/order/CartProviderComponent";
 import { getExtraCosts } from "@/lib/extraCosts";
+import ViewCartJsx from "@/components/test/ViewCartJsx";
 export default async function Order() {
   const orderItems = await getOrderItems();
 
@@ -16,6 +17,7 @@ export default async function Order() {
         <div className="flex justify-center m-0">
           <div className="w-9/12 grid 2xl:grid-cols-4 lg:grid-cols-3 grid-cols-1 m-0 gap-5 h-full">
             <CartProviderComponent>
+              <ViewCartJsx showItems={true} showItemsArray={false} />
               {orderItems.map((i) => {
                 if (i.media != null) {
                   return (

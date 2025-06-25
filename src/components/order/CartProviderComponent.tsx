@@ -18,23 +18,29 @@ export default function CartProviderComponent({
   //To prevent abuse, we require that the ID of each options is also passed in, EG: milk requires both the name AND the id.
   function addCartItem(cartItem: ICartItem) {
     const hash = getCartItemId(cartItem);
+    console.log("➕ Added new item:", cartItem);
 
-    if (items[hash]) {
-      const index = itemsArray.findIndex((x) => {
+    const itemsArrayMutate = [...itemsArray];
+    const itemsMutate = { ...items };
+
+    if (itemsMutate[hash]) {
+      const index = itemsArrayMutate.findIndex((x) => {
         return x.id === hash;
       });
-      items[hash].quantity += cartItem.quantity;
-      getOrderInstanceTotal(items[hash]);
-      const editedItem = items[hash];
-      itemsArray[index] = { id: hash, ...editedItem };
+      itemsMutate[hash].quantity += cartItem.quantity;
+      getOrderInstanceTotal(itemsMutate[hash]);
+      const editedItem = itemsMutate[hash];
+      itemsArrayMutate[index] = { id: hash, ...editedItem };
     } else {
       getOrderInstanceTotal(cartItem);
-      items[hash] = cartItem;
-      itemsArray.push({ id: hash, ...items[hash] });
+      itemsMutate[hash] = cartItem;
+      itemsArrayMutate.push({ id: hash, ...itemsMutate[hash] });
     }
 
-    setItems(items);
-    setItemsArray(itemsArray);
+    //NOTE: we cannot just use setItems(items) because react sees this array as the same using shallow equality
+    //hence we have to spread the object and array respectively in order for react to see that items and itemsArray are not the same as what they were before.
+    setItems({ ...itemsMutate });
+    setItemsArray([...itemsArrayMutate]);
   }
 
   //the specified orderItem's ID is used to delete
@@ -52,8 +58,8 @@ export default function CartProviderComponent({
   function editCartItem(cartItem: ICartItem) {}
 
   function getCartItemId(cartItem: ICartItem) {
-    const cartItemNoQuantity: ICartItem | any = structuredClone(
-      cartItem
+    const cartItemNoQuantity: ICartItem | any = JSON.parse(
+      JSON.stringify(cartItem)
     ) as ICartItem;
     delete cartItemNoQuantity.quantity;
     delete cartItemNoQuantity.price;
@@ -86,7 +92,7 @@ export default function CartProviderComponent({
   function validateCart() {}
 
   return (
-    <CartContext
+    <CartContext.Provider
       value={{
         items,
         itemsArray,
@@ -98,6 +104,6 @@ export default function CartProviderComponent({
       }}
     >
       {children}
-    </CartContext>
+    </CartContext.Provider>
   );
 }

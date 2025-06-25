@@ -8,7 +8,6 @@ import { TotalContext } from "@/hooks/TotalContext";
 import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 import { OrderInstanceContext } from "@/hooks/OrderInstanceContext";
 import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
-import { useCartContext } from "@/hooks/useCartContext";
 import CartButton from "./CartButton";
 import { ICartAddOn, ICartItem, OrderInstanceType } from "@/types/Cart";
 

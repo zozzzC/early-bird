@@ -12,6 +12,7 @@ import CartButton from "./CartButton";
 import { ICartAddOn, ICartItem, OrderInstanceType } from "@/types/Cart";
 import { useCartContext } from "@/hooks/useCartContext";
 import getDefaultSelection from "@/helpers/getDefaultSelection";
+import EditButton from "../checkout/EditButton";
 
 //orderHash is provided if we are editing an existing item
 export default function OrderItemModal({
@@ -62,8 +63,6 @@ export default function OrderItemModal({
     console.log(newOrderInstance);
     setOrderInstance(newOrderInstance);
   }
-
-
 
   return (
     <div className="w-full grid lg:grid-cols-2 grid-cols-1 gap-5">
@@ -128,7 +127,11 @@ export default function OrderItemModal({
                     <p className="text-lg">{total}</p>
                   </div>
                 </div>
-                <CartButton />
+                {orderHash ? (
+                  <EditButton orderHash={orderHash} />
+                ) : (
+                  <CartButton />
+                )}
               </div>
             </div>
           </div>

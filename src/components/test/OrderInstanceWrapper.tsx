@@ -23,6 +23,7 @@ export default function OrderInstanceWrapper({
           milk: null,
           extra: null,
           price: 4.5,
+          basePrice: 4.5,
           quantity: 1,
         } as ICartItem)
   );

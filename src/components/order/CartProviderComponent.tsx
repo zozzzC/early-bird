@@ -18,8 +18,6 @@ export default function CartProviderComponent({
   //To prevent abuse, we require that the ID of each options is also passed in, EG: milk requires both the name AND the id.
   function addCartItem(cartItem: ICartItem) {
     const hash = getCartItemId(cartItem);
-    console.log("➕ Added new item:", cartItem);
-
     const itemsArrayMutate = [...itemsArray];
     const itemsMutate = { ...items };
 
@@ -36,6 +34,8 @@ export default function CartProviderComponent({
       itemsMutate[hash] = cartItem;
       itemsArrayMutate.push({ id: hash, ...itemsMutate[hash] });
     }
+
+    console.log("Item successfully added to cart: " + JSON.stringify(cartItem));
 
     //NOTE: we cannot just use setItems(items) because react sees this array as the same using shallow equality
     //hence we have to spread the object and array respectively in order for react to see that items and itemsArray are not the same as what they were before.
@@ -55,7 +55,74 @@ export default function CartProviderComponent({
     console.log(JSON.stringify(items));
   }
 
-  function editCartItem(cartItem: ICartItem) {}
+  function editCartItem(cartItem: ICartItem, oldCartItem: ICartItem) {
+    //check that the cartItems are not identical, if they are then the user didn't edit anything.
+
+    if (JSON.stringify(cartItem) === JSON.stringify(oldCartItem)) {
+      return;
+    }
+
+    const oldHash = getCartItemId(oldCartItem);
+    const newHash = getCartItemId(cartItem);
+
+    const itemsArrayMutate = [...itemsArray];
+    const itemsMutate = { ...items };
+
+    //check if the newHash already exists in items
+
+    //check if the oldHash = newHash, in this case, the user just changed the quantity of the item, not the specs.
+    //this means we have just have to change the quantity and price of the item.
+    //so we delete the item in items and replace it
+    //but only edit the item in itemsArray
+    if (oldHash === newHash) {
+      //check if the quantity is 0, if it is, then we just delete the item entirely.
+
+      if (cartItem.quantity == 0) {
+        removeCartItem(cartItem, oldCartItem.quantity);
+      } else {
+        delete itemsMutate[oldHash];
+
+        getOrderInstanceTotal(cartItem);
+
+        itemsMutate[newHash] = cartItem;
+
+        const editItem = itemsArrayMutate.findIndex((x) => {
+          return x.id === oldHash;
+        });
+
+        itemsArrayMutate[editItem] = { ...cartItem, id: newHash };
+      }
+    } else if (itemsMutate[newHash]) {
+      //if this already exists in itemsMutate, we just need to change the quantity of that new item.
+      if (cartItem.quantity != 0) {
+        const exists = itemsMutate[newHash];
+
+        cartItem.quantity += exists.quantity;
+
+        getOrderInstanceTotal(cartItem);
+
+        delete itemsMutate[oldHash];
+        delete itemsMutate[newHash];
+
+        itemsMutate[newHash] = cartItem;
+
+        const editItem = itemsArrayMutate.findIndex((x) => {
+          return x.id === newHash;
+        });
+
+        itemsArrayMutate[editItem] = { ...cartItem, id: newHash };
+      }
+    } else {
+      delete itemsMutate[oldHash];
+      const deleteItem = itemsArrayMutate.findIndex((x) => {
+        return x.id === oldHash;
+      });
+      itemsArrayMutate.splice(deleteItem, 1);
+      addCartItem(cartItem);
+    }
+    setItems({ ...itemsMutate });
+    setItemsArray([...itemsArrayMutate]);
+  }
 
   function getCartItemId(cartItem: ICartItem) {
     const cartItemNoQuantity: ICartItem | any = JSON.parse(
@@ -78,7 +145,7 @@ export default function CartProviderComponent({
   }
 
   function getOrderInstanceTotal(cartItem: ICartItem) {
-    var orderInstanceTotal = cartItem.price;
+    var orderInstanceTotal = cartItem.basePrice;
     orderInstanceTotal += cartItem.milk ? cartItem.milk.price : 0;
     orderInstanceTotal += cartItem.size ? cartItem.size.price : 0;
     if (cartItem.extra?.length != 0) {

@@ -7,6 +7,7 @@ export interface OrderModalResponse {
   size: itemStringWithId[] | null;
   milk: itemStringWithId[] | null;
   price: number;
+  basePrice: number;
   outOfStock: boolean;
 }
 

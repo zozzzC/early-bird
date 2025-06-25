@@ -112,6 +112,7 @@ export default async function formatOrderModal(
       size: size,
       milk: milk,
       price: price,
+      basePrice: price,
       outOfStock: outOfStock,
     };
 

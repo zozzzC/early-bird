@@ -10,6 +10,7 @@ export interface ICartItem {
   extra: OrderInstanceType<"extra">;
   size: OrderInstanceType<"size">;
   price: number;
+  basePrice: number;
   quantity: number;
 }
 

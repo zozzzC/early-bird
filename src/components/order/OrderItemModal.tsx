@@ -23,6 +23,7 @@ export default function OrderItemModal({ id }: { id: string }) {
     extra: null,
     price: total,
     quantity: 1,
+    basePrice: orderItem.basePrice,
   });
 
   //TODO CHORE: move this into helpers

@@ -7,8 +7,8 @@ export default function ViewCartJsx({
   showItems,
   showItemsArray,
 }: {
-  showItems: boolean;
-  showItemsArray: boolean;
+  showItems?: boolean;
+  showItemsArray?: boolean;
 }) {
   const { items, itemsArray } = useCartContext();
   return (

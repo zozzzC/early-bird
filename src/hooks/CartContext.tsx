@@ -11,7 +11,7 @@ export const CartContext = createContext<
       itemsArray: ICartItemWithId[];
       addCartItem: (cartItem: ICartItem) => void;
       removeCartItem: (cartItem: ICartItem, quantity?: number) => void;
-      editCartItem: (cartItem: ICartItem) => void;
+      editCartItem: (cartItem: ICartItem, oldCartItem: ICartItem) => void;
       getCartItemId: (cartItem: ICartItem) => void;
       getOrderInstanceTotal: (cartItem: ICartItem) => void;
     }

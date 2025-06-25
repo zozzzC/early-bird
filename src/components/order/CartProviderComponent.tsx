@@ -88,6 +88,7 @@ export default function CartProviderComponent({
     //but only edit the item in itemsArray
     if (oldHash === newHash) {
       //check if the quantity is 0, if it is, then we just delete the item entirely.
+      console.log("Quantity changed.");
 
       if (cartItem.quantity == 0) {
         removeCartItem(cartItem, oldCartItem.quantity);
@@ -102,7 +103,7 @@ export default function CartProviderComponent({
           return x.id === oldHash;
         });
 
-        itemsArrayMutate[editItem] = { ...cartItem, id: newHash };
+        itemsArrayMutate[editItem] = { id: newHash, ...cartItem };
       }
     } else if (itemsMutate[newHash]) {
       //if this already exists in itemsMutate, we just need to change the quantity of that new item.
@@ -116,13 +117,19 @@ export default function CartProviderComponent({
         delete itemsMutate[oldHash];
         delete itemsMutate[newHash];
 
+        const oldItem = itemsArrayMutate.findIndex((x) => {
+          return x.id === oldHash;
+        });
+
+        itemsArrayMutate.splice(oldItem, 1);
+
         itemsMutate[newHash] = cartItem;
 
         const editItem = itemsArrayMutate.findIndex((x) => {
           return x.id === newHash;
         });
 
-        itemsArrayMutate[editItem] = { ...cartItem, id: newHash };
+        itemsArrayMutate[editItem] = { id: newHash, ...cartItem };
       }
     } else {
       console.log("Edited item does not already exist. Attempting to add...");

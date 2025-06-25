@@ -394,11 +394,199 @@ describe("Cart functionalities", () => {
         },
       })
     );
+
+    expect(screen.getByTestId("itemsArray").innerHTML).toBe(
+      JSON.stringify([
+        {
+          id: "01bc3b4047d9b6eda4988ed928507ec8d5fb86d6e4748d2972f30109cdd03cce",
+          key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
+          name: "Americano",
+          category: "hot",
+          size: null,
+          milk: {
+            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
+            name: "Soy milk",
+            price: 1,
+          },
+          extra: [
+            {
+              id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab9bff625c-9f08-4e1e-b40c-e4241d132071",
+              name: "Vanilla syrup",
+              price: 1,
+            },
+            {
+              id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6abe2a9faad-9f79-4397-bf0b-73f0dd9b1901",
+              name: "Hazelnut syrup",
+              price: 1,
+            },
+          ],
+          basePrice: 4.5,
+          quantity: 2,
+          price: 15,
+        },
+      ])
+    );
   });
 
-  // it("edits the same instance to the same instance");
+  it("edits the same instance to the same instance and nothing changed", async () => {
+    const defaultInstance = {
+      key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
+      name: "Americano",
+      category: "hot",
+      size: null,
+      milk: null,
+      extra: null,
+      price: 4.5,
+      basePrice: 4.5,
+      quantity: 1,
+    } as ICartItem;
+    render(
+      <MantineProvider theme={mantineTheme}>
+        <OrderInstanceWrapper>
+          <CartProviderComponent>
+            <ViewCartJsx showItems={true} showItemsArray={true} />
+            <CartButton />
+            <EditButton cartItem={defaultInstance} />
+          </CartProviderComponent>
+        </OrderInstanceWrapper>
+      </MantineProvider>
+    );
 
-  // it(
-  //   "edits the same instance to an updated version, where only the quantity changed"
-  // );
+    const cart = screen.getByText("add to cart");
+    const edit = screen.getByText("edit cart item");
+
+    await userEvent.click(cart);
+
+    expect(screen.getByTestId("items").innerHTML).toBe(
+      JSON.stringify({
+        "4b16fc6f1806768de8c09bca26b0a856e82bb79a3888f636e6084ca65203bc31": {
+          key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
+          name: "Americano",
+          category: "hot",
+          size: null,
+          milk: null,
+          extra: null,
+          price: 4.5,
+          basePrice: 4.5,
+          quantity: 1,
+        },
+      })
+    );
+
+    await userEvent.click(edit);
+
+    expect(screen.getByTestId("items").innerHTML).toBe(
+      JSON.stringify({
+        "4b16fc6f1806768de8c09bca26b0a856e82bb79a3888f636e6084ca65203bc31": {
+          key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
+          name: "Americano",
+          category: "hot",
+          size: null,
+          milk: null,
+          extra: null,
+          price: 4.5,
+          basePrice: 4.5,
+          quantity: 1,
+        },
+      })
+    );
+
+    expect(screen.getByTestId("itemsArray").innerHTML).toBe(
+      JSON.stringify([
+        {
+          id: "4b16fc6f1806768de8c09bca26b0a856e82bb79a3888f636e6084ca65203bc31",
+          key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
+          name: "Americano",
+          category: "hot",
+          size: null,
+          milk: null,
+          extra: null,
+          price: 4.5,
+          basePrice: 4.5,
+          quantity: 1,
+        },
+      ])
+    );
+  });
+
+  it("edits the same instance to an updated version, where only the quantity changed", async () => {
+    const defaultInstance = {
+      key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
+      name: "Americano",
+      category: "hot",
+      size: null,
+      milk: null,
+      extra: null,
+      price: 4.5,
+      basePrice: 4.5,
+      quantity: 1,
+    } as ICartItem;
+    render(
+      <MantineProvider theme={mantineTheme}>
+        <OrderInstanceWrapper>
+          <CartProviderComponent>
+            <ViewCartJsx showItems={true} showItemsArray={true} />
+            <CartButton />
+            <EditButton cartItem={{ ...defaultInstance, quantity: 2 }} />
+          </CartProviderComponent>
+        </OrderInstanceWrapper>
+      </MantineProvider>
+    );
+
+    const cart = screen.getByText("add to cart");
+    const edit = screen.getByText("edit cart item");
+
+    await userEvent.click(cart);
+
+    expect(screen.getByTestId("items").innerHTML).toBe(
+      JSON.stringify({
+        "4b16fc6f1806768de8c09bca26b0a856e82bb79a3888f636e6084ca65203bc31": {
+          key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
+          name: "Americano",
+          category: "hot",
+          size: null,
+          milk: null,
+          extra: null,
+          price: 4.5,
+          basePrice: 4.5,
+          quantity: 1,
+        },
+      })
+    );
+
+    await userEvent.click(edit);
+
+    expect(screen.getByTestId("items").innerHTML).toBe(
+      JSON.stringify({
+        "4b16fc6f1806768de8c09bca26b0a856e82bb79a3888f636e6084ca65203bc31": {
+          key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
+          name: "Americano",
+          category: "hot",
+          size: null,
+          milk: null,
+          extra: null,
+          price: 9.0,
+          basePrice: 4.5,
+          quantity: 2,
+        },
+      })
+    );
+
+    expect(screen.getByTestId("itemsArray").innerHTML).toBe(
+      JSON.stringify([
+        {
+          id: "4b16fc6f1806768de8c09bca26b0a856e82bb79a3888f636e6084ca65203bc31",
+          key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
+          name: "Americano",
+          category: "hot",
+          size: null,
+          milk: null,
+          extra: null,
+          price: 9.0,
+          basePrice: 4.5,
+          quantity: 2,
+        },
+      ])
+    );
+  });
 });

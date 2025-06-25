@@ -12,11 +12,17 @@ type itemsId = {
 export default function MultiSelectManager({
   id,
   orderItemCategory,
+  selectedItems,
 }: {
   id: string;
   orderItemCategory: "extra";
+  selectedItems?: ICartAddOn[] | null;
 }) {
-  const [selectedItemsId, setSelectedItemsId] = useState<ICartAddOn[]>([]);
+  const [selectedItemsId, setSelectedItemsId] = useState<ICartAddOn[]>(() => {
+    if (selectedItems) return selectedItems;
+
+    return [];
+  });
   const orderItem = useOrderItemContext();
   const orderInstance = useOrderInstanceContext();
 

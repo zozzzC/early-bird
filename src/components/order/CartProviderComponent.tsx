@@ -14,10 +14,10 @@ export default function CartProviderComponent({
 }: {
   children: React.ReactNode;
   defaultItems?: ICart;
-  defaultItemsArray?: ICartItemWithId[];
+  defaultItemsArray?: Array<ICartItemWithId>;
 }) {
   const [items, setItems] = useState<ICart>(defaultItems ? defaultItems : {});
-  const [itemsArray, setItemsArray] = useState<ICartItemWithId[]>(
+  const [itemsArray, setItemsArray] = useState<Array<ICartItemWithId>>(
     defaultItemsArray ? defaultItemsArray : []
   );
 

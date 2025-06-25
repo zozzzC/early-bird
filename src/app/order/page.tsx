@@ -16,8 +16,6 @@ export default async function Order() {
         <p>order</p>
         <div className="flex justify-center m-0">
           <div className="w-9/12 grid 2xl:grid-cols-4 lg:grid-cols-3 grid-cols-1 m-0 gap-5 h-full">
-            <CartProviderComponent>
-              <ViewCartJsx showItems={true} showItemsArray={false} />
               {orderItems.map((i) => {
                 if (i.media != null) {
                   return (
@@ -45,7 +43,6 @@ export default async function Order() {
                   />
                 );
               })}
-            </CartProviderComponent>
           </div>
         </div>
         <p>{JSON.stringify(orderItems)}</p>

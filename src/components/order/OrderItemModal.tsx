@@ -26,7 +26,13 @@ export default function OrderItemModal({
 }) {
   const orderItem = useOrderItemContext();
   const { getOrderInstanceByHash, getOrderInstanceTotal } = useCartContext();
-  const [total, setTotal] = useState<number>(orderItem.price);
+  const [total, setTotal] = useState<number>(
+    orderHash
+      ? getOrderInstanceByHash(orderHash)
+        ? (getOrderInstanceByHash(orderHash) as ICartItem).price
+        : orderItem.basePrice
+      : orderItem.price
+  );
 
   const [orderInstance, setOrderInstance] = useState<ICartItem>(() => {
     if (orderHash) {
@@ -63,7 +69,7 @@ export default function OrderItemModal({
     //hence we have to ensure that ICartItem is indeed that type
     newOrderInstance[field] = value as ICartItem[typeof field];
     console.log(newOrderInstance);
-    getOrderInstanceTotal(newOrderInstance) 
+    getOrderInstanceTotal(newOrderInstance);
     setTotal(newOrderInstance.price);
     setOrderInstance(newOrderInstance);
   }
@@ -76,75 +82,75 @@ export default function OrderItemModal({
           setOrderInstanceByField,
         }}
       >
-          <div className="w-full lg:h-full lg:max-h-full aspect-square relative">
-            {orderItem.media ? (
-              <Image src={orderItem.media} fill alt="order image" />
-            ) : (
-              <Image
-                src={
-                  "https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                }
-                fill
-                alt="order image"
+        <div className="w-full lg:h-full lg:max-h-full aspect-square relative">
+          {orderItem.media ? (
+            <Image src={orderItem.media} fill alt="order image" />
+          ) : (
+            <Image
+              src={
+                "https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              }
+              fill
+              alt="order image"
+            />
+          )}
+        </div>
+        <div className="flex-1 overflow-auto">
+          <div className="flex flex-col h-full justify-between">
+            <div className="flex flex-col">
+              <p className="text-3xl">{orderItem.name}</p>
+              <SingleSelectManager
+                id={id}
+                orderItemCategory="size"
+                selectedItem={getDefaultSelection(orderHash)?.size}
               />
-            )}
-          </div>
-          <div className="flex-1 overflow-auto">
-            <div className="flex flex-col h-full justify-between">
-              <div className="flex flex-col">
-                <p className="text-3xl">{orderItem.name}</p>
-                <SingleSelectManager
-                  id={id}
-                  orderItemCategory="size"
-                  selectedItem={getDefaultSelection(orderHash)?.size}
-                />
-                <SingleSelectManager
-                  id={id}
-                  orderItemCategory="milk"
-                  selectedItem={getDefaultSelection(orderHash)?.milk}
-                />
-                <MultiSelectManager
-                  id={id}
-                  orderItemCategory="extra"
-                  selectedItems={getDefaultSelection(orderHash)?.extra}
-                />
-              </div>
-              <div className="w-full pt-10">
-                <div className="gap-5 pr-5 flex justify-end w-full items-center">
-                  <NumberInput
-                    size="md"
-                    className="w-16"
-                    variant="filled"
-                    defaultValue={1}
-                    min={1}
-                    onChange={(e) => {
-                      setOrderInstance({
+              <SingleSelectManager
+                id={id}
+                orderItemCategory="milk"
+                selectedItem={getDefaultSelection(orderHash)?.milk}
+              />
+              <MultiSelectManager
+                id={id}
+                orderItemCategory="extra"
+                selectedItems={getDefaultSelection(orderHash)?.extra}
+              />
+            </div>
+            <div className="w-full pt-10">
+              <div className="gap-5 pr-5 flex justify-end w-full items-center">
+                <NumberInput
+                  size="md"
+                  className="w-16"
+                  variant="filled"
+                  defaultValue={1}
+                  min={1}
+                  onChange={(e) => {
+                    setOrderInstance({
+                      ...orderInstance,
+                      quantity: e.valueOf() as number,
+                    } as ICartItem);
+
+                    setTotal(
+                      getOrderInstanceTotal({
                         ...orderInstance,
                         quantity: e.valueOf() as number,
-                      } as ICartItem);
-
-                      setTotal(
-                        getOrderInstanceTotal({
-                          ...orderInstance,
-                          quantity: (e.valueOf() as number)
-                        })
-                      );
-                    }}
-                  ></NumberInput>
-                </div>
-                <div className="flex justify-end w-full p-5">
-                  <div className="">
-                    <p className="text-lg">{total}</p>
-                  </div>
-                </div>
-                {orderHash ? (
-                  <EditButton orderHash={orderHash} close={close} />
-                ) : (
-                  <CartButton close={close} />
-                )}
+                      })
+                    );
+                  }}
+                ></NumberInput>
               </div>
+              <div className="flex justify-end w-full p-5">
+                <div className="">
+                  <p className="text-lg">{total}</p>
+                </div>
+              </div>
+              {orderHash ? (
+                <EditButton orderHash={orderHash} close={close} />
+              ) : (
+                <CartButton close={close} />
+              )}
             </div>
           </div>
+        </div>
       </OrderInstanceContext>
     </div>
   );

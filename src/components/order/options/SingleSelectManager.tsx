@@ -1,12 +1,8 @@
 import { ReactNode, useContext, useEffect, useState } from "react";
 import SingleSelectButton from "./SingleSelectButton";
-import { TotalContext } from "@/hooks/TotalContext";
-import { useTotalContext } from "@/hooks/useTotalContext";
 import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
 import { ICartAddOn } from "@/types/Cart";
-import { getExtraCosts } from "@/lib/extraCosts";
-import { ExtraCostsResponse } from "@/types/ExtraCostsResponse";
 
 export default function SingleSelectManager({
   id,
@@ -17,7 +13,6 @@ export default function SingleSelectManager({
   orderItemCategory: "milk" | "size";
   selectedItem?: ICartAddOn | null;
 }) {
-  const { total, setTotal } = useTotalContext();
   const orderInstance = useOrderInstanceContext();
   const orderItem = useOrderItemContext();
 
@@ -46,7 +41,6 @@ export default function SingleSelectManager({
 
     orderInstance.setOrderInstanceByField({ field, value });
     setSelectedItemId(id);
-    setTotal(total + price - selectedItemPrice);
     setSelectedItemPrice(price);
   }
 

@@ -25,7 +25,7 @@ export default function OrderItemModal({
   close: () => void;
 }) {
   const orderItem = useOrderItemContext();
-  const { getOrderInstanceByHash } = useCartContext();
+  const { getOrderInstanceByHash, getOrderInstanceTotal } = useCartContext();
   const [total, setTotal] = useState<number>(orderItem.price);
 
   const [orderInstance, setOrderInstance] = useState<ICartItem>(() => {
@@ -63,6 +63,8 @@ export default function OrderItemModal({
     //hence we have to ensure that ICartItem is indeed that type
     newOrderInstance[field] = value as ICartItem[typeof field];
     console.log(newOrderInstance);
+    getOrderInstanceTotal(newOrderInstance) 
+    setTotal(newOrderInstance.price);
     setOrderInstance(newOrderInstance);
   }
 
@@ -74,7 +76,6 @@ export default function OrderItemModal({
           setOrderInstanceByField,
         }}
       >
-        <TotalContext value={{ total, setTotal }}>
           <div className="w-full lg:h-full lg:max-h-full aspect-square relative">
             {orderItem.media ? (
               <Image src={orderItem.media} fill alt="order image" />
@@ -116,12 +117,19 @@ export default function OrderItemModal({
                     variant="filled"
                     defaultValue={1}
                     min={1}
-                    onChange={(e) =>
+                    onChange={(e) => {
                       setOrderInstance({
                         ...orderInstance,
-                        quantity: e.valueOf(),
-                      } as ICartItem)
-                    }
+                        quantity: e.valueOf() as number,
+                      } as ICartItem);
+
+                      setTotal(
+                        getOrderInstanceTotal({
+                          ...orderInstance,
+                          quantity: (e.valueOf() as number)
+                        })
+                      );
+                    }}
                   ></NumberInput>
                 </div>
                 <div className="flex justify-end w-full p-5">
@@ -130,14 +138,13 @@ export default function OrderItemModal({
                   </div>
                 </div>
                 {orderHash ? (
-                  <EditButton orderHash={orderHash} close={close}/>
+                  <EditButton orderHash={orderHash} close={close} />
                 ) : (
-                  <CartButton close={close}/>
+                  <CartButton close={close} />
                 )}
               </div>
             </div>
           </div>
-        </TotalContext>
       </OrderInstanceContext>
     </div>
   );

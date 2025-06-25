@@ -13,7 +13,7 @@ export const CartContext = createContext<
       removeCartItem: (cartItem: ICartItem, quantity?: number) => void;
       editCartItem: (cartItem: ICartItem, oldCartItem: ICartItem) => void;
       getCartItemId: (cartItem: ICartItem) => void;
-      getOrderInstanceTotal: (cartItem: ICartItem) => void;
+      getOrderInstanceTotal: (cartItem: ICartItem) => number;
       getOrderInstanceByHash: (hash: string) => ICartItem | undefined;
     }
   | undefined

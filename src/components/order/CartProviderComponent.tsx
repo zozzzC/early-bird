@@ -165,7 +165,7 @@ export default function CartProviderComponent({
     return total;
   }
 
-  function getOrderInstanceTotal(cartItem: ICartItem) {
+  function getOrderInstanceTotal(cartItem: ICartItem): number {
     var orderInstanceTotal = cartItem.basePrice;
     orderInstanceTotal += cartItem.milk ? cartItem.milk.price : 0;
     orderInstanceTotal += cartItem.size ? cartItem.size.price : 0;
@@ -175,6 +175,7 @@ export default function CartProviderComponent({
       });
     }
     cartItem.price = orderInstanceTotal * cartItem.quantity;
+    return cartItem.price;
   }
 
   function getOrderInstanceByHash(hash: string): ICartItem | undefined {

@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import MultiSelectButton from "./MultiSelectButton";
-import { TotalContext } from "@/hooks/TotalContext";
 import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
 import { ICartAddOn } from "@/types/Cart";
@@ -41,7 +40,7 @@ export default function MultiSelectManager({
     }
 
     orderInstance.setOrderInstanceByField({ field: "extra", value: value });
-    setSelectedItemsId(value);
+    setSelectedItemsId(value); 
   }
 
   function checkIfSelected(orderItemId: string): boolean {

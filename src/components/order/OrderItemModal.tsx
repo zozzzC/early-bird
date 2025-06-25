@@ -18,9 +18,11 @@ import EditButton from "../checkout/EditButton";
 export default function OrderItemModal({
   id,
   orderHash,
+  close,
 }: {
   id: string;
   orderHash?: string;
+  close: () => void;
 }) {
   const orderItem = useOrderItemContext();
   const { getOrderInstanceByHash } = useCartContext();
@@ -128,9 +130,9 @@ export default function OrderItemModal({
                   </div>
                 </div>
                 {orderHash ? (
-                  <EditButton orderHash={orderHash} />
+                  <EditButton orderHash={orderHash} close={close}/>
                 ) : (
-                  <CartButton />
+                  <CartButton close={close}/>
                 )}
               </div>
             </div>

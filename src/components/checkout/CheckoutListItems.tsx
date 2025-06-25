@@ -30,7 +30,7 @@ export default function CheckoutListItems({
             }}
             size="100%"
           >
-            <OrderItemModal id={cartItem.key} orderHash={cartItem.id} />
+            <OrderItemModal id={cartItem.key} orderHash={cartItem.id} close={close}/>
           </Modal>
 
           <div key={cartItem.id}>

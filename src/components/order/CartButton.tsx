@@ -3,7 +3,11 @@ import { useCartContext } from "@/hooks/useCartContext";
 import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
 import { Button } from "@mantine/core";
 
-export default function CartButton(): React.ReactNode {
+export default function CartButton({
+  close,
+}: {
+  close(): void;
+}): React.ReactNode {
   const { orderInstance } = useOrderInstanceContext();
   const { addCartItem } = useCartContext();
 
@@ -15,11 +19,11 @@ export default function CartButton(): React.ReactNode {
           if (orderInstance != null) {
             addCartItem(orderInstance);
           }
+          close();
         }}
       >
         add to cart
       </Button>
-
     </>
   );
 }

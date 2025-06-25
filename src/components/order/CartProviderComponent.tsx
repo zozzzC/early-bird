@@ -16,10 +16,16 @@ export default function CartProviderComponent({
   const [itemsArray, setItemsArray] = useState<ICartItemWithId[]>([]);
 
   //To prevent abuse, we require that the ID of each options is also passed in, EG: milk requires both the name AND the id.
-  function addCartItem(cartItem: ICartItem) {
+  function addCartItem(
+    cartItem: ICartItem,
+    editedItemsArray?: ICartItemWithId[],
+    editedItems?: ICart
+  ) {
     const hash = getCartItemId(cartItem);
-    const itemsArrayMutate = [...itemsArray];
-    const itemsMutate = { ...items };
+    const itemsArrayMutate = editedItemsArray
+      ? editedItemsArray
+      : [...itemsArray];
+    const itemsMutate = editedItems ? editedItems : { ...items };
 
     if (itemsMutate[hash]) {
       const index = itemsArrayMutate.findIndex((x) => {
@@ -113,12 +119,14 @@ export default function CartProviderComponent({
         itemsArrayMutate[editItem] = { ...cartItem, id: newHash };
       }
     } else {
+      console.log("Edited item does not already exist. Attempting to add...");
       delete itemsMutate[oldHash];
       const deleteItem = itemsArrayMutate.findIndex((x) => {
         return x.id === oldHash;
       });
       itemsArrayMutate.splice(deleteItem, 1);
-      addCartItem(cartItem);
+      addCartItem(cartItem, [...itemsArrayMutate], { ...itemsMutate });
+      return;
     }
     setItems({ ...itemsMutate });
     setItemsArray([...itemsArrayMutate]);

@@ -1,11 +1,12 @@
 import CheckoutList from "@/components/checkout/CheckoutList";
-import { useCartContext } from "@/hooks/useCartContext";
+import { getOrderItems } from "@/lib/orderItems";
 
-export default function Checkout() {
+export default async function Checkout() {
+  const orderItems = await getOrderItems();
 
-    return (
-        <div className="pt-28">
-            <CheckoutList/>
-        </div>
-    )
+  return (
+    <div className="pt-28">
+      <CheckoutList orderItems={orderItems} />
+    </div>
+  );
 }

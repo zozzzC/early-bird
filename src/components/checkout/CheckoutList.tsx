@@ -1,45 +1,35 @@
 "use client";
 import { useCartContext } from "@/hooks/useCartContext";
+import { ICartItemWithId } from "@/types/Cart";
+import { OrderModalResponse } from "@/types/OrderModalResponse";
 import Image from "next/image";
+import CheckoutListItems from "./CheckoutListItems";
 
-export default function CheckoutList() {
+export default function CheckoutList({
+  orderItems,
+}: {
+  orderItems: OrderModalResponse[];
+}) {
   const { itemsArray } = useCartContext();
-  console.log(itemsArray);
+
+  function getModal(
+    orderItem: ICartItemWithId,
+    orderItems: OrderModalResponse[]
+  ): OrderModalResponse | undefined {
+    return orderItems.find((x) => {
+      return x.key === orderItem.key;
+    });
+  }
 
   return (
     <div>
       {itemsArray.map((x) => {
         return (
-          <div key={x.id}>
-            <p className="text-2xl">{x.name}</p>
-            {x.milk ? (
-              <>
-                <p className="text-xl">milk</p>
-                <p>{x.milk.name}</p>
-                <p>{x.milk.price}</p>
-              </>
-            ) : null}
-
-            {x.extra ? (
-              <>
-                <p className="text-xl">extra</p>
-                {x.extra.map((i) => {
-                  return (
-                    <>
-                      <p>{i.name}</p>
-                      <p>{i.price}</p>
-                    </>
-                  );
-                })}
-              </>
-            ) : null}
-
-            <p>quantity</p>
-            <p>{x.quantity}</p>
-
-            <p>total</p>
-            <p>{x.price}</p>
-          </div>
+          <CheckoutListItems
+            key={x.id}
+            cartItem={x}
+            orderModal={getModal(x, orderItems)}
+          />
         );
       })}
     </div>

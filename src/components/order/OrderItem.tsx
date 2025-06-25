@@ -14,13 +14,13 @@ export default function OrderItem({
   name,
   description,
   photo,
-  orderItem,
+  orderModal,
 }: Item) {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
     <div className="h-full w-full">
-      <OrderItemContext value={orderItem}>
+      <OrderItemContext value={orderModal}>
         <Modal
           className="absolute z-10"
           opened={opened}

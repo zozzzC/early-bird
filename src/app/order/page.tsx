@@ -27,7 +27,7 @@ export default async function Order() {
                     name={i.name}
                     description={""}
                     photo={i.media}
-                    orderItem={i}
+                    orderModal={i}
                   />
                 );
               }
@@ -41,7 +41,7 @@ export default async function Order() {
                   photo={
                     "https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
                   }
-                  orderItem={i}
+                  orderModal={i}
                 />
               );
             })}

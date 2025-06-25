@@ -5,5 +5,5 @@ export type Item = {
   name: string;
   description: string;
   photo: string;
-  orderItem: OrderModalResponse;
+  orderModal: OrderModalResponse;
 };

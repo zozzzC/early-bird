@@ -11,6 +11,7 @@ import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
 import CartButton from "./CartButton";
 import { ICartAddOn, ICartItem, OrderInstanceType } from "@/types/Cart";
 import { useCartContext } from "@/hooks/useCartContext";
+import getDefaultSelection from "@/helpers/getDefaultSelection";
 
 //orderHash is provided if we are editing an existing item
 export default function OrderItemModal({
@@ -62,6 +63,8 @@ export default function OrderItemModal({
     setOrderInstance(newOrderInstance);
   }
 
+
+
   return (
     <div className="w-full grid lg:grid-cols-2 grid-cols-1 gap-5">
       <OrderInstanceContext
@@ -88,9 +91,21 @@ export default function OrderItemModal({
             <div className="flex flex-col h-full justify-between">
               <div className="flex flex-col">
                 <p className="text-3xl">{orderItem.name}</p>
-                <SingleSelectManager id={id} orderItemCategory="size" />
-                <SingleSelectManager id={id} orderItemCategory="milk" />
-                <MultiSelectManager id={id} orderItemCategory="extra" />
+                <SingleSelectManager
+                  id={id}
+                  orderItemCategory="size"
+                  selectedItem={getDefaultSelection(orderHash)?.size}
+                />
+                <SingleSelectManager
+                  id={id}
+                  orderItemCategory="milk"
+                  selectedItem={getDefaultSelection(orderHash)?.milk}
+                />
+                <MultiSelectManager
+                  id={id}
+                  orderItemCategory="extra"
+                  selectedItems={getDefaultSelection(orderHash)?.extra}
+                />
               </div>
               <div className="w-full pt-10">
                 <div className="gap-5 pr-5 flex justify-end w-full items-center">

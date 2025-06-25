@@ -19,7 +19,9 @@ export default function MultiSelectManager({
   selectedItems?: ICartAddOn[] | null;
 }) {
   const [selectedItemsId, setSelectedItemsId] = useState<ICartAddOn[]>(() => {
-    if (selectedItems) return selectedItems;
+    if (selectedItems) {
+      return selectedItems;
+    }
 
     return [];
   });
@@ -42,6 +44,17 @@ export default function MultiSelectManager({
     setSelectedItemsId(value);
   }
 
+  function checkIfSelected(orderItemId: string): boolean {
+    if (!selectedItems) {
+      return false;
+    }
+    const index = selectedItems.find((x) => x.id === orderItemId);
+    if (index) {
+      return true;
+    }
+    return false;
+  }
+
   return (
     <>
       {orderItem[orderItemCategory] ? (
@@ -55,6 +68,7 @@ export default function MultiSelectManager({
                 name={i.name}
                 price={i.price}
                 select={select}
+                selected={checkIfSelected(id + i.id)}
               />
             ))}
           </div>

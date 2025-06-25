@@ -9,13 +9,17 @@ export default function MultiSelectButton({
   name,
   price,
   select,
+  selected,
 }: {
   id: string;
   name: string;
   price: number;
   select(id: string, name: string, price: number, on: boolean): void;
+  selected: boolean;
 }) {
-  const [on, setOn] = useState<boolean>(false);
+  const [on, setOn] = useState<boolean>(() => {
+    return selected;
+  });
   const { total, setTotal } = useTotalContext();
 
   return (

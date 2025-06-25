@@ -9,11 +9,17 @@ import { createHash } from "crypto";
 //Only plain objects, and a few built-ins, can be passed to Client Components from Server Components. Classes or null prototypes are not supported.
 export default function CartProviderComponent({
   children,
+  defaultItems,
+  defaultItemsArray,
 }: {
   children: React.ReactNode;
+  defaultItems?: ICart;
+  defaultItemsArray?: ICartItemWithId[];
 }) {
-  const [items, setItems] = useState<ICart>({});
-  const [itemsArray, setItemsArray] = useState<ICartItemWithId[]>([]);
+  const [items, setItems] = useState<ICart>(defaultItems ? defaultItems : {});
+  const [itemsArray, setItemsArray] = useState<ICartItemWithId[]>(
+    defaultItemsArray ? defaultItemsArray : []
+  );
 
   //To prevent abuse, we require that the ID of each options is also passed in, EG: milk requires both the name AND the id.
   function addCartItem(

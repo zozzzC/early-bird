@@ -11,7 +11,8 @@ import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
 import CartButton from "./CartButton";
 import { ICartAddOn, ICartItem, OrderInstanceType } from "@/types/Cart";
 
-export default function OrderItemModal({ id }: { id: string }) {
+//orderHash is provided if we are editing an existing item  
+export default function OrderItemModal({ id, orderHash }: { id: string, orderHash ?: string }) {
   const orderItem = useOrderItemContext();
   const [total, setTotal] = useState<number>(orderItem.price);
   const [orderInstance, setOrderInstance] = useState<ICartItem>({
@@ -70,15 +71,6 @@ export default function OrderItemModal({ id }: { id: string }) {
             <div className="flex flex-col h-full justify-between">
               <div className="flex flex-col">
                 <p className="text-3xl">{orderItem.name}</p>
-                <p className="text-md pb-5">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  consectetur sed orci sed sagittis. Aenean accumsan luctus
-                  justo, non mattis enim ornare id. Aliquam justo nibh, sodales
-                  ut dui vel, varius mattis ipsum. Morbi venenatis, odio sed
-                  rutrum tincidunt, arcu felis sodales velit, a porta lorem
-                  felis eu ante. In hac habitasse platea dictumst. Sed sodales
-                  sem a leo feugiat, in elementum sem accumsan.
-                </p>
                 <SingleSelectManager id={id} orderItemCategory="size" />
                 <SingleSelectManager id={id} orderItemCategory="milk" />
                 <MultiSelectManager id={id} orderItemCategory="extra" />

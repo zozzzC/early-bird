@@ -177,6 +177,13 @@ export default function CartProviderComponent({
     cartItem.price = orderInstanceTotal * cartItem.quantity;
   }
 
+  function getOrderInstanceByHash(hash: string): ICartItem | undefined {
+    if (items[hash]) {
+      return items[hash];
+    }
+    return undefined;
+  }
+
   function validateCart() {}
 
   return (
@@ -189,6 +196,7 @@ export default function CartProviderComponent({
         editCartItem,
         getCartItemId,
         getOrderInstanceTotal,
+        getOrderInstanceByHash,
       }}
     >
       {children}

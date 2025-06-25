@@ -10,21 +10,38 @@ import { OrderInstanceContext } from "@/hooks/OrderInstanceContext";
 import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
 import CartButton from "./CartButton";
 import { ICartAddOn, ICartItem, OrderInstanceType } from "@/types/Cart";
+import { useCartContext } from "@/hooks/useCartContext";
 
-//orderHash is provided if we are editing an existing item  
-export default function OrderItemModal({ id, orderHash }: { id: string, orderHash ?: string }) {
+//orderHash is provided if we are editing an existing item
+export default function OrderItemModal({
+  id,
+  orderHash,
+}: {
+  id: string;
+  orderHash?: string;
+}) {
   const orderItem = useOrderItemContext();
+  const { getOrderInstanceByHash } = useCartContext();
   const [total, setTotal] = useState<number>(orderItem.price);
-  const [orderInstance, setOrderInstance] = useState<ICartItem>({
-    key: orderItem.key,
-    name: orderItem.name,
-    category: orderItem.category,
-    size: null,
-    milk: null,
-    extra: null,
-    price: total,
-    quantity: 1,
-    basePrice: orderItem.basePrice,
+
+  const [orderInstance, setOrderInstance] = useState<ICartItem>(() => {
+    if (orderHash) {
+      if (getOrderInstanceByHash(orderHash)) {
+        return getOrderInstanceByHash(orderHash) as ICartItem;
+      }
+    }
+
+    return {
+      key: orderItem.key,
+      name: orderItem.name,
+      category: orderItem.category,
+      size: null,
+      milk: null,
+      extra: null,
+      price: total,
+      quantity: 1,
+      basePrice: orderItem.basePrice,
+    };
   });
 
   //TODO CHORE: move this into helpers

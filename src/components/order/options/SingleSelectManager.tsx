@@ -21,8 +21,6 @@ export default function SingleSelectManager({
   const orderInstance = useOrderInstanceContext();
   const orderItem = useOrderItemContext();
 
-  //TODO: move state up to the order item modal.
-  //TODO: do you still need this?
   const [selectedItemId, setSelectedItemId] = useState<string | null>(() => {
     if (selectedItem) return selectedItem.id;
     return null

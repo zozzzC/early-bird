@@ -6,8 +6,6 @@ import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
 import { createHash } from "crypto";
 import { cloneDeep } from "lodash";
 
-//NOTE: This had to be made into a seperate use-client component because we cannot do this directly in the server component (see below error)
-//Only plain objects, and a few built-ins, can be passed to Client Components from Server Components. Classes or null prototypes are not supported.
 export default function CartProviderComponent({
   children,
   defaultItems,
@@ -57,15 +55,19 @@ export default function CartProviderComponent({
   }
 
   //the specified orderItem's ID is used to delete
-  function removeCartItem(cartItem: ICartItem, quantity?: number) {
+  function removeCartItem(cartItem: ICartItem) {
     const hash = getCartItemId(cartItem);
+    const itemsMutate = cloneDeep(items);
+    const itemsArrayMutate = cloneDeep(itemsArray);
 
-    if (quantity) {
-      items[hash].quantity = quantity;
-    } else {
-      delete items[hash];
-    }
-    console.log(JSON.stringify(items));
+    delete itemsMutate[hash];
+    const deleteItem = itemsArrayMutate.findIndex((x) => {
+      return x.id === hash;
+    });
+    itemsArrayMutate.splice(deleteItem, 1);
+
+    setItems({ ...itemsMutate });
+    setItemsArray([...itemsArrayMutate]);
   }
 
   function editCartItem(cartItem: ICartItem, oldCartItem: ICartItem) {
@@ -101,7 +103,7 @@ export default function CartProviderComponent({
       console.log("Quantity changed.");
 
       if (cartItem.quantity == 0) {
-        removeCartItem(cartItem, oldCartItem.quantity);
+        removeCartItem(cartItem);
       } else {
         delete itemsMutate[oldHash];
 
@@ -161,7 +163,8 @@ export default function CartProviderComponent({
   }
 
   function getCartItemId(cartItem: ICartItem) {
-    const cartItemNoQuantity: ICartItem | any = cloneDeep((cartItem)
+    const cartItemNoQuantity: ICartItem | any = cloneDeep(
+      cartItem
     ) as ICartItem;
     delete cartItemNoQuantity.quantity;
     delete cartItemNoQuantity.price;

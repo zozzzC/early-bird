@@ -1,5 +1,5 @@
 "use client";
-import { ICartItemWithId } from "@/types/Cart";
+import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
 import { OrderModalResponse } from "@/types/OrderModalResponse";
 import { Button, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
@@ -68,7 +68,8 @@ export default function CheckoutListItems({
             </div>
             <div className="w-3/6">
               <p className="text-2xl">{cartItem.name}</p>
-              <p>{formatPrice(cartItem.basePrice)}</p>
+              <p className="text-xl">{`x${cartItem.quantity}`}</p>
+              <p>{formatPrice(cartItem.quantity * cartItem.basePrice)}</p>
               {cartItem.size ? (
                 <>
                   <p className="text-sm">{cartItem.size ? "size" : null}</p>
@@ -91,7 +92,7 @@ export default function CheckoutListItems({
                 <>
                   <p className="text-sm">{cartItem.extra ? "extra" : null}</p>
                   {cartItem.extra.map((i) => {
-                    return <CheckoutAddOn name={i.name} price={i.price} />;
+                    return <CheckoutAddOn key={i.id} name={i.name} price={i.price} />;
                   })}
                 </>
               ) : null}
@@ -107,7 +108,9 @@ export default function CheckoutListItems({
               </Button>
             </div>
             <div>
-              <DeleteButton></DeleteButton>
+              <DeleteButton
+                orderInstance={getOrderInstanceByHash(cartItem.id) as ICartItem}
+              ></DeleteButton>
             </div>
           </div>
         </div>

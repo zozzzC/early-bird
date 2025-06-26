@@ -10,6 +10,7 @@ import { cloneDeep } from "lodash";
 import formatPrice from "@/helpers/formatPrice";
 import { useCartContext } from "@/hooks/useCartContext";
 import CheckoutAddOn from "./CheckoutAddOn";
+import DeleteButton from "./DeleteButton";
 
 export default function CheckoutListItems({
   cartItem,
@@ -52,7 +53,7 @@ export default function CheckoutListItems({
             className="w-full flex flex-row items-center p-10 gap-10"
           >
             <div className="w-1/6 rounded-3xl">
-              <div className="aspect-square relative">
+              <div className="aspect-square relative object-cover">
                 <Image
                   src={
                     orderModal.media
@@ -65,8 +66,9 @@ export default function CheckoutListItems({
                 />
               </div>
             </div>
-            <div className="outline w-3/6">
+            <div className="w-3/6">
               <p className="text-2xl">{cartItem.name}</p>
+              <p>{formatPrice(cartItem.basePrice)}</p>
               {cartItem.size ? (
                 <>
                   <p className="text-sm">{cartItem.size ? "size" : null}</p>
@@ -103,6 +105,9 @@ export default function CheckoutListItems({
               >
                 edit item
               </Button>
+            </div>
+            <div>
+              <DeleteButton></DeleteButton>
             </div>
           </div>
         </div>

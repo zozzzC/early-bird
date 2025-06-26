@@ -55,7 +55,6 @@ export default function CheckoutListItems({
               alt={"image of " + orderModal.name}
             /> */}
             <p className="text-2xl">{cartItem.name}</p>
-            <p>{cartItem.id}</p>
             <Button
               onClick={() => {
                 open();

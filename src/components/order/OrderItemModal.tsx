@@ -131,9 +131,6 @@ export default function OrderItemModal({
           <div className="flex flex-col h-full justify-between">
             <div className="flex flex-col">
               <p className="text-3xl">{orderItem.name}</p>
-              <p>
-                {JSON.stringify(getOrderInstanceByHash(orderHash as string))}
-              </p>
               <SingleSelectManager
                 id={id}
                 orderItemCategory="size"

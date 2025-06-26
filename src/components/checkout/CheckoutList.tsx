@@ -34,7 +34,6 @@ export default function CheckoutList({
           />
         );
       })}
-      <ViewCartJsx showItems={true} showItemsArray={true} />
     </div>
   );
 }

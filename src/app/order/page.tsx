@@ -13,10 +13,11 @@ export default async function Order() {
 
   return (
     <div className="w-full h-full">
+      <div className="fixed bottom-0 right-0 pb-10 pr-10">
+          <ViewCartButton />
+      </div>
       <div className="pt-28">
-        <ViewCartButton />
         <p>order</p>
-        <ViewCartJsx showItems={true} showItemsArray={true} />
         <div className="flex justify-center m-0">
           <div className="w-9/12 grid 2xl:grid-cols-4 lg:grid-cols-3 grid-cols-1 m-0 gap-5 h-full">
             {orderItems.map((i) => {

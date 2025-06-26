@@ -44,7 +44,6 @@ export default function CheckoutListItems({
                 getOrderInstanceByHash(cartItem.id)
               )}
               close={close}
-              isOpen={opened}
             />
           </Modal>
 
@@ -52,7 +51,7 @@ export default function CheckoutListItems({
             key={cartItem.id}
             className="w-full flex flex-row items-center p-10 gap-10"
           >
-            <div className="w-1/6 overflow-hidden rounded-3xl">
+            <div className="w-1/6 overflow-hidden rounded-base">
               <div className="aspect-square relative object-cover">
                 <Image
                   src={

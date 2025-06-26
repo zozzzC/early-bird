@@ -18,7 +18,7 @@ export default function SingleSelectManager({
 
   const [selectedItemId, setSelectedItemId] = useState<string | null>(() => {
     if (selectedItem) return selectedItem.id;
-    return null
+    return null;
   });
 
   const [selectedItemPrice, setSelectedItemPrice] = useState<number>(

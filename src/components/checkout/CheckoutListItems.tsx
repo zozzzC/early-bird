@@ -50,11 +50,11 @@ export default function CheckoutListItems({
 
           <div
             key={cartItem.id}
-            className="w-full flex flex-row justify-between items-center p-10 gap-10"
+            className="w-full flex flex-col outline-gray-500 outline rounded-base sm:outline-none sm:flex-row justify-between items-center p-10 gap-10"
           >
             <div className="flex flex-row gap-3.5 w-full">
               <div className="overflow-hidden rounded-base aspect-square md:w-60 w-0 md:max-w-60 ">
-                <div className="w-full h-full relative object-cover ">
+                <div className="w-full h-full relative object-cover">
                   <Image
                     src={
                       orderModal.media
@@ -68,12 +68,14 @@ export default function CheckoutListItems({
                 </div>
               </div>
               <div className="w-full">
-                <p className="text-2xl">{cartItem.name}</p>
-                <p className="text-xl">{`x${cartItem.quantity}`}</p>
+                <p className="text-2xl font-semibold">{cartItem.name}</p>
+                <p className="text-xl ">{`x${cartItem.quantity}`}</p>
                 <p>{formatPrice(cartItem.quantity * cartItem.basePrice)}</p>
                 {cartItem.size ? (
                   <>
-                    <p className="text-sm">{cartItem.size ? "size" : null}</p>
+                    <p className="text-sm font-semibold">
+                      {cartItem.size ? "size" : null}
+                    </p>
                     <CheckoutAddOn
                       name={cartItem.size.name}
                       price={cartItem.size.price}
@@ -82,7 +84,9 @@ export default function CheckoutListItems({
                 ) : null}
                 {cartItem.milk ? (
                   <>
-                    <p className="text-sm">{cartItem.milk ? "milk" : null}</p>
+                    <p className="text-sm font-semibold">
+                      {cartItem.milk ? "milk" : null}
+                    </p>
                     <CheckoutAddOn
                       name={cartItem.milk.name}
                       price={cartItem.milk.price}
@@ -91,7 +95,9 @@ export default function CheckoutListItems({
                 ) : null}
                 {cartItem.extra ? (
                   <>
-                    <p className="text-sm">{cartItem.extra ? "extra" : null}</p>
+                    <p className="text-sm font-semibold">
+                      {cartItem.extra ? "extra" : null}
+                    </p>
                     {cartItem.extra.map((i) => {
                       return (
                         <CheckoutAddOn

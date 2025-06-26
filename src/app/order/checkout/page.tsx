@@ -6,9 +6,9 @@ export default async function Checkout() {
   const orderItems = await getOrderItems();
 
   return (
-    <div className="pt-28">
+    <div className="pt-28 w-full">
       <CheckoutList orderItems={orderItems} />
-      <div className="p-10 w-1/2">
+      <div className="p-10">
         <TotalBar />
       </div>
     </div>

@@ -1,30 +1,22 @@
-"use client";
 import { useCartContext } from "@/hooks/useCartContext";
 import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
+import { ICartItem } from "@/types/Cart";
 import { Button } from "@mantine/core";
 
-export default function CartButton({
-  close,
-}: {
-  close?(): void;
-}): React.ReactNode {
+export default function EditButton({cartItem} : {cartItem: ICartItem}) {
+  const { editCartItem } = useCartContext();
   const { orderInstance } = useOrderInstanceContext();
-  const { addCartItem } = useCartContext();
 
   return (
     <>
       <Button
-        role="add-to-cart"
         onClick={() => {
-          if (orderInstance != null) {
-            addCartItem(orderInstance);
-          }
-          if (close) {
-            close();
+          if (orderInstance) {
+            editCartItem(cartItem, orderInstance);
           }
         }}
       >
-        add to cart
+        edit cart item
       </Button>
     </>
   );

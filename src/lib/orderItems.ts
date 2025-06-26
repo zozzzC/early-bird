@@ -11,6 +11,7 @@ import { OrderModalResponse } from "@/types/OrderModalResponse";
 import { revalidatePath } from "next/cache";
 import formatExtraCosts from "@/helpers/formatExtraCosts";
 import { getExtraCosts } from "./extraCosts";
+import { cache } from "react";
 
 export async function getOrderItems(): Promise<Array<OrderModalResponse>> {
   const notion = new Client({

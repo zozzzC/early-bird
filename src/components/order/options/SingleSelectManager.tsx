@@ -1,27 +1,25 @@
 import { ReactNode, useContext, useEffect, useState } from "react";
 import SingleSelectButton from "./SingleSelectButton";
-import { TotalContext } from "@/hooks/TotalContext";
-import { useTotalContext } from "@/hooks/useTotalContext";
 import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
 import { ICartAddOn } from "@/types/Cart";
-import { getExtraCosts } from "@/lib/extraCosts";
-import { ExtraCostsResponse } from "@/types/ExtraCostsResponse";
 
 export default function SingleSelectManager({
   id,
   orderItemCategory,
+  selectedItem,
 }: {
   id: string;
   orderItemCategory: "milk" | "size";
+  selectedItem?: ICartAddOn | null;
 }) {
-  const { total, setTotal } = useTotalContext();
   const orderInstance = useOrderInstanceContext();
   const orderItem = useOrderItemContext();
 
-  //TODO: move state up to the order item modal.
-  //TODO: do you still need this?
-  const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
+  const [selectedItemId, setSelectedItemId] = useState<string | null>(() => {
+    if (selectedItem) return selectedItem.id;
+    return null
+  });
 
   const [selectedItemPrice, setSelectedItemPrice] = useState<number>(
     (): number => {
@@ -42,12 +40,8 @@ export default function SingleSelectManager({
     };
 
     orderInstance.setOrderInstanceByField({ field, value });
-    //TODO: check if i still need any of this
     setSelectedItemId(id);
-    setTotal(total + price - selectedItemPrice);
     setSelectedItemPrice(price);
-    console.log(price);
-    console.log(total);
   }
 
   return (

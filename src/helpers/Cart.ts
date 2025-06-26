@@ -1,28 +1,32 @@
-import { ICart, ICartItem } from "@/types/Cart";
+import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
 import { createHash } from "crypto";
 
 export class Cart {
   //A cart is shared throughout the app using context.
   items: ICart;
+  itemsArray: ICartItemWithId[];
 
   constructor() {
     this.items = {};
+    this.itemsArray = [];
   }
 
   //To prevent abuse, we require that the ID of each options is also passed in, EG: milk requires both the name AND the id.
   addCartItem(cartItem: ICartItem) {
     const hash = this.getCartItemId(cartItem);
-    //TODO: quantity is not found
-    console.log("add cart item");
-    //check if hash exists already
-
     if (this.items[hash]) {
-      this.items[hash].quantity++;
+      const index = this.itemsArray.findIndex((x) => {
+        return x.id === hash;
+      });
+      this.items[hash].quantity += cartItem.quantity;
+      this.getOrderInstanceTotal(this.items[hash]);
+      const editedItem = this.items[hash];
+      this.itemsArray[index] = { id: hash, ...editedItem };
     } else {
       this.getOrderInstanceTotal(cartItem);
       this.items[hash] = cartItem;
+      this.itemsArray.push({ id: hash, ...this.items[hash] });
     }
-    console.log(this.items);
   }
 
   //the specified orderItem's ID is used to delete
@@ -37,11 +41,14 @@ export class Cart {
     console.log(JSON.stringify(this.items));
   }
 
+  editCartItem(cartItem: ICartItem) {}
+
   getCartItemId(cartItem: ICartItem) {
     const cartItemNoQuantity: ICartItem | any = structuredClone(
       cartItem
     ) as ICartItem;
     delete cartItemNoQuantity.quantity;
+    delete cartItemNoQuantity.price;
     const hash = createHash("sha256");
     hash.update(JSON.stringify(cartItemNoQuantity));
     return hash.digest("hex");

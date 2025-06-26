@@ -129,8 +129,8 @@ export default function CheckoutListItems({
           </div>
         </div>
       ) : (
-        <div className="outline">
-          <div className="flex p-5 items-center gap-1 text-rose-700">
+        <div className="">
+          <div className="flex px-10 pt-5 items-center gap-1 text-rose-700">
             <MessageCircleWarning size={20} />
             <p className="pr-5">this item is currently unavailable.</p>
           </div>

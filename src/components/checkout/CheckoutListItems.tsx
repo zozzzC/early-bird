@@ -11,6 +11,7 @@ import formatPrice from "@/helpers/formatPrice";
 import { useCartContext } from "@/hooks/useCartContext";
 import CheckoutAddOn from "./CheckoutAddOn";
 import DeleteButton from "./DeleteButton";
+import { MessageCircleWarning } from "lucide-react";
 
 export default function CheckoutListItems({
   cartItem,
@@ -20,7 +21,7 @@ export default function CheckoutListItems({
   orderModal: OrderModalResponse | undefined;
 }) {
   const [opened, { open, close }] = useDisclosure(false);
-  const { getOrderInstanceByHash } = useCartContext();
+  const { removeCartItem, getOrderInstanceByHash } = useCartContext();
 
   return (
     <OrderItemContext value={orderModal}>
@@ -49,23 +50,89 @@ export default function CheckoutListItems({
 
           <div
             key={cartItem.id}
-            className="w-full flex flex-row items-center p-10 gap-10"
+            className="w-full flex flex-row justify-between items-center p-10 gap-10"
           >
-            <div className="w-1/6 overflow-hidden rounded-base">
-              <div className="aspect-square relative object-cover">
-                <Image
-                  src={
-                    orderModal.media
-                      ? orderModal.media
-                      : "https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                  }
-                  alt={"image of " + orderModal.name}
-                  fill
-                  className={"object-cover"}
-                />
+            <div className="flex flex-row gap-3.5 w-full">
+              <div className="overflow-hidden rounded-base aspect-square md:w-60 w-0 md:max-w-60 ">
+                <div className="w-full h-full relative object-cover ">
+                  <Image
+                    src={
+                      orderModal.media
+                        ? orderModal.media
+                        : "https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                    }
+                    alt={"image of " + orderModal.name}
+                    fill
+                    className={"object-cover"}
+                  />
+                </div>
+              </div>
+              <div className="w-full">
+                <p className="text-2xl">{cartItem.name}</p>
+                <p className="text-xl">{`x${cartItem.quantity}`}</p>
+                <p>{formatPrice(cartItem.quantity * cartItem.basePrice)}</p>
+                {cartItem.size ? (
+                  <>
+                    <p className="text-sm">{cartItem.size ? "size" : null}</p>
+                    <CheckoutAddOn
+                      name={cartItem.size.name}
+                      price={cartItem.size.price}
+                    />
+                  </>
+                ) : null}
+                {cartItem.milk ? (
+                  <>
+                    <p className="text-sm">{cartItem.milk ? "milk" : null}</p>
+                    <CheckoutAddOn
+                      name={cartItem.milk.name}
+                      price={cartItem.milk.price}
+                    />
+                  </>
+                ) : null}
+                {cartItem.extra ? (
+                  <>
+                    <p className="text-sm">{cartItem.extra ? "extra" : null}</p>
+                    {cartItem.extra.map((i) => {
+                      return (
+                        <CheckoutAddOn
+                          key={i.id}
+                          name={i.name}
+                          price={i.price}
+                        />
+                      );
+                    })}
+                  </>
+                ) : null}
               </div>
             </div>
-            <div className="w-3/6">
+
+            <div>
+              <Button
+                onClick={() => {
+                  open();
+                }}
+              >
+                edit item
+              </Button>
+            </div>
+            <div>
+              <DeleteButton
+                orderInstance={getOrderInstanceByHash(cartItem.id) as ICartItem}
+              ></DeleteButton>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="outline">
+          <div className="flex p-5 items-center gap-1 text-rose-700">
+            <MessageCircleWarning size={20} />
+            <p className="pr-5">this item is currently unavailable.</p>
+          </div>
+          <div
+            key={cartItem.id}
+            className="w-full flex flex-row items-center justify-between p-10 gap-10"
+          >
+            <div className="">
               <p className="text-2xl">{cartItem.name}</p>
               <p className="text-xl">{`x${cartItem.quantity}`}</p>
               <p>{formatPrice(cartItem.quantity * cartItem.basePrice)}</p>
@@ -96,17 +163,7 @@ export default function CheckoutListItems({
                     );
                   })}
                 </>
-              ) : null}
-            </div>
-
-            <div>
-              <Button
-                onClick={() => {
-                  open();
-                }}
-              >
-                edit item
-              </Button>
+              ) : null}{" "}
             </div>
             <div>
               <DeleteButton
@@ -115,7 +172,7 @@ export default function CheckoutListItems({
             </div>
           </div>
         </div>
-      ) : null}
+      )}
     </OrderItemContext>
   );
 }

@@ -13,7 +13,7 @@ import formatExtraCosts from "@/helpers/formatExtraCosts";
 import { getExtraCosts } from "./extraCosts";
 import { cache } from "react";
 
-export async function fetchOrderItems(): Promise<Array<OrderModalResponse>> {
+export async function getOrderItems(): Promise<Array<OrderModalResponse>> {
   const notion = new Client({
     auth: process.env.NOTION_KEY,
   });
@@ -42,5 +42,3 @@ export async function fetchOrderItems(): Promise<Array<OrderModalResponse>> {
 
   throw new Error("Notion DB ID and/or Notion Key not found.");
 }
-
-export const getOrderItems = cache(fetchOrderItems);

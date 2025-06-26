@@ -8,7 +8,7 @@ export default function ViewCartButton() {
 
   return (
     <>
-      <div className="bg-white-main rounded-full p-3">
+      <div className="bg-white-main rounded-full p-5">
         <Link href={"/order/checkout"}>
           <ShoppingCartIcon size={35} />
         </Link>

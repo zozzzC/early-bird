@@ -116,7 +116,12 @@ export default function OrderItemModal({
         <div className="rounded-base overflow-hidden">
           <div className="w-full lg:h-full lg:max-h-full aspect-square relative">
             {orderItem.media ? (
-              <Image src={orderItem.media} fill alt="order image" />
+              <Image
+                src={orderItem.media}
+                fill
+                alt="order image"
+                className="object-cover"
+              />
             ) : (
               <Image
                 src={
@@ -124,6 +129,7 @@ export default function OrderItemModal({
                 }
                 fill
                 alt="order image"
+                className="object-cover"
               />
             )}
           </div>

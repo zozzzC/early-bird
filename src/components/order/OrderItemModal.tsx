@@ -156,7 +156,7 @@ export default function OrderItemModal({
                   size="md"
                   className="w-16"
                   variant="filled"
-                  defaultValue={1}
+                  defaultValue={orderHash ? orderInstance.quantity : 1}
                   min={1}
                   onChange={(e) => {
                     setOrderInstance({

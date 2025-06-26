@@ -52,7 +52,7 @@ export default function CheckoutListItems({
             key={cartItem.id}
             className="w-full flex flex-row items-center p-10 gap-10"
           >
-            <div className="w-1/6 rounded-3xl">
+            <div className="w-1/6 overflow-hidden rounded-3xl">
               <div className="aspect-square relative object-cover">
                 <Image
                   src={
@@ -92,7 +92,9 @@ export default function CheckoutListItems({
                 <>
                   <p className="text-sm">{cartItem.extra ? "extra" : null}</p>
                   {cartItem.extra.map((i) => {
-                    return <CheckoutAddOn key={i.id} name={i.name} price={i.price} />;
+                    return (
+                      <CheckoutAddOn key={i.id} name={i.name} price={i.price} />
+                    );
                   })}
                 </>
               ) : null}

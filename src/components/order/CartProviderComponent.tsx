@@ -173,13 +173,24 @@ export default function CartProviderComponent({
     return hash.digest("hex");
   }
 
-  function getCartTotal() {
+  function getCartTotal(): {
+    total: number;
+    totalWithoutAddOns: number;
+    totalAddOns: number;
+  } {
     //we can get the cart total by iterating through our items
+    var totalWithoutAddOns = 0.0;
+    var totalAddOns = 0.0;
     var total = 0.0;
     for (var key in items) {
       total += items[key].price;
+
+      totalWithoutAddOns += items[key].basePrice * items[key].quantity;
+
+      totalAddOns +=
+        items[key].price - items[key].basePrice * items[key].quantity;
     }
-    return total;
+    return { total, totalWithoutAddOns, totalAddOns };
   }
 
   function getOrderInstanceTotal(cartItem: ICartItem): number {
@@ -202,6 +213,7 @@ export default function CartProviderComponent({
     return undefined;
   }
 
+  //TODO: this function will be used to revalidate the options and
   function validateCart() {}
 
   return (
@@ -215,6 +227,7 @@ export default function CartProviderComponent({
         getCartItemId,
         getOrderInstanceTotal,
         getOrderInstanceByHash,
+        getCartTotal,
       }}
     >
       {children}

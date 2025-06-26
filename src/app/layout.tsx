@@ -30,7 +30,7 @@ export default function RootLayout({
         <div className="z-10 absolute top-0 w-full">
           <FullPageHeader />
         </div>
-        <main className="flex-1 w-full">
+        <main className="text-sm sm:text-md flex-1 w-full">
           <MantineProvider theme={mantineTheme}>
             <CartProviderComponent>{children}</CartProviderComponent>
           </MantineProvider>

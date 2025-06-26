@@ -24,7 +24,7 @@ export default function CheckoutList({
   }
 
   return (
-    <div>
+    <div className="p-5">
       {itemsArray.map((x) => {
         return (
           <CheckoutListItems

@@ -7,6 +7,6 @@ services:
       watch:
         - action: sync
           path: .
-          target: /code
+          target: /src/app
     environment:
       - "NEXT_WEBPACK_USEPOLLING=1"

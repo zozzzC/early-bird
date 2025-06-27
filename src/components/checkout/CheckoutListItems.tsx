@@ -51,7 +51,7 @@ export default function CheckoutListItems({
 
           <div
             key={cartItem.id}
-            className="w-full flex flex-col rounded-base max-w-5xl outline sm:outline-none sm:flex-row justify-between items-center p-10 gap-10"
+            className="w-full flex flex-col rounded-base max-w-5xl sm:flex-row justify-between items-center p-10 gap-10"
           >
             <div className="flex flex-row gap-3.5 w-full max-w-md items-center">
               <div className="overflow-hidden rounded-base aspect-square sm:w-60 w-0 md:max-w-60 ">
@@ -68,7 +68,7 @@ export default function CheckoutListItems({
                   />
                 </div>
               </div>
-              <div className="w-full">
+              <div className="w-full outline">
                 <p className="text-2xl font-semibold">{cartItem.name}</p>
                 <p className="text-xl ">{`x${cartItem.quantity}`}</p>
                 <p>{formatPrice(cartItem.quantity * cartItem.basePrice)}</p>

@@ -1,4 +1,5 @@
 "use client";
+import "@mantine/core/styles.css";
 import { useCartContext } from "@/hooks/useCartContext";
 import { ICart, ICartItemWithId } from "@/types/Cart";
 import { OrderModalResponse } from "@/types/OrderModalResponse";
@@ -9,6 +10,7 @@ import { useEffect, useState } from "react";
 import PayButton from "./PayButton";
 import getModal from "@/helpers/getModal";
 import checkIfInvalid from "@/helpers/checkIfInvalid";
+import OrderDetailsList from "./OrderDetailsList";
 
 export default function CheckoutList({
   orderItems,
@@ -19,7 +21,6 @@ export default function CheckoutList({
 
   const invalid = checkIfInvalid(itemsArray, orderItems);
 
-  //TODO: even though the unavailable item was deleted, for some reason the state is not reset
   return (
     <div className="p-5">
       {itemsArray.map((x) => {
@@ -31,7 +32,12 @@ export default function CheckoutList({
           />
         );
       })}
-      <PayButton invalidOrder={invalid} />
+      <div className="py-5">
+        <PayButton invalidOrder={invalid} />
+      </div>
+      <div>
+        <OrderDetailsList />
+      </div>
     </div>
   );
 }

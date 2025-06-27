@@ -1,4 +1,5 @@
 import "@mantine/core/styles.css";
+import "@mantine/dates/styles.css";
 import HomepageCarousel from "@/components/home/HomepageCarousel";
 import { Carousel } from "@mantine/carousel";
 import "@mantine/carousel/styles.css";

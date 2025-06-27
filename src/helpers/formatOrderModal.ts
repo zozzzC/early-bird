@@ -123,7 +123,5 @@ export default async function formatOrderModal(
     res.push(item);
   });
 
-  console.log(res);
-
   return res;
 }

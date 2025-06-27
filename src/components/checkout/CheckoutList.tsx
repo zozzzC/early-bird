@@ -1,10 +1,14 @@
 "use client";
 import { useCartContext } from "@/hooks/useCartContext";
-import { ICartItemWithId } from "@/types/Cart";
+import { ICart, ICartItemWithId } from "@/types/Cart";
 import { OrderModalResponse } from "@/types/OrderModalResponse";
 import Image from "next/image";
 import CheckoutListItems from "./CheckoutListItems";
 import ViewCartJsx from "../test/ViewCartJsx";
+import { useEffect, useState } from "react";
+import PayButton from "./PayButton";
+import getModal from "@/helpers/gerModal";
+import checkIfInvalid from "@/helpers/checkIfInvalid";
 
 export default function CheckoutList({
   orderItems,
@@ -12,17 +16,10 @@ export default function CheckoutList({
   orderItems: OrderModalResponse[];
 }) {
   const { itemsArray } = useCartContext();
-  console.log(itemsArray);
 
-  function getModal(
-    orderItem: ICartItemWithId,
-    orderItems: OrderModalResponse[]
-  ): OrderModalResponse | undefined {
-    return orderItems.find((x) => {
-      return x.key === orderItem.key;
-    });
-  }
+  const invalid = checkIfInvalid(itemsArray, orderItems);
 
+  //TODO: even though the unavailable item was deleted, for some reason the state is not reset
   return (
     <div className="p-5">
       {itemsArray.map((x) => {
@@ -34,6 +31,7 @@ export default function CheckoutList({
           />
         );
       })}
+      <PayButton invalidOrder={invalid}/>
     </div>
   );
 }

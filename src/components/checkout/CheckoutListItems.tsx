@@ -12,6 +12,7 @@ import { useCartContext } from "@/hooks/useCartContext";
 import CheckoutAddOn from "./CheckoutAddOn";
 import DeleteButton from "./DeleteButton";
 import { MessageCircleWarning } from "lucide-react";
+import { Dispatch, SetStateAction } from "react";
 
 export default function CheckoutListItems({
   cartItem,

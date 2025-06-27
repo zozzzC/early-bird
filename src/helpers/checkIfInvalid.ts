@@ -1,6 +1,6 @@
 import { ICart, ICartItemWithId } from "@/types/Cart";
 import { OrderModalResponse } from "@/types/OrderModalResponse";
-import getModal from "./gerModal";
+import getModal from "./getModal";
 
 export default function checkIfInvalid(
   itemsArray: ICartItemWithId[],

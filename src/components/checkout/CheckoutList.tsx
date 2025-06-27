@@ -7,7 +7,7 @@ import CheckoutListItems from "./CheckoutListItems";
 import ViewCartJsx from "../test/ViewCartJsx";
 import { useEffect, useState } from "react";
 import PayButton from "./PayButton";
-import getModal from "@/helpers/gerModal";
+import getModal from "@/helpers/getModal";
 import checkIfInvalid from "@/helpers/checkIfInvalid";
 
 export default function CheckoutList({
@@ -31,7 +31,7 @@ export default function CheckoutList({
           />
         );
       })}
-      <PayButton invalidOrder={invalid}/>
+      <PayButton invalidOrder={invalid} />
     </div>
   );
 }

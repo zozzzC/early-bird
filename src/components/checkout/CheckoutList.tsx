@@ -11,6 +11,7 @@ import PayButton from "./PayButton";
 import getModal from "@/helpers/getModal";
 import checkIfInvalid from "@/helpers/checkIfInvalid";
 import OrderDetailsList from "./OrderDetailsList";
+import TotalBar from "./TotalBar";
 
 export default function CheckoutList({
   orderItems,
@@ -32,11 +33,9 @@ export default function CheckoutList({
           />
         );
       })}
+      <TotalBar />
       <div className="py-5">
         <PayButton invalidOrder={invalid} />
-      </div>
-      <div>
-        <OrderDetailsList />
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+"use client"
 import "@mantine/dates/styles.css";
 import { Input, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
@@ -17,7 +18,7 @@ export default function OrderDetailsList() {
   const minDate = new Date();
   minDate.setHours(minDate.getHours() + 2);
   return (
-    <div>
+    <div className="p-5">
       <TextInput
         withAsterisk
         label="name"

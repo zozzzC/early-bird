@@ -51,10 +51,10 @@ export default function CheckoutListItems({
 
           <div
             key={cartItem.id}
-            className="w-full flex flex-col outline-gray-500 outline rounded-base sm:outline-none sm:flex-row justify-between items-center p-10 gap-10"
+            className="w-full flex flex-col rounded-base max-w-5xl outline sm:outline-none sm:flex-row justify-between items-center p-10 gap-10"
           >
-            <div className="flex flex-row gap-3.5 w-full">
-              <div className="overflow-hidden rounded-base aspect-square md:w-60 w-0 md:max-w-60 ">
+            <div className="flex flex-row gap-3.5 w-full max-w-md items-center">
+              <div className="overflow-hidden rounded-base aspect-square sm:w-60 w-0 md:max-w-60 ">
                 <div className="w-full h-full relative object-cover">
                   <Image
                     src={

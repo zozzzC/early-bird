@@ -9,4 +9,8 @@ services:
           path: .
           target: /src/app
     environment:
-      - "NEXT_WEBPACK_USEPOLLING=1"
+      - NODE_ENV=${NODE_ENV}
+      - NOTION_KEY=${NOTION_KEY}
+      - NOTION_ORDER_ITEMS_DB_ID=${NOTION_ORDER_ITEMS_DB_ID}
+      - NOTION_EXTRA_COSTS_DB_ID=${NOTION_EXTRA_COSTS_DB_ID}
+

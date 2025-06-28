@@ -1,15 +1,13 @@
 "use server";
+import formatExtraCosts from "@/helpers/formatExtraCosts";
+import { ExtraCostsResponse } from "@/types/ExtraCostsResponse";
 import { Client } from "@notionhq/client";
 import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
+import formatNotionRes from "../helpers/formatNotionRes";
 import {
   rawNotionExtraCostProps,
   rawNotionOrderPage,
-  rawNotionOrderProps,
 } from "../types/rawNotionDbRes";
-import formatNotionRes from "../helpers/formatNotionRes";
-import formatOrderModal from "../helpers/formatOrderModal";
-import formatExtraCosts from "@/helpers/formatExtraCosts";
-import { ExtraCostsResponse } from "@/types/ExtraCostsResponse";
 
 export async function getExtraCosts(): Promise<ExtraCostsResponse> {
   const notion = new Client({

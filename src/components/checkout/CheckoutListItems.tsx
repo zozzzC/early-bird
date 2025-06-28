@@ -3,7 +3,6 @@ import { ICartItemWithId } from "@/types/Cart";
 import { OrderModalResponse } from "@/types/OrderModalResponse";
 import { Button, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import Image from "next/image";
 import OrderItemModal from "../order/OrderItemModal";
 import { OrderItemContext } from "@/hooks/OrderItemContext";
 import { cloneDeep } from "lodash";

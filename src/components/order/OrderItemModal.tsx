@@ -1,19 +1,16 @@
-import Image from "next/image";
-import SingleSelectButton from "./options/SingleSelectButton";
-import SingleSelectManager from "./options/SingleSelectManager";
-import MultiSelectManager from "./options/MultiSelectManager";
-import { Button, NumberInput } from "@mantine/core";
-import { useEffect, useState } from "react";
-import { TotalContext } from "@/hooks/TotalContext";
-import { useOrderItemContext } from "@/hooks/useOrderItemContext";
+import useDefaultSelection from "@/helpers/useDefaultSelection";
 import { OrderInstanceContext } from "@/hooks/OrderInstanceContext";
-import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
-import CartButton from "./CartButton";
-import { ICartAddOn, ICartItem, OrderInstanceType } from "@/types/Cart";
 import { useCartContext } from "@/hooks/useCartContext";
-import getDefaultSelection from "@/helpers/getDefaultSelection";
-import EditButton from "../checkout/EditButton";
+import { useOrderItemContext } from "@/hooks/useOrderItemContext";
+import { ICartAddOn, ICartItem, OrderInstanceType } from "@/types/Cart";
+import { NumberInput } from "@mantine/core";
 import cloneDeep from "lodash/cloneDeep";
+import Image from "next/image";
+import { useState } from "react";
+import EditButton from "../checkout/EditButton";
+import CartButton from "./CartButton";
+import MultiSelectManager from "./options/MultiSelectManager";
+import SingleSelectManager from "./options/SingleSelectManager";
 
 //orderHash is provided if we are editing an existing item
 export default function OrderItemModal({
@@ -21,17 +18,14 @@ export default function OrderItemModal({
   orderHash,
   orderInstanceClone,
   close,
-  isOpen,
 }: {
   id: string;
   orderHash?: string;
   orderInstanceClone?: ICartItem;
   close: () => void;
-  isOpen: boolean;
 }) {
   const orderItem = useOrderItemContext();
-  const { items, getOrderInstanceByHash, getOrderInstanceTotal } =
-    useCartContext();
+  const { getOrderInstanceByHash, getOrderInstanceTotal } = useCartContext();
   const [total, setTotal] = useState<number>(
     orderHash
       ? getOrderInstanceByHash(orderHash)
@@ -134,17 +128,17 @@ export default function OrderItemModal({
               <SingleSelectManager
                 id={id}
                 orderItemCategory="size"
-                selectedItem={getDefaultSelection(orderHash)?.size}
+                selectedItem={useDefaultSelection(orderHash)?.size}
               />
               <SingleSelectManager
                 id={id}
                 orderItemCategory="milk"
-                selectedItem={getDefaultSelection(orderHash)?.milk}
+                selectedItem={useDefaultSelection(orderHash)?.milk}
               />
               <MultiSelectManager
                 id={id}
                 orderItemCategory="extra"
-                selectedItems={getDefaultSelection(orderHash)?.extra}
+                selectedItems={useDefaultSelection(orderHash)?.extra}
               />
             </div>
             <div className="w-full pt-10">

@@ -2,9 +2,7 @@
 import { useCartContext } from "@/hooks/useCartContext";
 import { ICartItemWithId } from "@/types/Cart";
 import { OrderModalResponse } from "@/types/OrderModalResponse";
-import Image from "next/image";
 import CheckoutListItems from "./CheckoutListItems";
-import ViewCartJsx from "../test/ViewCartJsx";
 
 export default function CheckoutList({
   orderItems,

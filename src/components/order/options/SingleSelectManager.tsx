@@ -1,8 +1,8 @@
-import { ReactNode, useContext, useEffect, useState } from "react";
-import SingleSelectButton from "./SingleSelectButton";
-import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
+import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 import { ICartAddOn } from "@/types/Cart";
+import { useState } from "react";
+import SingleSelectButton from "./SingleSelectButton";
 
 export default function SingleSelectManager({
   id,
@@ -18,17 +18,17 @@ export default function SingleSelectManager({
 
   const [selectedItemId, setSelectedItemId] = useState<string | null>(() => {
     if (selectedItem) return selectedItem.id;
-    return null
+    return null;
   });
 
-  const [selectedItemPrice, setSelectedItemPrice] = useState<number>(
-    (): number => {
-      if (orderItem.size) {
-        return 0;
-      }
-      return 0;
-    }
-  );
+  // const [selectedItemPrice, setSelectedItemPrice] = useState<number>(
+  //   (): number => {
+  //     if (orderItem.size) {
+  //       return 0;
+  //     }
+  //     return 0;
+  //   }
+  // );
 
   function select(id: string, name: string, price: number) {
     const field = orderItemCategory;
@@ -41,7 +41,7 @@ export default function SingleSelectManager({
 
     orderInstance.setOrderInstanceByField({ field, value });
     setSelectedItemId(id);
-    setSelectedItemPrice(price);
+    // setSelectedItemPrice(price);
   }
 
   return (

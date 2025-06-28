@@ -1,10 +1,9 @@
 "use client";
 import { CartContext } from "@/hooks/CartContext";
-import { Cart } from "@/helpers/Cart";
-import { useState } from "react";
 import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
 import { createHash } from "crypto";
 import { cloneDeep } from "lodash";
+import { useState } from "react";
 
 //NOTE: This had to be made into a seperate use-client component because we cannot do this directly in the server component (see below error)
 //Only plain objects, and a few built-ins, can be passed to Client Components from Server Components. Classes or null prototypes are not supported.
@@ -161,7 +160,8 @@ export default function CartProviderComponent({
   }
 
   function getCartItemId(cartItem: ICartItem) {
-    const cartItemNoQuantity: ICartItem | any = cloneDeep((cartItem)
+    const cartItemNoQuantity: ICartItem | any = cloneDeep(
+      cartItem
     ) as ICartItem;
     delete cartItemNoQuantity.quantity;
     delete cartItemNoQuantity.price;
@@ -172,15 +172,15 @@ export default function CartProviderComponent({
 
   function getCartTotal() {
     //we can get the cart total by iterating through our items
-    var total = 0.0;
-    for (var key in items) {
+    let total = 0.0;
+    for (const key in items) {
       total += items[key].price;
     }
     return total;
   }
 
   function getOrderInstanceTotal(cartItem: ICartItem): number {
-    var orderInstanceTotal = cartItem.basePrice;
+    let orderInstanceTotal = cartItem.basePrice;
     orderInstanceTotal += cartItem.milk ? cartItem.milk.price : 0;
     orderInstanceTotal += cartItem.size ? cartItem.size.price : 0;
     if (cartItem.extra?.length != 0) {
@@ -199,8 +199,6 @@ export default function CartProviderComponent({
     return undefined;
   }
 
-  function validateCart() {}
-
   return (
     <CartContext.Provider
       value={{
@@ -212,6 +210,7 @@ export default function CartProviderComponent({
         getCartItemId,
         getOrderInstanceTotal,
         getOrderInstanceByHash,
+        getCartTotal,
       }}
     >
       {children}

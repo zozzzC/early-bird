@@ -5,9 +5,7 @@ import Image from "next/image";
 import { Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import OrderItemModal from "./OrderItemModal";
-import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 import { OrderItemContext } from "@/hooks/OrderItemContext";
-import { Suspense } from "react";
 
 export default function OrderItem({
   id,

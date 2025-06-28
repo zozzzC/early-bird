@@ -1,6 +1,6 @@
 "use client";
 import { OrderInstanceContext } from "@/hooks/OrderInstanceContext";
-import { ICart, ICartItem, OrderInstanceType } from "@/types/Cart";
+import { ICartItem, OrderInstanceType } from "@/types/Cart";
 import { useState } from "react";
 
 export default function OrderInstanceWrapper({

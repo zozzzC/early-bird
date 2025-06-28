@@ -1,15 +1,15 @@
-import { rawNotionOrderProps } from "@/types/rawNotionDbRes";
+import { ExtraCostsResponse } from "@/types/ExtraCostsResponse";
 import {
   itemStringWithId,
   OrderModalResponse,
 } from "@/types/OrderModalResponse";
-import { ExtraCostsResponse } from "@/types/ExtraCostsResponse";
+import { rawNotionOrderProps } from "@/types/rawNotionDbRes";
 
 export default async function formatOrderModal(
   order: Array<{ key: string; value: rawNotionOrderProps }>,
   extraCosts: ExtraCostsResponse
 ): Promise<Array<OrderModalResponse>> {
-  let res: Array<OrderModalResponse> = [];
+  const res: Array<OrderModalResponse> = [];
 
   order.forEach((i) => {
     let media: string | null = null;
@@ -89,8 +89,8 @@ export default async function formatOrderModal(
       });
     }
 
-    let outOfStock = i.value.out_of_stock.checkbox;
-    let price = i.value.price.number;
+    const outOfStock = i.value.out_of_stock.checkbox;
+    const price = i.value.price.number;
 
     if (price == null) return;
 

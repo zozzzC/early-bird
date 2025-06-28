@@ -1,26 +1,12 @@
-import {
-  ICart,
-  ICartItem,
-  ICartItemWithId,
-  OrderInstanceType,
-} from "@/types/Cart";
-import {
-  cleanup,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-  act,
-} from "@testing-library/react";
+import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import CartButton from "@/components/order/CartButton";
 import CartProviderComponent from "@/components/order/CartProviderComponent";
-import { OrderInstanceContext } from "@/hooks/OrderInstanceContext";
 import ViewCartJsx from "@/components/test/ViewCartJsx";
 import { MantineProvider } from "@mantine/core";
 import { mantineTheme } from "@/components/MantineTheme";
 import OrderInstanceWrapper from "@/components/test/OrderInstanceWrapper";
-import { BasicEvaluatedExpression } from "next/dist/compiled/webpack/webpack";
 import EditButton from "@/components/test/EditButton";
 
 describe("Cart functionalities", () => {

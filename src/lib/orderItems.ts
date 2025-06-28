@@ -1,17 +1,14 @@
 "use server";
+import { OrderModalResponse } from "@/types/OrderModalResponse";
 import { Client } from "@notionhq/client";
 import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
+import formatNotionRes from "../helpers/formatNotionRes";
+import formatOrderModal from "../helpers/formatOrderModal";
 import {
   rawNotionOrderPage,
   rawNotionOrderProps,
 } from "../types/rawNotionDbRes";
-import formatNotionRes from "../helpers/formatNotionRes";
-import formatOrderModal from "../helpers/formatOrderModal";
-import { OrderModalResponse } from "@/types/OrderModalResponse";
-import { revalidatePath } from "next/cache";
-import formatExtraCosts from "@/helpers/formatExtraCosts";
 import { getExtraCosts } from "./extraCosts";
-import { cache } from "react";
 
 export async function getOrderItems(): Promise<Array<OrderModalResponse>> {
   const notion = new Client({

@@ -1,13 +1,9 @@
-import { useContext, useEffect, useState } from "react";
-import MultiSelectButton from "./MultiSelectButton";
-import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
+import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 import { ICartAddOn } from "@/types/Cart";
 import { cloneDeep } from "lodash";
-
-type itemsId = {
-  id: string;
-};
+import { useState } from "react";
+import MultiSelectButton from "./MultiSelectButton";
 
 export default function MultiSelectManager({
   id,
@@ -32,7 +28,7 @@ export default function MultiSelectManager({
   const orderInstance = useOrderInstanceContext();
 
   function select(id: string, name: string, price: number, on: boolean) {
-    var value = selectedItemsId;
+    const value = selectedItemsId;
 
     if (on) {
       value.splice(

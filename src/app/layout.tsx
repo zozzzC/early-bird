@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { mantineTheme } from "@/components/MantineTheme";
-import { DM_Sans, Bokor } from "next/font/google";
+import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import { MantineProvider } from "@mantine/core";
 import FullPageHeader from "@/components/layout/FullPageHeader";

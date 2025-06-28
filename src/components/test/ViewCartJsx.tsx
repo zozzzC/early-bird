@@ -1,7 +1,5 @@
 "use client";
 import { useCartContext } from "@/hooks/useCartContext";
-import { ICart } from "@/types/Cart";
-import { useEffect, useState } from "react";
 
 export default function ViewCartJsx({
   showItems,

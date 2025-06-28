@@ -1,5 +1,4 @@
 "use client";
-import { Cart } from "@/helpers/Cart";
 import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
 import { createContext } from "react";
 
@@ -15,6 +14,7 @@ export const CartContext = createContext<
       getCartItemId: (cartItem: ICartItem) => void;
       getOrderInstanceTotal: (cartItem: ICartItem) => number;
       getOrderInstanceByHash: (hash: string) => ICartItem | undefined;
+      getCartTotal: () => number;
     }
   | undefined
 >(undefined);

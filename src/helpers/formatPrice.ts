@@ -3,5 +3,6 @@ export default function formatPrice(price: number): string {
     style: "currency",
     currency: "NZD",
   });
-  return nzdFormat.format(price);
+
+  return nzdFormat.format(price).replace("NZ", "");
 }

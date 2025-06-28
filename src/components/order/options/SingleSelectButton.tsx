@@ -1,6 +1,7 @@
 import { Button } from "@mantine/core";
 import { useContext, useState } from "react";
 import { CheckCircle2, Circle } from "lucide-react";
+import formatPrice from "@/helpers/formatPrice";
 
 export default function SingleSelectButton({
   id,
@@ -15,8 +16,6 @@ export default function SingleSelectButton({
   select(id: string, name: string, price: number): void;
   selectedItemId: string | null;
 }) {
-  const [on, setOn] = useState<boolean>(false);
-
   return (
     <Button
       onClick={() => {
@@ -27,7 +26,7 @@ export default function SingleSelectButton({
         {selectedItemId === id ? <CheckCircle2 /> : <Circle />}
         <div className="flex flex-col">
           <p>{name}</p>
-          {price ? <p>${price}</p> : null}
+          {price ? <p>{formatPrice(price)}</p> : null}
         </div>
       </div>
     </Button>

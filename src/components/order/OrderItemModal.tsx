@@ -1,20 +1,17 @@
-import Image from "next/image";
-import SingleSelectButton from "./options/SingleSelectButton";
-import SingleSelectManager from "./options/SingleSelectManager";
-import MultiSelectManager from "./options/MultiSelectManager";
-import { Button, NumberInput } from "@mantine/core";
-import { useEffect, useState } from "react";
-import { TotalContext } from "@/hooks/TotalContext";
-import { useOrderItemContext } from "@/hooks/useOrderItemContext";
-import { OrderInstanceContext } from "@/hooks/OrderInstanceContext";
-import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
-import CartButton from "./CartButton";
-import { ICartAddOn, ICartItem, OrderInstanceType } from "@/types/Cart";
-import { useCartContext } from "@/hooks/useCartContext";
-import getDefaultSelection from "@/helpers/getDefaultSelection";
-import EditButton from "../checkout/EditButton";
-import cloneDeep from "lodash/cloneDeep";
 import formatPrice from "@/helpers/formatPrice";
+import getDefaultSelection from "@/helpers/getDefaultSelection";
+import { OrderInstanceContext } from "@/hooks/OrderInstanceContext";
+import { useCartContext } from "@/hooks/useCartContext";
+import { useOrderItemContext } from "@/hooks/useOrderItemContext";
+import { ICartAddOn, ICartItem, OrderInstanceType } from "@/types/Cart";
+import { NumberInput } from "@mantine/core";
+import cloneDeep from "lodash/cloneDeep";
+import Image from "next/image";
+import { useState } from "react";
+import EditButton from "../checkout/EditButton";
+import CartButton from "./CartButton";
+import MultiSelectManager from "./options/MultiSelectManager";
+import SingleSelectManager from "./options/SingleSelectManager";
 
 //orderHash is provided if we are editing an existing item
 export default function OrderItemModal({
@@ -41,15 +38,8 @@ export default function OrderItemModal({
       : orderItem.price
   );
 
-  //TODO: items appears to be directly being edited as the object is being passed by reference.
-  //this causes problems as orderInstance and getOrderInstanceByHash(orderHash) where the orderHash is the
-  //old order hash is not working as we are directly editing the cartItem object that is in items
-  //however, i am not sure how to fix this
   const [orderInstance, setOrderInstance] = useState<ICartItem>(() => {
     if (orderInstanceClone) {
-      // console.log(`order hash received ${orderHash}`);
-      // console.log("order item related to order hash:");
-      // console.log(JSON.stringify(getOrderInstanceByHash(orderHash)));
       const extraClone: ICartAddOn[] | null = cloneDeep(
         orderInstanceClone.extra
       );
@@ -59,10 +49,6 @@ export default function OrderItemModal({
       }
 
       return orderInstanceClone;
-      // if (getOrderInstanceByHash(orderHash)) {
-      //   const val = cloneDeep(getOrderInstanceByHash(orderHash)) as ICartItem;
-      //   return val;
-      // }
     }
 
     return {
@@ -77,13 +63,6 @@ export default function OrderItemModal({
       basePrice: orderItem.basePrice,
     };
   });
-
-  // console.log("Modal opened.");
-  // console.log("Order Instance:");
-  // console.log(JSON.stringify(orderInstance));
-  // console.log("Original Instance:");
-  // console.log(orderHash);
-  // console.log(JSON.stringify(getOrderInstanceByHash(orderHash as string)));
 
   //TODO CHORE: move this into helpers
   function setOrderInstanceByField<T extends "milk" | "size" | "extra">({
@@ -106,14 +85,14 @@ export default function OrderItemModal({
   }
 
   return (
-    <div className="w-full grid lg:grid-cols-2 grid-cols-1 gap-5">
+    <div className="w-full lg:grid lg:grid-cols-2 flex flex-col gap-5">
       <OrderInstanceContext
         value={{
           orderInstance,
           setOrderInstanceByField,
         }}
       >
-        <div className="rounded-base overflow-hidden">
+        <div className="lg:max-h-full aspect-square rounded-base overflow-hidden">
           <div className="w-full lg:h-full lg:max-h-full aspect-square relative">
             {orderItem.media ? (
               <Image

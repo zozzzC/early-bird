@@ -40,7 +40,6 @@ export default function CheckoutListItems({
                 getOrderInstanceByHash(cartItem.id)
               )}
               close={close}
-              isOpen={opened}
             />
           </Modal>
 

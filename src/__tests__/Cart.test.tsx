@@ -1,113 +1,18 @@
-import {
-  ICart,
-  ICartItem,
-  ICartItemWithId,
-  OrderInstanceType,
-} from "@/types/Cart";
-import {
-  cleanup,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-  act,
-} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { mantineTheme } from "@/components/MantineTheme";
 import CartButton from "@/components/order/CartButton";
 import CartProviderComponent from "@/components/order/CartProviderComponent";
-import { OrderInstanceContext } from "@/hooks/OrderInstanceContext";
-import ViewCartJsx from "@/components/test/ViewCartJsx";
-import { MantineProvider } from "@mantine/core";
-import { mantineTheme } from "@/components/MantineTheme";
-import OrderInstanceWrapper from "@/components/test/OrderInstanceWrapper";
-import { BasicEvaluatedExpression } from "next/dist/compiled/webpack/webpack";
 import EditButton from "@/components/test/EditButton";
+import OrderInstanceWrapper from "@/components/test/OrderInstanceWrapper";
+import ViewCartJsx from "@/components/test/ViewCartJsx";
+import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
+import { MantineProvider } from "@mantine/core";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import defaultItems from "./sample/defaultItems.json";
+import defaultItemsArray from "./sample/defaultItemsArray.json";
+import instance from "./sample/instance.json";
 
 describe("Cart functionalities", () => {
-  const instance = {
-    key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
-    name: "Americano",
-    category: "hot",
-    size: null,
-    milk: {
-      id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
-      name: "Soy milk",
-      price: 1,
-    },
-    extra: [
-      {
-        id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab9bff625c-9f08-4e1e-b40c-e4241d132071",
-        name: "Vanilla syrup",
-        price: 1,
-      },
-      {
-        id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6abe2a9faad-9f79-4397-bf0b-73f0dd9b1901",
-        name: "Hazelnut syrup",
-        price: 1,
-      },
-    ],
-    basePrice: 4.5,
-    quantity: 1,
-  } as ICartItem;
-
-  const defaultItems = {
-    "4b16fc6f1806768de8c09bca26b0a856e82bb79a3888f636e6084ca65203bc31": {
-      key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
-      name: "Americano",
-      category: "hot",
-      size: null,
-      milk: null,
-      extra: null,
-      price: 4.5,
-      basePrice: 4.5,
-      quantity: 1,
-    },
-    "01bc3b4047d9b6eda4988ed928507ec8d5fb86d6e4748d2972f30109cdd03cce":
-      instance,
-  } as ICart;
-
-  const defaultItemsArray = [
-    {
-      id: "01bc3b4047d9b6eda4988ed928507ec8d5fb86d6e4748d2972f30109cdd03cce",
-      key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
-      name: "Americano",
-      category: "hot",
-      size: null,
-      milk: {
-        id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
-        name: "Soy milk",
-        price: 1,
-      },
-      extra: [
-        {
-          id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab9bff625c-9f08-4e1e-b40c-e4241d132071",
-          name: "Vanilla syrup",
-          price: 1,
-        },
-        {
-          id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6abe2a9faad-9f79-4397-bf0b-73f0dd9b1901",
-          name: "Hazelnut syrup",
-          price: 1,
-        },
-      ],
-      basePrice: 4.5,
-      quantity: 1,
-      price: 7.5,
-    },
-    {
-      id: "4b16fc6f1806768de8c09bca26b0a856e82bb79a3888f636e6084ca65203bc31",
-      key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
-      name: "Americano",
-      category: "hot",
-      size: null,
-      milk: null,
-      extra: null,
-      price: 4.5,
-      basePrice: 4.5,
-      quantity: 1,
-    },
-  ] as ICartItemWithId[];
-
   it("adds a single item into an empty cart", async () => {
     render(
       <MantineProvider theme={mantineTheme}>
@@ -210,7 +115,7 @@ describe("Cart functionalities", () => {
   it("accurately updates the value of something in the cart to the correct price", async () => {
     render(
       <MantineProvider theme={mantineTheme}>
-        <OrderInstanceWrapper instance={instance}>
+        <OrderInstanceWrapper instance={instance as ICartItem}>
           <CartProviderComponent>
             <ViewCartJsx showItems={true} />
             <CartButton />
@@ -261,7 +166,7 @@ describe("Cart functionalities", () => {
           <CartProviderComponent>
             <ViewCartJsx showItems={true} />
             <CartButton />
-            <EditButton cartItem={instance} />
+            <EditButton cartItem={instance as ICartItem} />
           </CartProviderComponent>
         </OrderInstanceWrapper>
       </MantineProvider>
@@ -327,11 +232,11 @@ describe("Cart functionalities", () => {
       <MantineProvider theme={mantineTheme}>
         <OrderInstanceWrapper>
           <CartProviderComponent
-            defaultItems={defaultItems}
-            defaultItemsArray={defaultItemsArray}
+            defaultItems={defaultItems as ICart}
+            defaultItemsArray={defaultItemsArray as ICartItemWithId[]}
           >
             <ViewCartJsx showItems={true} showItemsArray={true} />
-            <EditButton cartItem={instance} />
+            <EditButton cartItem={instance as ICartItem} />
           </CartProviderComponent>
         </OrderInstanceWrapper>
       </MantineProvider>

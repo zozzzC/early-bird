@@ -1,18 +1,17 @@
 "use client";
-import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
+import formatPrice from "@/helpers/formatPrice";
+import { OrderItemContext } from "@/hooks/OrderItemContext";
+import { useCartContext } from "@/hooks/useCartContext";
+import { ICartItem, ICartItemWithId } from "@/types/Cart";
 import { OrderModalResponse } from "@/types/OrderModalResponse";
 import { Button, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { cloneDeep } from "lodash";
+import { MessageCircleWarning } from "lucide-react";
 import Image from "next/image";
 import OrderItemModal from "../order/OrderItemModal";
-import { OrderItemContext } from "@/hooks/OrderItemContext";
-import { cloneDeep } from "lodash";
-import formatPrice from "@/helpers/formatPrice";
-import { useCartContext } from "@/hooks/useCartContext";
 import CheckoutAddOn from "./CheckoutAddOn";
 import DeleteButton from "./DeleteButton";
-import { MessageCircleWarning } from "lucide-react";
-import { Dispatch, SetStateAction } from "react";
 
 export default function CheckoutListItems({
   cartItem,
@@ -22,10 +21,10 @@ export default function CheckoutListItems({
   orderModal: OrderModalResponse | undefined;
 }) {
   const [opened, { open, close }] = useDisclosure(false);
-  const { removeCartItem, getOrderInstanceByHash } = useCartContext();
+  const { getOrderInstanceByHash } = useCartContext();
 
   return (
-    <OrderItemContext value={orderModal}>
+    <OrderItemContext.Provider value={orderModal}>
       {orderModal ? (
         <div>
           <Modal
@@ -57,6 +56,7 @@ export default function CheckoutListItems({
               <div className="overflow-hidden rounded-base aspect-square sm:w-60 w-0 md:max-w-60 ">
                 <div className="w-full h-full relative object-cover">
                   <Image
+                    data-testid="checkout-list-items-modal-image"
                     src={
                       orderModal.media
                         ? orderModal.media
@@ -112,7 +112,6 @@ export default function CheckoutListItems({
                 ) : null}
               </div>
             </div>
-
             <div>
               <Button
                 onClick={() => {
@@ -180,6 +179,6 @@ export default function CheckoutListItems({
           </div>
         </div>
       )}
-    </OrderItemContext>
+    </OrderItemContext.Provider>
   );
 }

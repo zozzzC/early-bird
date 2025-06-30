@@ -1,3 +1,5 @@
+import CheckoutList from "@/components/checkout/CheckoutList";
+import TotalBar from "@/components/checkout/TotalBar";
 import { mantineTheme } from "@/components/MantineTheme";
 import CartButton from "@/components/order/CartButton";
 import CartProviderComponent from "@/components/order/CartProviderComponent";
@@ -6,23 +8,23 @@ import OrderInstanceWrapper from "@/components/test/OrderInstanceWrapper";
 import ViewCartJsx from "@/components/test/ViewCartJsx";
 import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
 import { MantineProvider } from "@mantine/core";
-import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import defaultInstance from "./sample/defaultInstance.json";
 import defaultItems from "./sample/defaultItems.json";
 import defaultItemsArray from "./sample/defaultItemsArray.json";
 import instance from "./sample/instance.json";
+import sampleOrderItems from "./sample/sampleOrderItems.json";
+import { render, screen } from "./test-utils";
 
 describe("Cart functionalities", () => {
   it("adds a single item into an empty cart", async () => {
     render(
-      <MantineProvider theme={mantineTheme}>
-        <OrderInstanceWrapper>
-          <CartProviderComponent>
-            <ViewCartJsx showItems={true} showItemsArray={true} />
-            <CartButton />
-          </CartProviderComponent>
-        </OrderInstanceWrapper>
-      </MantineProvider>
+      <OrderInstanceWrapper>
+        <CartProviderComponent>
+          <ViewCartJsx showItems={true} showItemsArray={true} />
+          <CartButton />
+        </CartProviderComponent>
+      </OrderInstanceWrapper>
     );
 
     const cart = screen.getByText("add to cart");
@@ -65,14 +67,12 @@ describe("Cart functionalities", () => {
 
   it("adds an item that already exists in the cart 2 times", async () => {
     render(
-      <MantineProvider theme={mantineTheme}>
-        <OrderInstanceWrapper resetInstance={true}>
-          <CartProviderComponent>
-            <CartButton />
-            <ViewCartJsx showItems={true} showItemsArray={true} />
-          </CartProviderComponent>
-        </OrderInstanceWrapper>
-      </MantineProvider>
+      <OrderInstanceWrapper resetInstance={true}>
+        <CartProviderComponent>
+          <CartButton />
+          <ViewCartJsx showItems={true} showItemsArray={true} />
+        </CartProviderComponent>
+      </OrderInstanceWrapper>
     );
 
     await userEvent.click(screen.getByText("add to cart"));
@@ -114,14 +114,12 @@ describe("Cart functionalities", () => {
 
   it("accurately updates the value of something in the cart to the correct price", async () => {
     render(
-      <MantineProvider theme={mantineTheme}>
-        <OrderInstanceWrapper instance={instance as ICartItem}>
-          <CartProviderComponent>
-            <ViewCartJsx showItems={true} />
-            <CartButton />
-          </CartProviderComponent>
-        </OrderInstanceWrapper>
-      </MantineProvider>
+      <OrderInstanceWrapper instance={instance as ICartItem}>
+        <CartProviderComponent>
+          <ViewCartJsx showItems={true} />
+          <CartButton />
+        </CartProviderComponent>
+      </OrderInstanceWrapper>
     );
 
     const cart = screen.getByText("add to cart");
@@ -161,15 +159,13 @@ describe("Cart functionalities", () => {
 
   it("edits an instance into a new item in the cart that doesn't already exist", async () => {
     render(
-      <MantineProvider theme={mantineTheme}>
-        <OrderInstanceWrapper>
-          <CartProviderComponent>
-            <ViewCartJsx showItems={true} />
-            <CartButton />
-            <EditButton cartItem={instance as ICartItem} />
-          </CartProviderComponent>
-        </OrderInstanceWrapper>
-      </MantineProvider>
+      <OrderInstanceWrapper>
+        <CartProviderComponent>
+          <ViewCartJsx showItems={true} />
+          <CartButton />
+          <EditButton cartItem={instance as ICartItem} />
+        </CartProviderComponent>
+      </OrderInstanceWrapper>
     );
 
     const cart = screen.getByText("add to cart");
@@ -229,17 +225,15 @@ describe("Cart functionalities", () => {
 
   it("edits an instance to an existing item in the cart that is not itself", async () => {
     render(
-      <MantineProvider theme={mantineTheme}>
-        <OrderInstanceWrapper>
-          <CartProviderComponent
-            defaultItems={defaultItems as ICart}
-            defaultItemsArray={defaultItemsArray as ICartItemWithId[]}
-          >
-            <ViewCartJsx showItems={true} showItemsArray={true} />
-            <EditButton cartItem={instance as ICartItem} />
-          </CartProviderComponent>
-        </OrderInstanceWrapper>
-      </MantineProvider>
+      <OrderInstanceWrapper>
+        <CartProviderComponent
+          defaultItems={defaultItems as ICart}
+          defaultItemsArray={defaultItemsArray as ICartItemWithId[]}
+        >
+          <ViewCartJsx showItems={true} showItemsArray={true} />
+          <EditButton cartItem={instance as ICartItem} />
+        </CartProviderComponent>
+      </OrderInstanceWrapper>
     );
 
     const edit = screen.getByText("edit cart item");
@@ -322,15 +316,13 @@ describe("Cart functionalities", () => {
       quantity: 1,
     } as ICartItem;
     render(
-      <MantineProvider theme={mantineTheme}>
-        <OrderInstanceWrapper>
-          <CartProviderComponent>
-            <ViewCartJsx showItems={true} showItemsArray={true} />
-            <CartButton />
-            <EditButton cartItem={defaultInstance} />
-          </CartProviderComponent>
-        </OrderInstanceWrapper>
-      </MantineProvider>
+      <OrderInstanceWrapper>
+        <CartProviderComponent>
+          <ViewCartJsx showItems={true} showItemsArray={true} />
+          <CartButton />
+          <EditButton cartItem={defaultInstance} />
+        </CartProviderComponent>
+      </OrderInstanceWrapper>
     );
 
     const cart = screen.getByText("add to cart");
@@ -391,27 +383,16 @@ describe("Cart functionalities", () => {
   });
 
   it("edits the same instance to an updated version, where only the quantity changed", async () => {
-    const defaultInstance = {
-      key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
-      name: "Americano",
-      category: "hot",
-      size: null,
-      milk: null,
-      extra: null,
-      price: 4.5,
-      basePrice: 4.5,
-      quantity: 1,
-    } as ICartItem;
     render(
-      <MantineProvider theme={mantineTheme}>
-        <OrderInstanceWrapper>
-          <CartProviderComponent>
-            <ViewCartJsx showItems={true} showItemsArray={true} />
-            <CartButton />
-            <EditButton cartItem={{ ...defaultInstance, quantity: 2 }} />
-          </CartProviderComponent>
-        </OrderInstanceWrapper>
-      </MantineProvider>
+      <OrderInstanceWrapper>
+        <CartProviderComponent>
+          <ViewCartJsx showItems={true} showItemsArray={true} />
+          <CartButton />
+          <EditButton
+            cartItem={{ ...(defaultInstance as ICartItem), quantity: 2 }}
+          />
+        </CartProviderComponent>
+      </OrderInstanceWrapper>
     );
 
     const cart = screen.getByText("add to cart");
@@ -468,6 +449,49 @@ describe("Cart functionalities", () => {
           quantity: 2,
         },
       ])
+    );
+  });
+
+  //TODO
+  it("totals a cart item correctly", async () => {
+    render(
+      <OrderInstanceWrapper>
+        <CartProviderComponent
+          defaultItems={defaultItems}
+          defaultItemsArray={defaultItemsArray}
+        >
+          <CheckoutList orderItems={sampleOrderItems} />
+        </CartProviderComponent>
+      </OrderInstanceWrapper>
+    );
+
+    const edit = screen.getAllByRole("button", { name: "edit item" })[0];
+
+    console.log(edit.innerHTML);
+
+    await userEvent.click(edit);
+
+    const modal = screen.getByRole("dialog", { hidden: true });
+
+    // screen.debug();
+
+    const itemTotal = screen.getByTestId(
+      "cart-item-price-01bc3b4047d9b6eda4988ed928507ec8d5fb86d6e4748d2972f30109cdd03cce"
+    );
+    expect(itemTotal.innerHTML).toBe("$2.00");
+  });
+
+  //TODO
+  it("totals the entire cart correctly", async () => {
+    render(
+      <MantineProvider theme={mantineTheme}>
+        <OrderInstanceWrapper>
+          <CartProviderComponent>
+            <CheckoutList orderItems={sampleOrderItems} />
+            <TotalBar />
+          </CartProviderComponent>
+        </OrderInstanceWrapper>
+      </MantineProvider>
     );
   });
 });

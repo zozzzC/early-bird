@@ -86,7 +86,7 @@ export default function OrderItemModal({
 
   return (
     <div className="w-full lg:grid lg:grid-cols-2 flex flex-col gap-5">
-      <OrderInstanceContext
+      <OrderInstanceContext.Provider
         value={{
           orderInstance,
           setOrderInstanceByField,
@@ -157,7 +157,9 @@ export default function OrderItemModal({
                 ></NumberInput>
               </div>
               <div className="flex justify-end pt-5">
-                <p className="text-lg">{formatPrice(total)}</p>
+                <p data-testid={`cart-item-price-${id}`} className="text-lg">
+                  {formatPrice(total)}
+                </p>
               </div>
 
               {orderHash ? (
@@ -168,7 +170,7 @@ export default function OrderItemModal({
             </div>
           </div>
         </div>
-      </OrderInstanceContext>
+      </OrderInstanceContext.Provider>
     </div>
   );
 }

@@ -1,10 +1,9 @@
 "use client";
 import { CartContext } from "@/hooks/CartContext";
-import { Cart } from "@/helpers/Cart";
-import { useState } from "react";
 import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
 import { createHash } from "crypto";
 import { cloneDeep } from "lodash";
+import { useState } from "react";
 
 export default function CartProviderComponent({
   children,
@@ -24,7 +23,8 @@ export default function CartProviderComponent({
   function addCartItem(
     cartItem: ICartItem,
     editedItemsArray?: ICartItemWithId[],
-    editedItems?: ICart
+    editedItems?: ICart,
+    index?: number
   ) {
     const hash = getCartItemId(cartItem);
     const itemsArrayMutate = editedItemsArray
@@ -33,6 +33,9 @@ export default function CartProviderComponent({
     const itemsMutate = editedItems ? editedItems : { ...items };
 
     if (itemsMutate[hash]) {
+      console.log(
+        "Cart item already exists in cart. Adding cart item is updating teh quantity.,,"
+      );
       const index = itemsArrayMutate.findIndex((x) => {
         return x.id === hash;
       });
@@ -41,13 +44,23 @@ export default function CartProviderComponent({
       const editedItem = itemsMutate[hash];
       itemsArrayMutate[index] = { id: hash, ...editedItem };
     } else {
+      console.log(
+        "Cart item does not already exist in cart. Adding new cart item to cart..."
+      );
       getOrderInstanceTotal(cartItem);
       itemsMutate[hash] = cartItem;
-      itemsArrayMutate.push({ id: hash, ...itemsMutate[hash] });
+      console.log(index);
+      if (index != undefined) {
+        itemsArrayMutate[index] = { id: hash, ...cartItem };
+        console.log(itemsArrayMutate[index]);
+      } else {
+        itemsArrayMutate.push({ id: hash, ...itemsMutate[hash] });
+      }
     }
 
     console.log("Item successfully added to cart: " + JSON.stringify(cartItem));
 
+    console.log(itemsArrayMutate);
     //NOTE: we cannot just use setItems(items) because react sees this array as the same using shallow equality
     //hence we have to spread the object and array respectively in order for react to see that items and itemsArray are not the same as what they were before.
     setItems({ ...itemsMutate });
@@ -146,11 +159,14 @@ export default function CartProviderComponent({
     } else {
       console.log("Edited item does not already exist. Attempting to add...");
       delete itemsMutate[oldHash];
-      const deleteItem = itemsArrayMutate.findIndex((x) => {
+      const index = itemsArrayMutate.findIndex((x) => {
         return x.id === oldHash;
       });
-      itemsArrayMutate.splice(deleteItem, 1);
-      addCartItem(cartItem, [...itemsArrayMutate], { ...itemsMutate });
+      // itemsArrayMutate.splice(index, 1);
+      //TODO: instead of addCartItem, change this to just replace the same index.
+      console.log(itemsArrayMutate);
+      console.log(index);
+      addCartItem(cartItem, [...itemsArrayMutate], { ...itemsMutate }, index);
       console.log({ ...itemsMutate });
       console.log([...itemsArrayMutate]);
       return;

@@ -157,7 +157,7 @@ export default function OrderItemModal({
                 ></NumberInput>
               </div>
               <div className="flex justify-end pt-5">
-                <p data-testid={`cart-item-price-${id}`} className="text-lg">
+                <p data-testid={`cart-item-price`} className="text-lg">
                   {formatPrice(total)}
                 </p>
               </div>

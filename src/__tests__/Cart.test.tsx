@@ -14,7 +14,7 @@ import defaultItems from "./sample/defaultItems.json";
 import defaultItemsArray from "./sample/defaultItemsArray.json";
 import instance from "./sample/instance.json";
 import sampleOrderItems from "./sample/sampleOrderItems.json";
-import { render, screen } from "./test-utils";
+import { render, screen } from "../helpers/test-utils";
 
 describe("Cart functionalities", () => {
   it("adds a single item into an empty cart", async () => {
@@ -452,7 +452,6 @@ describe("Cart functionalities", () => {
     );
   });
 
-  //TODO
   it("totals a cart item correctly", async () => {
     render(
       <OrderInstanceWrapper>
@@ -465,20 +464,13 @@ describe("Cart functionalities", () => {
       </OrderInstanceWrapper>
     );
 
+    console.log(screen.getAllByRole("button", { name: "edit item" }));
     const edit = screen.getAllByRole("button", { name: "edit item" })[0];
-
-    console.log(edit.innerHTML);
 
     await userEvent.click(edit);
 
-    const modal = screen.getByRole("dialog", { hidden: true });
-
-    // screen.debug();
-
-    const itemTotal = screen.getByTestId(
-      "cart-item-price-01bc3b4047d9b6eda4988ed928507ec8d5fb86d6e4748d2972f30109cdd03cce"
-    );
-    expect(itemTotal.innerHTML).toBe("$2.00");
+    const itemTotal = screen.getByTestId("cart-item-price");
+    expect(itemTotal.innerHTML).toBe("$7.50");
   });
 
   //TODO

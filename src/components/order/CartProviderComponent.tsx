@@ -1,6 +1,7 @@
 "use client";
+import { sortArrayAddOns } from "@/helpers/arrayAddOnSort";
 import { CartContext } from "@/hooks/CartContext";
-import { ICart, ICartAddOn, ICartItem, ICartItemWithId } from "@/types/Cart";
+import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
 import { createHash } from "crypto";
 import { cloneDeep } from "lodash";
 import { useState } from "react";
@@ -66,28 +67,6 @@ export default function CartProviderComponent({
     //hence we have to spread the object and array respectively in order for react to see that items and itemsArray are not the same as what they were before.
     setItems({ ...itemsMutate });
     setItemsArray([...itemsArrayMutate]);
-  }
-
-  function isArrayAddOns(key: ICartAddOn[] | any) {
-    if ((key as ICartAddOn[]) != null) {
-      if ((key as ICartAddOn[]).length > 0) {
-        if ((key as ICartAddOn[])[0].name) return true;
-      }
-      return false;
-    }
-    return false;
-  }
-
-  function compareAddOns(a: ICartAddOn, b: ICartAddOn) {
-    return a.id.localeCompare(b.id);
-  }
-
-  function sortArrayAddOns(cartItem: ICartItem) {
-    Object.values(cartItem).forEach((x) => {
-      if (isArrayAddOns(x)) {
-        (x as ICartAddOn[]).sort(compareAddOns);
-      }
-    });
   }
 
   //the specified orderItem's ID is used to delete
@@ -182,8 +161,6 @@ export default function CartProviderComponent({
       const index = itemsArrayMutate.findIndex((x) => {
         return x.id === oldHash;
       });
-      // itemsArrayMutate.splice(index, 1);
-      //TODO: instead of addCartItem, change this to just replace the same index.
       console.log(itemsArrayMutate);
       console.log(index);
       addCartItem(cartItem, [...itemsArrayMutate], { ...itemsMutate }, index);

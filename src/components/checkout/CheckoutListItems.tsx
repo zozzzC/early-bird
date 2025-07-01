@@ -25,7 +25,7 @@ export default function CheckoutListItems({
 
   return (
     <OrderItemContext.Provider value={orderModal}>
-      {orderModal ? (
+      {orderModal?.outOfStock === false ? (
         <div>
           <Modal
             className="absolute z-10"

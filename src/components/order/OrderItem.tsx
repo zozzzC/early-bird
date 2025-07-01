@@ -19,7 +19,7 @@ export default function OrderItem({
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full pb-8">
       <OrderItemContext value={orderModal}>
         <Modal
           className="absolute z-10"
@@ -35,18 +35,20 @@ export default function OrderItem({
           <OrderItemModal id={id} close={close} />
         </Modal>
         <div className="h-full flex flex-col relative items-center">
-          <div className="grow-1 object-cover w-full h-full max-w-80 relative aspect-square">
-            {/* TODO: add suspense while image is loading */}
-            <Image
-              onClick={open}
-              src={photo.toString()}
-              alt={name}
-              objectFit="cover"
-              fill
-            />
+          <div className=" grow-1 max-w-80 w-3/4 overflow-hidden rounded-base">
+            <div className="relative h-full aspect-square">
+              {/* <div className="grow-1 object-cover w-full h-full max-w-80 relative aspect-square"> */}
+              {/* TODO: add suspense while image is loading */}
+              <Image
+                onClick={open}
+                src={photo.toString()}
+                alt={"image of " + name}
+                className={"object-cover"}
+                fill
+              />
+            </div>
           </div>
-          <p>{name}</p>
-          <p>{description}</p>
+          <p className="text-xl pt-3">{name}</p>
         </div>
       </OrderItemContext>
     </div>

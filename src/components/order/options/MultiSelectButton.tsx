@@ -1,6 +1,7 @@
+import formatPrice from "@/helpers/formatPrice";
 import { Button } from "@mantine/core";
-import { useContext, useState } from "react";
 import { CheckCircle2, PlusCircle } from "lucide-react";
+import { useState } from "react";
 
 export default function MultiSelectButton({
   id,
@@ -21,6 +22,7 @@ export default function MultiSelectButton({
 
   return (
     <Button
+      data-testid={`mutli-select-${id}`}
       onClick={() => {
         if (on) {
           select(id, name, price, on);
@@ -34,7 +36,7 @@ export default function MultiSelectButton({
         {on ? <CheckCircle2 /> : <PlusCircle />}
         <div className="flex flex-col">
           <p>{name}</p>
-          {price ? <p>${price}</p> : null}
+          {price ? <p>{formatPrice(price)}</p> : null}
         </div>
       </div>
     </Button>

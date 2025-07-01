@@ -10,11 +10,16 @@ export const CartContext = createContext<
       items: ICart;
       itemsArray: ICartItemWithId[];
       addCartItem: (cartItem: ICartItem) => void;
-      removeCartItem: (cartItem: ICartItem, quantity?: number) => void;
+      removeCartItem: (cartItem: ICartItem) => void;
       editCartItem: (cartItem: ICartItem, oldCartItem: ICartItem) => void;
       getCartItemId: (cartItem: ICartItem) => void;
       getOrderInstanceTotal: (cartItem: ICartItem) => number;
       getOrderInstanceByHash: (hash: string) => ICartItem | undefined;
+      getCartTotal: () => {
+        total: number;
+        totalWithoutAddOns: number;
+        totalAddOns: number;
+      };
     }
   | undefined
 >(undefined);

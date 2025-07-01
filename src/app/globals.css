@@ -12,6 +12,7 @@
   --color-black-main: rgb(68, 54, 39);
   --color-white-main: rgb(237, 237, 237);
   --font-sans: var(--font-dm-sans);
+  --radius-base: 1.5rem;
 }
 
 @media (prefers-color-scheme: dark) {

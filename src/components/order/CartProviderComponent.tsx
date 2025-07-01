@@ -1,13 +1,11 @@
 "use client";
+import { sortArrayAddOns } from "@/helpers/arrayAddOnSort";
 import { CartContext } from "@/hooks/CartContext";
-import { Cart } from "@/helpers/Cart";
-import { useState } from "react";
 import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
 import { createHash } from "crypto";
 import { cloneDeep } from "lodash";
+import { useState } from "react";
 
-//NOTE: This had to be made into a seperate use-client component because we cannot do this directly in the server component (see below error)
-//Only plain objects, and a few built-ins, can be passed to Client Components from Server Components. Classes or null prototypes are not supported.
 export default function CartProviderComponent({
   children,
   defaultItems,
@@ -26,15 +24,20 @@ export default function CartProviderComponent({
   function addCartItem(
     cartItem: ICartItem,
     editedItemsArray?: ICartItemWithId[],
-    editedItems?: ICart
+    editedItems?: ICart,
+    index?: number
   ) {
     const hash = getCartItemId(cartItem);
     const itemsArrayMutate = editedItemsArray
       ? editedItemsArray
       : [...itemsArray];
     const itemsMutate = editedItems ? editedItems : { ...items };
+    sortArrayAddOns(cartItem);
 
     if (itemsMutate[hash]) {
+      console.log(
+        "Cart item already exists in cart. Adding cart item is updating teh quantity.,,"
+      );
       const index = itemsArrayMutate.findIndex((x) => {
         return x.id === hash;
       });
@@ -43,13 +46,23 @@ export default function CartProviderComponent({
       const editedItem = itemsMutate[hash];
       itemsArrayMutate[index] = { id: hash, ...editedItem };
     } else {
+      console.log(
+        "Cart item does not already exist in cart. Adding new cart item to cart..."
+      );
       getOrderInstanceTotal(cartItem);
       itemsMutate[hash] = cartItem;
-      itemsArrayMutate.push({ id: hash, ...itemsMutate[hash] });
+      console.log(index);
+      if (index != undefined) {
+        itemsArrayMutate[index] = { id: hash, ...cartItem };
+        console.log(itemsArrayMutate[index]);
+      } else {
+        itemsArrayMutate.push({ id: hash, ...itemsMutate[hash] });
+      }
     }
 
     console.log("Item successfully added to cart: " + JSON.stringify(cartItem));
 
+    console.log(itemsArrayMutate);
     //NOTE: we cannot just use setItems(items) because react sees this array as the same using shallow equality
     //hence we have to spread the object and array respectively in order for react to see that items and itemsArray are not the same as what they were before.
     setItems({ ...itemsMutate });
@@ -57,15 +70,19 @@ export default function CartProviderComponent({
   }
 
   //the specified orderItem's ID is used to delete
-  function removeCartItem(cartItem: ICartItem, quantity?: number) {
+  function removeCartItem(cartItem: ICartItem) {
     const hash = getCartItemId(cartItem);
+    const itemsMutate = cloneDeep(items);
+    const itemsArrayMutate = cloneDeep(itemsArray);
 
-    if (quantity) {
-      items[hash].quantity = quantity;
-    } else {
-      delete items[hash];
-    }
-    console.log(JSON.stringify(items));
+    delete itemsMutate[hash];
+    const deleteItem = itemsArrayMutate.findIndex((x) => {
+      return x.id === hash;
+    });
+    itemsArrayMutate.splice(deleteItem, 1);
+
+    setItems({ ...itemsMutate });
+    setItemsArray([...itemsArrayMutate]);
   }
 
   function editCartItem(cartItem: ICartItem, oldCartItem: ICartItem) {
@@ -74,16 +91,14 @@ export default function CartProviderComponent({
     console.log(cartItem);
     console.log(oldCartItem);
 
+    sortArrayAddOns(cartItem);
+
     if (JSON.stringify(cartItem) === JSON.stringify(oldCartItem)) {
       return;
     }
 
-    //TODO: the old and new hash are the same for some reason?
     const oldHash = getCartItemId(oldCartItem);
     const newHash = getCartItemId(cartItem);
-
-    console.log("old hash: " + oldHash);
-    console.log("new hash: " + newHash);
 
     const itemsArrayMutate = [...itemsArray];
     const itemsMutate = { ...items };
@@ -95,13 +110,12 @@ export default function CartProviderComponent({
     //so we delete the item in items and replace it
     //but only edit the item in itemsArray
 
-    //TODO: for some reason the old hash is always equal to the new one, even it it shouldnt be.
     if (oldHash === newHash) {
       //check if the quantity is 0, if it is, then we just delete the item entirely.
       console.log("Quantity changed.");
 
       if (cartItem.quantity == 0) {
-        removeCartItem(cartItem, oldCartItem.quantity);
+        removeCartItem(cartItem);
       } else {
         delete itemsMutate[oldHash];
 
@@ -144,11 +158,12 @@ export default function CartProviderComponent({
     } else {
       console.log("Edited item does not already exist. Attempting to add...");
       delete itemsMutate[oldHash];
-      const deleteItem = itemsArrayMutate.findIndex((x) => {
+      const index = itemsArrayMutate.findIndex((x) => {
         return x.id === oldHash;
       });
-      itemsArrayMutate.splice(deleteItem, 1);
-      addCartItem(cartItem, [...itemsArrayMutate], { ...itemsMutate });
+      console.log(itemsArrayMutate);
+      console.log(index);
+      addCartItem(cartItem, [...itemsArrayMutate], { ...itemsMutate }, index);
       console.log({ ...itemsMutate });
       console.log([...itemsArrayMutate]);
       return;
@@ -161,7 +176,8 @@ export default function CartProviderComponent({
   }
 
   function getCartItemId(cartItem: ICartItem) {
-    const cartItemNoQuantity: ICartItem | any = cloneDeep((cartItem)
+    const cartItemNoQuantity: ICartItem | any = cloneDeep(
+      cartItem
     ) as ICartItem;
     delete cartItemNoQuantity.quantity;
     delete cartItemNoQuantity.price;
@@ -170,13 +186,24 @@ export default function CartProviderComponent({
     return hash.digest("hex");
   }
 
-  function getCartTotal() {
+  function getCartTotal(): {
+    total: number;
+    totalWithoutAddOns: number;
+    totalAddOns: number;
+  } {
     //we can get the cart total by iterating through our items
+    var totalWithoutAddOns = 0.0;
+    var totalAddOns = 0.0;
     var total = 0.0;
     for (var key in items) {
       total += items[key].price;
+
+      totalWithoutAddOns += items[key].basePrice * items[key].quantity;
+
+      totalAddOns +=
+        items[key].price - items[key].basePrice * items[key].quantity;
     }
-    return total;
+    return { total, totalWithoutAddOns, totalAddOns };
   }
 
   function getOrderInstanceTotal(cartItem: ICartItem): number {
@@ -199,6 +226,7 @@ export default function CartProviderComponent({
     return undefined;
   }
 
+  //TODO: this function will be used to revalidate the options and
   function validateCart() {}
 
   return (
@@ -212,6 +240,7 @@ export default function CartProviderComponent({
         getCartItemId,
         getOrderInstanceTotal,
         getOrderInstanceByHash,
+        getCartTotal,
       }}
     >
       {children}

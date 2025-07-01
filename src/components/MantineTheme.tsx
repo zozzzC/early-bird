@@ -1,5 +1,5 @@
 "use client";
-import { createTheme, Button } from "@mantine/core";
+import { Button, createTheme } from "@mantine/core";
 
 export const mantineTheme = createTheme({
   components: {

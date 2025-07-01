@@ -18,6 +18,10 @@ export default async function formatOrderModal(
       media = i.value.media.files[0].file.url;
     }
 
+    if (i.value.out_of_stock.checkbox.valueOf()) {
+      return; //
+    }
+
     //TODO: fix allergy not showing
 
     let allergy = null;
@@ -32,7 +36,7 @@ export default async function formatOrderModal(
       extra = [];
       i.value.extra.multi_select.forEach((i) => {
         if (extraCosts[i.name]) {
-          extra.push({
+          (extra as itemStringWithId[]).push({
             id: i.id,
             name: i.name,
             price: extraCosts[i.name] ? extraCosts[i.name].price : 0,
@@ -57,7 +61,7 @@ export default async function formatOrderModal(
       milk = [];
       i.value.milk.multi_select.forEach((i) => {
         if (extraCosts[i.name]) {
-          milk.push({
+          (milk as itemStringWithId[]).push({
             id: i.id,
             name: i.name,
             price: extraCosts[i.name].price,
@@ -76,7 +80,7 @@ export default async function formatOrderModal(
       size = [];
       i.value.size.multi_select.forEach((i) => {
         if (extraCosts[i.name]) {
-          size.push({
+          (size as itemStringWithId[]).push({
             id: i.id,
             name: i.name,
             price: extraCosts[i.name].price,
@@ -118,8 +122,6 @@ export default async function formatOrderModal(
 
     res.push(item);
   });
-
-  console.log(res);
 
   return res;
 }

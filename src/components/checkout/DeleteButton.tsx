@@ -1,7 +1,7 @@
 "use client";
-import { X } from "lucide-react";
 import { useCartContext } from "@/hooks/useCartContext";
 import { ICartItem } from "@/types/Cart";
+import { X } from "lucide-react";
 
 export default function DeleteButton({
   orderInstance,
@@ -12,6 +12,7 @@ export default function DeleteButton({
   return (
     <div className="flex items-center">
       <button
+        data-testid="delete order item"
         onClick={() => {
           removeCartItem(orderInstance);
         }}

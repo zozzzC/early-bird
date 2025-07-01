@@ -1,17 +1,17 @@
 "use client";
-import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
+import formatPrice from "@/helpers/formatPrice";
+import { OrderItemContext } from "@/hooks/OrderItemContext";
+import { useCartContext } from "@/hooks/useCartContext";
+import { ICartItem, ICartItemWithId } from "@/types/Cart";
 import { OrderModalResponse } from "@/types/OrderModalResponse";
 import { Button, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { cloneDeep } from "lodash";
+import { MessageCircleWarning } from "lucide-react";
 import Image from "next/image";
 import OrderItemModal from "../order/OrderItemModal";
-import { OrderItemContext } from "@/hooks/OrderItemContext";
-import { cloneDeep } from "lodash";
-import formatPrice from "@/helpers/formatPrice";
-import { useCartContext } from "@/hooks/useCartContext";
 import CheckoutAddOn from "./CheckoutAddOn";
 import DeleteButton from "./DeleteButton";
-import { MessageCircleWarning } from "lucide-react";
 
 export default function CheckoutListItems({
   cartItem,
@@ -21,11 +21,11 @@ export default function CheckoutListItems({
   orderModal: OrderModalResponse | undefined;
 }) {
   const [opened, { open, close }] = useDisclosure(false);
-  const { removeCartItem, getOrderInstanceByHash } = useCartContext();
+  const { getOrderInstanceByHash } = useCartContext();
 
   return (
-    <OrderItemContext value={orderModal}>
-      {orderModal ? (
+    <OrderItemContext.Provider value={orderModal}>
+      {orderModal?.outOfStock === false ? (
         <div>
           <Modal
             className="absolute z-10"
@@ -50,12 +50,13 @@ export default function CheckoutListItems({
 
           <div
             key={cartItem.id}
-            className="w-full flex flex-col outline-gray-500 outline rounded-base sm:outline-none sm:flex-row justify-between items-center p-10 gap-10"
+            className="w-full flex flex-col rounded-base max-w-5xl sm:flex-row justify-between items-center p-10 gap-10"
           >
-            <div className="flex flex-row gap-3.5 w-full">
-              <div className="overflow-hidden rounded-base aspect-square md:w-60 w-0 md:max-w-60 ">
+            <div className="flex flex-row gap-3.5 w-full max-w-md items-center">
+              <div className="overflow-hidden rounded-base aspect-square sm:w-60 w-0 md:max-w-60 ">
                 <div className="w-full h-full relative object-cover">
                   <Image
+                    data-testid="checkout-list-items-modal-image"
                     src={
                       orderModal.media
                         ? orderModal.media
@@ -67,7 +68,7 @@ export default function CheckoutListItems({
                   />
                 </div>
               </div>
-              <div className="w-full">
+              <div className="w-full outline">
                 <p className="text-2xl font-semibold">{cartItem.name}</p>
                 <p className="text-xl ">{`x${cartItem.quantity}`}</p>
                 <p>{formatPrice(cartItem.quantity * cartItem.basePrice)}</p>
@@ -111,7 +112,6 @@ export default function CheckoutListItems({
                 ) : null}
               </div>
             </div>
-
             <div>
               <Button
                 onClick={() => {
@@ -129,8 +129,8 @@ export default function CheckoutListItems({
           </div>
         </div>
       ) : (
-        <div className="outline">
-          <div className="flex p-5 items-center gap-1 text-rose-700">
+        <div className="">
+          <div className="flex px-10 pt-5 items-center gap-1 text-rose-700">
             <MessageCircleWarning size={20} />
             <p className="pr-5">this item is currently unavailable.</p>
           </div>
@@ -179,6 +179,6 @@ export default function CheckoutListItems({
           </div>
         </div>
       )}
-    </OrderItemContext>
+    </OrderItemContext.Provider>
   );
 }

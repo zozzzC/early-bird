@@ -21,6 +21,7 @@ export default function SingleSelectButton({
       onClick={() => {
         select(id, name, price);
       }}
+      data-testid={`single-select-${id}`}
     >
       <div className="flex gap-3 items-center">
         {selectedItemId === id ? <CheckCircle2 /> : <Circle />}

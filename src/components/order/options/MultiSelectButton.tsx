@@ -22,6 +22,7 @@ export default function MultiSelectButton({
 
   return (
     <Button
+      data-testid={`mutli-select-${id}`}
       onClick={() => {
         if (on) {
           select(id, name, price, on);

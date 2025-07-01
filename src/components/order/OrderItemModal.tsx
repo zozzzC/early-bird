@@ -154,6 +154,7 @@ export default function OrderItemModal({
                       })
                     );
                   }}
+                  allowDecimal={false}
                 ></NumberInput>
               </div>
               <div className="flex justify-end pt-5">

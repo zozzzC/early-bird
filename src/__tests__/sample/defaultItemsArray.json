@@ -37,5 +37,21 @@
     "price": 4.5,
     "basePrice": 4.5,
     "quantity": 1
+  },
+  {
+    "id": "881c1e070f0fbbceddd0acf28bdc047f016ba51bac636b9cb92e138bfd7ff303",
+    "key": "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
+    "name": "Americano",
+    "category": "hot",
+    "size": {
+      "id": "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
+      "name": "small",
+      "price": 1
+    },
+    "milk": null,
+    "extra": null,
+    "price": 4.5,
+    "basePrice": 4.5,
+    "quantity": 1
   }
 ]

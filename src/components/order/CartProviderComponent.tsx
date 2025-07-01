@@ -1,6 +1,6 @@
 "use client";
 import { CartContext } from "@/hooks/CartContext";
-import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
+import { ICart, ICartAddOn, ICartItem, ICartItemWithId } from "@/types/Cart";
 import { createHash } from "crypto";
 import { cloneDeep } from "lodash";
 import { useState } from "react";
@@ -31,6 +31,7 @@ export default function CartProviderComponent({
       ? editedItemsArray
       : [...itemsArray];
     const itemsMutate = editedItems ? editedItems : { ...items };
+    sortArrayAddOns(cartItem);
 
     if (itemsMutate[hash]) {
       console.log(
@@ -67,6 +68,28 @@ export default function CartProviderComponent({
     setItemsArray([...itemsArrayMutate]);
   }
 
+  function isArrayAddOns(key: ICartAddOn[] | any) {
+    if ((key as ICartAddOn[]) != null) {
+      if ((key as ICartAddOn[]).length > 0) {
+        if ((key as ICartAddOn[])[0].name) return true;
+      }
+      return false;
+    }
+    return false;
+  }
+
+  function compareAddOns(a: ICartAddOn, b: ICartAddOn) {
+    return a.id.localeCompare(b.id);
+  }
+
+  function sortArrayAddOns(cartItem: ICartItem) {
+    Object.values(cartItem).forEach((x) => {
+      if (isArrayAddOns(x)) {
+        (x as ICartAddOn[]).sort(compareAddOns);
+      }
+    });
+  }
+
   //the specified orderItem's ID is used to delete
   function removeCartItem(cartItem: ICartItem) {
     const hash = getCartItemId(cartItem);
@@ -89,16 +112,14 @@ export default function CartProviderComponent({
     console.log(cartItem);
     console.log(oldCartItem);
 
+    sortArrayAddOns(cartItem);
+
     if (JSON.stringify(cartItem) === JSON.stringify(oldCartItem)) {
       return;
     }
 
-    //TODO: the old and new hash are the same for some reason?
     const oldHash = getCartItemId(oldCartItem);
     const newHash = getCartItemId(cartItem);
-
-    console.log("old hash: " + oldHash);
-    console.log("new hash: " + newHash);
 
     const itemsArrayMutate = [...itemsArray];
     const itemsMutate = { ...items };
@@ -110,7 +131,6 @@ export default function CartProviderComponent({
     //so we delete the item in items and replace it
     //but only edit the item in itemsArray
 
-    //TODO: for some reason the old hash is always equal to the new one, even it it shouldnt be.
     if (oldHash === newHash) {
       //check if the quantity is 0, if it is, then we just delete the item entirely.
       console.log("Quantity changed.");

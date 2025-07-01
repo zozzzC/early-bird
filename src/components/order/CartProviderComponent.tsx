@@ -5,6 +5,7 @@ import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
 import { createHash } from "crypto";
 import { cloneDeep } from "lodash";
 import { useState } from "react";
+import getOrderInstanceTotal from "@/helpers/getOrderInstanceTotal"; 
 
 export default function CartProviderComponent({
   children,
@@ -206,18 +207,7 @@ export default function CartProviderComponent({
     return { total, totalWithoutAddOns, totalAddOns };
   }
 
-  function getOrderInstanceTotal(cartItem: ICartItem): number {
-    var orderInstanceTotal = cartItem.basePrice;
-    orderInstanceTotal += cartItem.milk ? cartItem.milk.price : 0;
-    orderInstanceTotal += cartItem.size ? cartItem.size.price : 0;
-    if (cartItem.extra?.length != 0) {
-      cartItem.extra?.forEach((i) => {
-        orderInstanceTotal += i.price;
-      });
-    }
-    cartItem.price = orderInstanceTotal * cartItem.quantity;
-    return cartItem.price;
-  }
+
 
   function getOrderInstanceByHash(hash: string): ICartItem | undefined {
     if (hash in items) {

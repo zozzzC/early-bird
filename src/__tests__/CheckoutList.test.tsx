@@ -42,11 +42,50 @@ describe("out of stock tests", () => {
     ).toBeDefined;
   });
 
-  it.todo(
-    "when only 1 of 2 out of stock items are removed from the cart, the pay now button still pulls up the warning modal"
-  );
+  it("when only 1 of 2 out of stock items are removed from the cart, the pay now button still pulls up the warning modal", async () => {
+    render(
+      <CartProviderComponent
+        defaultItems={defaultItems}
+        defaultItemsArray={defaultItemsArray}
+      >
+        <CheckoutList orderItems={sampleOrderItemsAmericanoOutOfStock} />
+      </CartProviderComponent>
+    );
 
-  it.todo(
-    "if all out of stock items are removed from the cart, the pay now button does not pull up the warning modal"
-  );
+    const deleteButton = screen.getAllByTestId("delete order item")[0];
+    await userEvent.click(deleteButton);
+    const payNow = screen.getByRole("button", { name: "pay now" });
+    await userEvent.click(payNow);
+
+    expect(
+      screen.findByText(
+        "you have unavailable items in your cart. please remove them from your cart to continue."
+      )
+    ).toBeDefined;
+  });
+
+  it("if all out of stock items are removed from the cart, the pay now button does not pull up the warning modal", async () => {
+    render(
+      <CartProviderComponent
+        defaultItems={defaultItems}
+        defaultItemsArray={defaultItemsArray}
+      >
+        <CheckoutList orderItems={sampleOrderItemsAmericanoOutOfStock} />
+      </CartProviderComponent>
+    );
+
+    for (let i = 0; i < 3; i++) {
+      const deleteButton = screen.getAllByTestId("delete order item")[i];
+      await userEvent.click(deleteButton);
+    }
+
+    const payNow = screen.getByRole("button", { name: "pay now" });
+    await userEvent.click(payNow);
+
+    expect(
+      screen.findByText(
+        "you have unavailable items in your cart. please remove them from your cart to continue."
+      )
+    ).toBeUndefined;
+  });
 });

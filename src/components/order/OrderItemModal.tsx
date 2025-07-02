@@ -26,7 +26,7 @@ export default function OrderItemModal({
   close: () => void;
 }) {
   const orderItem = useOrderItemContext();
-  const { items, getOrderInstanceByHash, getOrderInstanceTotal } =
+  const { getOrderInstanceByHash, getOrderInstanceTotal } =
     useCartContext();
   const [total, setTotal] = useState<number>(
     orderHash
@@ -78,7 +78,6 @@ export default function OrderItemModal({
     //we have to ASSERT the type of value since OrderInstanceType<T> and ICartItem[T] are not necessarily the same value for every T.
     //hence we have to ensure that ICartItem is indeed that type
     newOrderInstance[field] = cloneDeep(value as ICartItem[typeof field]);
-    console.log(newOrderInstance);
     getOrderInstanceTotal(newOrderInstance);
     setTotal(newOrderInstance.price);
     setOrderInstance(newOrderInstance);

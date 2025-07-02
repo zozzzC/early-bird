@@ -7,4 +7,5 @@ export interface ExtraCostsDetails {
   name: string;
   type: "extra" | "milk" | "size";
   price: number;
+  default: boolean;
 }

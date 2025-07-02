@@ -11,6 +11,7 @@ export default async function formatExtraCosts(
   const res: ExtraCostsResponse = {};
 
   extraCosts.forEach((i) => {
+    let defaultItem = false;
     const name = i.value.name.title[0].text.content;
     const price = i.value.price.number;
 
@@ -18,11 +19,16 @@ export default async function formatExtraCosts(
       return;
     }
 
+    if (price == 0) {
+      defaultItem = true;
+    }
+
     const item: ExtraCostsDetails = {
       key: i.key,
       name: i.value.name.title[0].text.content as string,
       type: i.value.type.select.name as "milk" | "size" | "extra", //TODO: change this into a generic type as there is a chance that the selectable categories are not necessarily these.
       price: i.value.price.number as number,
+      default: defaultItem,
     };
 
     res[name] = item;

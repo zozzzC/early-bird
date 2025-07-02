@@ -1,7 +1,7 @@
-import { Button } from "@mantine/core";
-import { useContext, useState } from "react";
-import { CheckCircle2, Circle } from "lucide-react";
 import formatPrice from "@/helpers/formatPrice";
+import { Button } from "@mantine/core";
+import { CheckCircle2, Circle } from "lucide-react";
+import { useEffect } from "react";
 
 export default function SingleSelectButton({
   id,
@@ -16,6 +16,15 @@ export default function SingleSelectButton({
   select(id: string, name: string, price: number): void;
   selectedItemId: string | null;
 }) {
+  useEffect(() => {
+    if (selectedItemId == null && price == 0) {
+      console.log(
+        ` no single select item selected. trying to use default ${name}.`
+      );
+      select(id, name, price);
+    }
+  }, []);
+
   return (
     <Button
       onClick={() => {

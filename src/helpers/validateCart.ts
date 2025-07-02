@@ -6,13 +6,14 @@ import {
 import { cloneDeep } from "lodash";
 import getOrderInstanceTotal from "./getOrderInstanceTotal";
 
-//TODO: if we are using validateCart when attempting to load the cart from localStorage, we must also re-add everything into the cart.
+//NOTE: if we are using validateCart when attempting to load the cart from localStorage, we must also re-add everything into the cart.
 //otherwise we are using this function to validate the cart before it is to be paid for.
 
 export default function validateCart(
   items: ICart,
   itemsArray: ICartItemWithId[],
-  orderItems: OrderModalResponse[]
+  orderItems: OrderModalResponse[],
+  editCartItem: (cartItem: ICartItem, oldCartItem: ICartItem) => void
 ): {
   items: ICart;
   itemsArray: ICartItemWithId[];
@@ -23,6 +24,8 @@ export default function validateCart(
   const itemsMutate = cloneDeep(items);
   let priceChanged = false;
   let optionsChanged = false;
+
+  //if the options changed (maybe one is out of stock, or no longer exists), then we dont change anything. it will be marked as out of stock later.
 
   //make sure that items and itemsArrayMutate, we can do this by REMOVING an item from the itemsArray everytime we find a corresponding item in itemsMutate have the same items.
 
@@ -37,7 +40,6 @@ export default function validateCart(
     }
 
     const item = itemsMutate[i];
-
     //we can check the corresponding orderItems using the id. if we can't find it, then the item is out of stock/deleted.
 
     const orderItem = orderItems.find((x) => {
@@ -53,6 +55,8 @@ export default function validateCart(
       //first determine that k is indeed a key of OrderModalResponse
 
       if (orderItem[k as keyof OrderModalResponse]) {
+        console.log(`item param: ${item[k as keyof ICartItem]}`);
+
         //then we can indeed compare the two values with eachother.
         //there are a few different options here. depending on the type of val, then we need to do different price checks.
         //TODO: ensure that if it does contain a price (IE when val is a number), that
@@ -60,16 +64,21 @@ export default function validateCart(
           let val = containsPrice(item[k as keyof ICartItem]).typedVal;
           const valType = containsPrice(item[k as keyof ICartItem]).typeOfVal;
 
+          console.log(valType);
+
           if (typeof val === "number") {
             //we don't want to cross-reference if the value is price, so skip it when it is equal to price.
-
-            if (!(k == "price")) {
+            console.log("number");
+            console.log(k);
+            if (k === "basePrice") {
               const orderItemValue = (orderItem as OrderModalResponse)[
                 k as keyof OrderModalResponse
               ] as number;
               if (orderItemValue != val) {
+                console.log(val);
+                console.log(orderItemValue);
                 priceChanged = true;
-                val = orderItemValue;
+                item[k] = orderItemValue;
               }
             }
           }
@@ -78,21 +87,17 @@ export default function validateCart(
             const optionArray = (orderItem as OrderModalResponse)[
               k as keyof OrderModalResponse
             ] as itemStringWithId[];
-            //in this case we want to look for the corresponding id with whatever order item was selected. if we can't find it, then remove the option and set optionsChanged
 
             const orderItemValue = optionArray.find((x) => {
-              return x.id === (val as ICartAddOn).id;
+              //NOTE: we use split here because the id in the order item (val) is key of the order item + key of the add on
+              return x.id === (val as ICartAddOn).id.split(item.key)[1];
             });
-
-            if (!orderItemValue) {
-              //then remove the option.
-              optionsChanged = true;
-              val = null;
-            }
 
             if (orderItemValue?.price != (val as ICartAddOn).price) {
               priceChanged = true;
-              val = (orderItemValue as itemStringWithId).price;
+              (val as ICartAddOn).price = (
+                orderItemValue as itemStringWithId
+              ).price;
             }
           }
 
@@ -110,20 +115,19 @@ export default function validateCart(
               //find the value corresponding to the same id in optionArray
 
               const correspondingOption = optionArray.find((n) => {
-                return n.id === x.id;
+                return n.id === x.id.split(item.key)[1];
               });
 
-              if (!correspondingOption) {
-                selectedOptionsArray.splice(
-                  selectedOptionsArray.findIndex((y) => y.id === x.id),
-                  1
-                );
-                optionsChanged = true;
-              }
+              console.log(correspondingOption);
+              console.log(
+                `corresponding option: ${correspondingOption?.price}`
+              );
 
               if (x.price != correspondingOption?.price) {
-                (correspondingOption as itemStringWithId).price = x.price;
+                x.price = (correspondingOption as itemStringWithId).price;
                 priceChanged = true;
+                console.log("new val: ");
+                console.log(val);
               }
             });
           }
@@ -131,7 +135,10 @@ export default function validateCart(
       }
     });
 
+    console.log(`old price: ${item.price}`);
     getOrderInstanceTotal(item);
+    console.log(item.price);
+    console.log(item);
   });
 
   const newOrderItemsArray = reconstructItemsArray(
@@ -139,6 +146,15 @@ export default function validateCart(
     orderItems,
     false
   );
+
+  //NOTE: in the case that editCart is defined, that means that we are using the validation function when attempting to pay now.
+  //in that case, we want to edit the cart directly (to keep the order of the items in the cart.)
+  if (editCartItem !== undefined) {
+    Object.keys(itemsMutate).forEach((x) => {
+      //match the id to the previous id.
+      editCartItem(itemsMutate[x], items[x]);
+    });
+  }
 
   return {
     items: itemsMutate,
@@ -148,15 +164,11 @@ export default function validateCart(
   };
 }
 
-function containsPrice<T extends ICartItem[keyof ICartItem]>(
-  val: T
-): {
+function containsPrice(val: ICartItem[keyof ICartItem]): {
   containsPrice: boolean;
   typedVal: ICartItem[keyof ICartItem];
-  typeOfVal: string;
+  typeOfVal: ICartItem[keyof ICartItem];
 } {
-  const t = typeof val;
-
   if (typeof val === "number") {
     return {
       containsPrice: true,
@@ -165,7 +177,11 @@ function containsPrice<T extends ICartItem[keyof ICartItem]>(
     };
   }
 
-  if (val as ICartAddOn) {
+  if (val == null) {
+    return { containsPrice: false, typedVal: val as null, typeOfVal: "null" };
+  }
+
+  if ((val as ICartAddOn).price) {
     return {
       containsPrice: true,
       typedVal: val as ICartAddOn,
@@ -173,7 +189,7 @@ function containsPrice<T extends ICartItem[keyof ICartItem]>(
     };
   }
 
-  if (val as ICartAddOn[]) {
+  if ((val as ICartAddOn[])[0].price) {
     return {
       containsPrice: true,
       typedVal: val as ICartAddOn[],
@@ -183,19 +199,59 @@ function containsPrice<T extends ICartItem[keyof ICartItem]>(
 
   if (typeof val === "string") {
     return {
-      containsPrice: false,
+      containsPrice: true,
       typedVal: val as string,
       typeOfVal: "string",
     };
   }
 
-  return { containsPrice: false, typedVal: val as null, typeOfVal: "null" };
+  return { containsPrice: false, typedVal: null, typeOfVal: "null" };
 }
 
-function reconstructItemsArray<
-  T extends boolean,
-  R = T extends true ? null : ICartItemWithId[],
->(items: ICart, orderItems: OrderModalResponse[], validate: T): R {
+// function containsPrice<T extends keyof ICartItem>(
+//   val: ICartItem[keyof ICartItem],
+//   valType: T
+// ): val is ICartItem[T] {
+//   console.log(`val: ${val}`);
+
+// //   return typeof val === ICartItem[valType];
+
+//   if (typeof val === "number") {
+//     return {
+//       containsPrice: true,
+//       typedVal: val as number,
+//       typeOfVal: "number",
+//     };
+//   }
+
+//   //TODO: everything that is not a number is returing as ICartAddOn are returning of type ICartAddOn. there is probably an issue with the type guard.
+//   if ((val as ICartAddOn).price) {
+//     console.log("val as ICartAddOn");
+//     console.log(val as ICartAddOn);
+
+//     return {
+//       containsPrice: true,
+//       typedVal: val as ICartAddOn,
+//       typeOfVal: "ICartAddOn",
+//     };
+//   }
+
+//   if ((val as ICartAddOn[])[0].price) {
+//     return {
+//       containsPrice: true,
+//       typedVal: val as ICartAddOn[],
+//       typeOfVal: "ICartAddOn[]",
+//     };
+//   }
+
+//   return { containsPrice: false, typedVal: val as null, typeOfVal: "null" };
+// }
+
+function reconstructItemsArray<T extends boolean>(
+  items: ICart,
+  orderItems: OrderModalResponse[],
+  validate: T
+): T extends true ? null : ICartItemWithId[] {
   const newItemsArray: ICartItemWithId[] = [];
   Object.keys(items).forEach((i) => {
     newItemsArray.push({
@@ -206,8 +262,8 @@ function reconstructItemsArray<
 
   if (validate == true) {
     validateCart(items, newItemsArray, orderItems);
-    return null as R;
+    return null as T extends true ? null : ICartItemWithId[];
   }
 
-  return newItemsArray as R;
+  return newItemsArray as T extends true ? null : ICartItemWithId[];
 }

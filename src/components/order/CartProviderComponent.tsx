@@ -1,11 +1,11 @@
 "use client";
 import { sortArrayAddOns } from "@/helpers/arrayAddOnSort";
+import getOrderInstanceTotal from "@/helpers/getOrderInstanceTotal";
 import { CartContext } from "@/hooks/CartContext";
 import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
 import { createHash } from "crypto";
 import { cloneDeep } from "lodash";
 import { useState } from "react";
-import getOrderInstanceTotal from "@/helpers/getOrderInstanceTotal"; 
 
 export default function CartProviderComponent({
   children,
@@ -101,6 +101,9 @@ export default function CartProviderComponent({
     const oldHash = getCartItemId(oldCartItem);
     const newHash = getCartItemId(cartItem);
 
+    console.log(oldHash);
+    console.log(newHash);
+
     const itemsArrayMutate = [...itemsArray];
     const itemsMutate = { ...items };
 
@@ -184,7 +187,9 @@ export default function CartProviderComponent({
     delete cartItemNoQuantity.price;
     const hash = createHash("sha256");
     hash.update(JSON.stringify(cartItemNoQuantity));
-    return hash.digest("hex");
+    const val = hash.digest("hex");
+    console.log(val);
+    return val;
   }
 
   function getCartTotal(): {
@@ -206,8 +211,6 @@ export default function CartProviderComponent({
     }
     return { total, totalWithoutAddOns, totalAddOns };
   }
-
-
 
   function getOrderInstanceByHash(hash: string): ICartItem | undefined {
     if (hash in items) {

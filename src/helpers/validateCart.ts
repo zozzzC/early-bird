@@ -71,8 +71,8 @@ export default function validateCart(
             break;
           case "ICartAddOn":
             validateICartAddOn(
-              typedVal as ICartAddOn,
               cartItem,
+              cartProp,
               orderItemVal as itemStringWithId[],
               priceChanged,
               optionsChanged
@@ -106,14 +106,20 @@ export default function validateCart(
     false
   );
 
+  //TODO: this doesnt work properly.
   //NOTE: in the case that editCart is defined, that means that we are using the validation function when attempting to pay now.
   //in that case, we want to edit the cart directly (to keep the order of the items in the cart.)
   if (editCartItem !== undefined) {
     Object.keys(itemsMutate).forEach((x) => {
       //match the id to the previous id.
+
       editCartItem(itemsMutate[x], items[x]);
+      console.log(itemsMutate);
+      console.log(items);
     });
   }
+
+  //TODO: if the items changed their hashes need to be recalculated
 
   return {
     items: itemsMutate,
@@ -210,25 +216,34 @@ function validateBasePrice(
 }
 
 function validateICartAddOn(
-  val: ICartAddOn,
   cartItem: ICartItem,
+  cartProp: keyof ICartItem,
   optionArray: itemStringWithId[],
   priceChanged: boolean,
   optionsChanged: boolean
 ) {
   const orderItemValue = optionArray.find((x) => {
     //NOTE: we use split here because the id in the order item (val) is key of the order item + key of the add on
-    return x.id === val.id.split(cartItem.key)[1];
+    return (
+      x.id === (cartItem[cartProp] as ICartAddOn).id.split(cartItem.key)[1]
+    );
   });
 
-  if (orderItemValue) {
-    if (orderItemValue?.price != val.price) {
+  console.log("validate ICartAddOn...");
+  console.log(JSON.stringify(orderItemValue));
+
+  if (orderItemValue != undefined) {
+    if (orderItemValue?.price != (cartItem[cartProp] as ICartAddOn).price) {
       priceChanged = true;
-      val.price = (orderItemValue as itemStringWithId).price;
+      (cartItem[cartProp] as ICartAddOn).price = (
+        orderItemValue as itemStringWithId
+      ).price;
     }
   } else {
     //in this case the corresponding id was not found. that means replace this with the default order option.
-    val = optionArray.find((x) => x.price === 0) as ICartAddOn;
+    (cartItem[cartProp] as ICartAddOn | null) = optionArray.find(
+      (x) => x.price === 0
+    ) as ICartAddOn;
     optionsChanged = true;
   }
 }
@@ -258,12 +273,14 @@ function containsPrice(val: ICartItem[keyof ICartItem]): {
     };
   }
 
-  if ((val as ICartAddOn[])[0].price) {
-    return {
-      containsPrice: true,
-      typedVal: val as ICartAddOn[],
-      typeOfVal: "ICartAddOn[]",
-    };
+  if ((val as ICartAddOn[])[0]) {
+    if ((val as ICartAddOn[])[0].price) {
+      return {
+        containsPrice: true,
+        typedVal: val as ICartAddOn[],
+        typeOfVal: "ICartAddOn[]",
+      };
+    }
   }
 
   if (typeof val === "string") {

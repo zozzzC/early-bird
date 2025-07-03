@@ -1,0 +1,27 @@
+{
+  "0cf5b68393f394ed71e2c7ce039ac3cf6c4bc27fedf996afb8114dd0e2b0f838": {
+    "key": "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
+    "name": "Americano",
+    "category": "hot",
+    "size": {
+      "id": "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+      "name": "small",
+      "price": 0
+    },
+    "milk": {
+      "id": "12345-4876-81bc-bd7d-ef471bc0a6ab6ffffebb-93ea-4616-b3ce-asdjfk",
+      "name": "invalid milk",
+      "price": 2
+    },
+    "extra": [
+      {
+        "id": "c1fa-4876-81bc-bd7d-ef471bc0a6ab9bff625c-9f08-4e1e-b40c-e4242071",
+        "name": "invalid extra",
+        "price": 2
+      }
+    ],
+    "price": 7.5,
+    "basePrice": 2.5,
+    "quantity": 1
+  }
+}

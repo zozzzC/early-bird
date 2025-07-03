@@ -44,11 +44,15 @@ describe("validate cart function", () => {
 
     expect(screen.getByTestId("items").innerHTML).toBe(
       JSON.stringify({
-        "01bc3b4047d9b6eda4988ed928507ec8d5fb86d6e4748d2972f30109cdd03cce": {
+        "1981f499b4d9877061a4505024dc7c56895c7d044593c2bc137cf94b43b0cd01": {
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
-          size: null,
+          size: {
+            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            name: "small",
+            price: 0,
+          },
           milk: {
             id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
             name: "Soy milk",
@@ -76,11 +80,15 @@ describe("validate cart function", () => {
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
       JSON.stringify([
         {
-          id: "01bc3b4047d9b6eda4988ed928507ec8d5fb86d6e4748d2972f30109cdd03cce",
+          id: "1981f499b4d9877061a4505024dc7c56895c7d044593c2bc137cf94b43b0cd01",
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
-          size: null,
+          size: {
+            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            name: "small",
+            price: 0,
+          },
           milk: {
             id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
             name: "Soy milk",
@@ -108,6 +116,15 @@ describe("validate cart function", () => {
   test.todo(
     "while paying, given an invalid cart with a milk option that cannot be found, and an extra option that cannot be found, the cart is updated, the item total is updated, and priceChanged and optionsChanged is true."
   );
+
+  test.todo(
+    "while paying, given an invalid cart where required options are needed (EG: milk and size for americano), the item is updated with the default, priceChanged is true and optionsChanged is true."
+  );
+
+  test.todo(
+    "while paying, given a valid cart, nothing is changed. (for something that has no add ons.)"
+  );
+
   test.todo(
     "given a valid cart with correct prices for all options and base prices, the cart stays the same, and priceChanged and optionsChanged is false."
   );

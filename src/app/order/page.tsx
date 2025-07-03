@@ -1,20 +1,14 @@
 import OrderItem from "@/components/order/OrderItem";
 
-import data from "@/test/OrderSampleData.json";
-import { Item } from "@/types/Item";
-import { getOrderItems } from "../../lib/orderItems";
-import { revalidatePath } from "next/cache";
-import CartProviderComponent from "@/components/order/CartProviderComponent";
-import { getExtraCosts } from "@/lib/extraCosts";
-import ViewCartJsx from "@/components/test/ViewCartJsx";
 import ViewCartButton from "@/components/checkout/ViewCartButton";
+import { getOrderItems } from "../../lib/orderItems";
 export default async function Order() {
   const orderItems = await getOrderItems();
 
   return (
     <div className="w-full h-full">
       <div className="fixed bottom-0 right-0 pb-10 pr-10">
-          <ViewCartButton />
+        <ViewCartButton />
       </div>
       <div className="pt-28">
         <div className="flex justify-center m-0">

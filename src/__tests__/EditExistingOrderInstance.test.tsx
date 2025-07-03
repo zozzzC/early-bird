@@ -8,7 +8,7 @@ import { OrderModalResponse } from "@/types/OrderModalResponse";
 import userEvent from "@testing-library/user-event";
 import defaultItems from "./sample/defaultItems.json";
 import defaultItemsArray from "./sample/defaultItemsArray.json";
-describe("editing an existing order item with ", () => {
+describe("editing an existing order item with modal", () => {
   it("edits an existing item to itself (no change) using the modal", async () => {
     render(
       <>

@@ -13,7 +13,7 @@ export default function validateCart(
   items: ICart,
   itemsArray: ICartItemWithId[],
   orderItems: OrderModalResponse[],
-  editCartItem: (cartItem: ICartItem, oldCartItem: ICartItem) => void
+  editCartItem?: (cartItem: ICartItem, oldCartItem: ICartItem) => void
 ): {
   items: ICart;
   itemsArray: ICartItemWithId[];
@@ -25,140 +25,78 @@ export default function validateCart(
   let priceChanged = false;
   let optionsChanged = false;
 
-  //if the options changed (maybe one is out of stock, or no longer exists), then we dont change anything. it will be marked as out of stock later.
-
-  //make sure that items and itemsArrayMutate, we can do this by REMOVING an item from the itemsArray everytime we find a corresponding item in itemsMutate have the same items.
-
-  Object.keys(itemsMutate).forEach((i) => {
-    const correspondingItem: number = itemsArrayMutate.findIndex((x) => {
-      return x.id === i;
+  for (const id in itemsMutate) {
+    const correspondingArrayItem: number = itemsArrayMutate.findIndex((x) => {
+      return x.id === id;
     });
 
-    if (correspondingItem === -1) {
-      //then the item was not found in the array, so we need to reconstruct the itemsArray using items.
+    if (correspondingArrayItem === -1) {
+      //then the item was not found in the array, we need to reconstruct the itemsArray using items.
       reconstructItemsArray(itemsMutate, orderItems, true);
     }
 
-    const item = itemsMutate[i];
-    //we can check the corresponding orderItems using the id. if we can't find it, then the item is out of stock/deleted.
+    const cartItem: ICartItem = itemsMutate[id];
 
-    const orderItem = orderItems.find((x) => {
-      return x.key === item.key;
-    });
-    if (!orderItem) return;
+    const orderItem = orderItems.find((oi) => oi.key === cartItem.key);
 
-    Object.keys(item).forEach((k) => {
-      //NOTE: k as keyof ICartItem means we are telling typescript that k is indeed a key of ICartItem. this means that
-      //we ensure k is indeed one of key, milk, extra, basePrice -- bascially anything that is a key in ICartItem
-      //this means val can be any of the possible types that are associated with any of the keys in ICartItem
+    if (!orderItem) continue;
 
-      //first determine that k is indeed a key of OrderModalResponse
+    //this loops through all the properties in cartItem
+    for (const cartProp of Object.keys(cartItem) as (keyof ICartItem)[]) {
+      const orderItemProp = cartProp as keyof OrderModalResponse;
 
-      if (orderItem[k as keyof OrderModalResponse]) {
-        console.log(`item param: ${item[k as keyof ICartItem]}`);
+      if (!orderItem[orderItemProp]) {
+        console.log(
+          `Property ${cartProp} has no corresponding Order Item property.`
+        );
+      }
 
-        //then we can indeed compare the two values with eachother.
-        //there are a few different options here. depending on the type of val, then we need to do different price checks.
-        //TODO: ensure that if it does contain a price (IE when val is a number), that
-        if (containsPrice(item[k as keyof ICartItem]).containsPrice) {
-          let val = containsPrice(item[k as keyof ICartItem]).typedVal;
-          const valType = containsPrice(item[k as keyof ICartItem]).typeOfVal;
+      if (orderItem[orderItemProp]) {
+        const { typedVal, typeOfVal } = containsPrice(cartItem[cartProp]);
+        console.log(
+          `Property ${cartProp} has a corresponding Order Item property.\n Type of Val: ${typeOfVal}\n Val: ${JSON.stringify(typedVal)}`
+        );
 
-          console.log(valType);
+        const orderItemVal = orderItem[orderItemProp];
 
-          if (typeof val === "number") {
-            console.log("number");
-            console.log(k);
-            if (k === "basePrice") {
-              const orderItemValue = (orderItem as OrderModalResponse)[
-                k as keyof OrderModalResponse
-              ] as number;
-              if (orderItemValue != val) {
-                console.log(val);
-                console.log(orderItemValue);
-                priceChanged = true;
-                item[k] = orderItemValue;
-              }
-            }
-          }
-
-          if (valType === "ICartAddOn") {
-            const optionArray = (orderItem as OrderModalResponse)[
-              k as keyof OrderModalResponse
-            ] as itemStringWithId[];
-
-            const orderItemValue = optionArray.find((x) => {
-              //NOTE: we use split here because the id in the order item (val) is key of the order item + key of the add on
-              return x.id === (val as ICartAddOn).id.split(item.key)[1];
-            });
-
-            if (orderItemValue?.price != (val as ICartAddOn).price) {
-              priceChanged = true;
-              (val as ICartAddOn).price = (
-                orderItemValue as itemStringWithId
-              ).price;
-            }
-          }
-
-          if (valType === "ICartAddOn[]") {
-            const optionArray = (orderItem as OrderModalResponse)[
-              k as keyof OrderModalResponse
-            ] as itemStringWithId[];
-            //in this case we want to look for the corresponding id with whatever order item was selected. if we can't find it, then remove the option and set optionsChanged
-
-            const selectedOptionsArray = val as ICartAddOn[];
-
-            //we loop through the entire array.
-
-            selectedOptionsArray.forEach((x) => {
-              //find the value corresponding to the same id in optionArray
-
-              const correspondingOption = optionArray.find((n) => {
-                return n.id === x.id.split(item.key)[1];
-              });
-
-              console.log(correspondingOption);
-              console.log(
-                `corresponding option: ${correspondingOption?.price}`
-              );
-
-              if (x.price != correspondingOption?.price) {
-                x.price = (correspondingOption as itemStringWithId).price;
-                priceChanged = true;
-                console.log("new val: ");
-                console.log(val);
-              }
-            });
-          }
-
-          //NOTE: in the case where this is null, then there may be an issue where the field must not be null.
-          //hence we have to check that the field can actually be null.
-          if (valType === "null") {
-            //check that the field is an itemStringWithId -- this means its either single or multiselect
-
-            //TODO: change to use generic instead of hardcoding size and milk as single select.
-            if (
-              (
-                orderItem[k as keyof OrderModalResponse] as itemStringWithId[]
-              )[0]
-            ) {
-              if (k == "milk" || k == "size") {
-                //this means that the field is null when it must have an option. so we get the default option (whatever is price of 0)
-                item[k] = (
-                  orderItem[k as keyof OrderModalResponse] as itemStringWithId[]
-                ).find((x) => x.price == 0) as ICartAddOn;
-              }
-            }
-          }
+        switch (typeOfVal) {
+          case "number":
+            validateBasePrice(
+              cartProp,
+              cartItem,
+              orderItemVal as number,
+              priceChanged
+            );
+            break;
+          case "ICartAddOn":
+            validateICartAddOn(
+              typedVal as ICartAddOn,
+              cartItem,
+              orderItemVal as itemStringWithId[],
+              priceChanged,
+              optionsChanged
+            );
+            break;
+          case "ICartAddOn[]":
+            validateICartAddOnArray(
+              typedVal as ICartAddOn[],
+              cartItem,
+              orderItemVal as itemStringWithId[],
+              priceChanged,
+              optionsChanged
+            );
+            break;
+          case "null":
+            validateNull(cartItem, cartProp, orderItem, orderItemProp);
+            break;
+          default:
+            break;
         }
       }
-    });
+    }
 
-    console.log(`old price: ${item.price}`);
-    getOrderInstanceTotal(item);
-    console.log(item.price);
-    console.log(item);
-  });
+    getOrderInstanceTotal(cartItem);
+  }
 
   const newOrderItemsArray = reconstructItemsArray(
     itemsMutate,
@@ -181,6 +119,110 @@ export default function validateCart(
     priceChanged: priceChanged,
     optionsChanged: optionsChanged,
   };
+}
+
+function validateNull(
+  cartItem: ICartItem,
+  cartProp: keyof ICartItem,
+  orderItem: OrderModalResponse,
+  orderItemProp: keyof OrderModalResponse
+) {
+  //TODO: change to use generic instead of hardcoding size and milk as single select.
+  if ((orderItem[orderItemProp] as itemStringWithId[])[0]) {
+    console.log(JSON.stringify(orderItem[orderItemProp] as itemStringWithId[]));
+    if (cartProp == "milk" || cartProp == "size") {
+      //this means that the field is null when it must have an option. so we get the default option (whatever is price of 0)
+      cartItem[cartProp] = (
+        orderItem[orderItemProp] as itemStringWithId[]
+      ).find((x) => x.price == 0) as ICartAddOn;
+    }
+  }
+}
+
+function validateICartAddOnArray(
+  selectedOptionsArray: ICartAddOn[],
+  cartItem: ICartItem,
+  optionArray: itemStringWithId[],
+  priceChanged: boolean,
+  optionsChanged: boolean
+) {
+  //we loop through the entire array.
+
+  for (const selectedOption of selectedOptionsArray) {
+    //NOTE: we have to do this split because the id in the selectedOption is not just the same as the id in the option array -- it also has cartItem's key added onto it.
+    const orderOption = optionArray.find((x) => {
+      return x.id === selectedOption.id.split(cartItem.key)[1];
+    });
+
+    if (orderOption) {
+      if (orderOption.price != selectedOption?.price) {
+        selectedOption.price = orderOption.price;
+        priceChanged = true;
+      }
+    } else {
+      //in this case we want to look for the corresponding id with whatever order item was selected. if we can't find it, then remove the option and set optionsChanged
+      optionsChanged = true;
+      selectedOptionsArray.splice(
+        selectedOptionsArray.indexOf(selectedOption, 1)
+      );
+    }
+  }
+
+  selectedOptionsArray.forEach((x) => {
+    //find the value corresponding to the same id in optionArray
+
+    const correspondingOption = optionArray.find((n) => {
+      return n.id === x.id.split(cartItem.key)[1];
+    });
+
+    console.log(correspondingOption);
+    console.log(`corresponding option: ${correspondingOption?.price}`);
+
+    if (x.price != correspondingOption?.price) {
+      x.price = (correspondingOption as itemStringWithId).price;
+      priceChanged = true;
+      console.log("new val: ");
+      console.log(x.price);
+    }
+  });
+}
+
+function validateBasePrice(
+  cartProp: keyof ICartItem,
+  cartItem: ICartItem,
+  orderItemVal: number,
+  priceChanged: boolean
+) {
+  if (cartProp === "basePrice") {
+    if (orderItemVal != cartItem[cartProp]) {
+      priceChanged = true;
+      cartItem[cartProp] = orderItemVal;
+    }
+  }
+}
+
+function validateICartAddOn(
+  val: ICartAddOn,
+  cartItem: ICartItem,
+  optionArray: itemStringWithId[],
+  priceChanged: boolean,
+  optionsChanged: boolean
+) {
+  const orderItemValue = optionArray.find((x) => {
+    //NOTE: we use split here because the id in the order item (val) is key of the order item + key of the add on
+    return x.id === val.id.split(cartItem.key)[1];
+  });
+
+  if (orderItemValue) {
+    if (orderItemValue?.price != val.price) {
+      priceChanged = true;
+      val.price = (orderItemValue as itemStringWithId).price;
+    }
+  } else {
+    //in this case the corresponding id was not found. that means replace this with the default order option.
+    val = optionArray.find((x) => x.price === 0) as ICartAddOn;
+    optionsChanged = true;
+  }
 }
 
 function containsPrice(val: ICartItem[keyof ICartItem]): {
@@ -239,6 +281,8 @@ function reconstructItemsArray<T extends boolean>(
       ...items[i],
     });
   });
+
+  //TODO: rememeber to sort extras.
 
   if (validate == true) {
     validateCart(items, newItemsArray, orderItems);

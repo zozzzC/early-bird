@@ -67,7 +67,6 @@ export default function validateCart(
           console.log(valType);
 
           if (typeof val === "number") {
-            //we don't want to cross-reference if the value is price, so skip it when it is equal to price.
             console.log("number");
             console.log(k);
             if (k === "basePrice") {
@@ -130,6 +129,26 @@ export default function validateCart(
                 console.log(val);
               }
             });
+          }
+
+          //NOTE: in the case where this is null, then there may be an issue where the field must not be null.
+          //hence we have to check that the field can actually be null.
+          if (valType === "null") {
+            //check that the field is an itemStringWithId -- this means its either single or multiselect
+
+            //TODO: change to use generic instead of hardcoding size and milk as single select.
+            if (
+              (
+                orderItem[k as keyof OrderModalResponse] as itemStringWithId[]
+              )[0]
+            ) {
+              if (k == "milk" || k == "size") {
+                //this means that the field is null when it must have an option. so we get the default option (whatever is price of 0)
+                item[k] = (
+                  orderItem[k as keyof OrderModalResponse] as itemStringWithId[]
+                ).find((x) => x.price == 0) as ICartAddOn;
+              }
+            }
           }
         }
       }
@@ -207,45 +226,6 @@ function containsPrice(val: ICartItem[keyof ICartItem]): {
 
   return { containsPrice: false, typedVal: null, typeOfVal: "null" };
 }
-
-// function containsPrice<T extends keyof ICartItem>(
-//   val: ICartItem[keyof ICartItem],
-//   valType: T
-// ): val is ICartItem[T] {
-//   console.log(`val: ${val}`);
-
-// //   return typeof val === ICartItem[valType];
-
-//   if (typeof val === "number") {
-//     return {
-//       containsPrice: true,
-//       typedVal: val as number,
-//       typeOfVal: "number",
-//     };
-//   }
-
-//   //TODO: everything that is not a number is returing as ICartAddOn are returning of type ICartAddOn. there is probably an issue with the type guard.
-//   if ((val as ICartAddOn).price) {
-//     console.log("val as ICartAddOn");
-//     console.log(val as ICartAddOn);
-
-//     return {
-//       containsPrice: true,
-//       typedVal: val as ICartAddOn,
-//       typeOfVal: "ICartAddOn",
-//     };
-//   }
-
-//   if ((val as ICartAddOn[])[0].price) {
-//     return {
-//       containsPrice: true,
-//       typedVal: val as ICartAddOn[],
-//       typeOfVal: "ICartAddOn[]",
-//     };
-//   }
-
-//   return { containsPrice: false, typedVal: val as null, typeOfVal: "null" };
-// }
 
 function reconstructItemsArray<T extends boolean>(
   items: ICart,

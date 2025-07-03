@@ -114,6 +114,9 @@ describe("validate cart function", () => {
         },
       ])
     );
+
+    expect(screen.getByTestId("price-changed").innerHTML).toBe("true");
+    expect(screen.getByTestId("options-changed").innerHTML).toBe("false");
   });
   test("while paying, given an invalid cart with a milk option that cannot be found, and an extra option that cannot be found, the cart is updated with the default milk option, the extra option is removed, the item total is updated, and priceChanged and optionsChanged is true.", async () => {
     render(
@@ -156,6 +159,10 @@ describe("validate cart function", () => {
 
   test.todo(
     "while paying, given an invalid cart where required options are needed (EG: milk and size for americano), the item is updated with the default, priceChanged is true and optionsChanged is true."
+  );
+
+  test.todo(
+    "while paying, given an invalid cart where there are parameters missing and some that are added, we are not allowed to continue."
   );
 
   test.todo(

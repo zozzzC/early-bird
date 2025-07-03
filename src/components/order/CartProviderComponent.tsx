@@ -1,9 +1,9 @@
 "use client";
 import { sortArrayAddOns } from "@/helpers/arrayAddOnSort";
+import getCartItemId from "@/helpers/getCartItemId";
 import getOrderInstanceTotal from "@/helpers/getOrderInstanceTotal";
 import { CartContext } from "@/hooks/CartContext";
 import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
-import { createHash } from "crypto";
 import { cloneDeep } from "lodash";
 import { useState } from "react";
 
@@ -177,19 +177,6 @@ export default function CartProviderComponent({
 
     console.log({ ...itemsMutate });
     console.log([...itemsArrayMutate]);
-  }
-
-  function getCartItemId(cartItem: ICartItem) {
-    const cartItemNoQuantity: ICartItem | any = cloneDeep(
-      cartItem
-    ) as ICartItem;
-    delete cartItemNoQuantity.quantity;
-    delete cartItemNoQuantity.price;
-    const hash = createHash("sha256");
-    hash.update(JSON.stringify(cartItemNoQuantity));
-    const val = hash.digest("hex");
-    console.log(val);
-    return val;
   }
 
   function getCartTotal(): {

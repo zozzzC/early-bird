@@ -8,6 +8,7 @@ import { cloneDeep } from "lodash";
 import z from "zod";
 import { sortArrayAddOns } from "./arrayAddOnSort";
 import getOrderInstanceTotal from "./getOrderInstanceTotal";
+import parseCart from "./parseCart";
 
 //NOTE: if we are using validateCart when attempting to load the cart from localStorage, we must also re-add everything into the cart.
 //otherwise we are using this function to validate the cart before it is to be paid for.
@@ -23,8 +24,8 @@ export default function validateCart(
   priceChanged: boolean;
   optionsChanged: boolean;
 } {
-  const itemsArrayMutate = cloneDeep(itemsArray);
-  const itemsMutate = cloneDeep(items);
+  let itemsArrayMutate = cloneDeep(itemsArray);
+  let itemsMutate = cloneDeep(items);
   let priceChanged = false;
   let optionsChanged = false;
 
@@ -36,14 +37,8 @@ export default function validateCart(
       //then the cart is invalid.
       console.log("Cart is invalid. Deleting cart...");
 
-      const newOrderItemsArray = reconstructItemsArray(
-        {},
-        orderItems,
-        false
-      );
-
-      //TODO: add functionality for us to directly delete the entire cart, or maybe this can be done in the Cart directly? 
-      //we need to do this if we are trying to pay now.   
+      //TODO: add functionality for us to directly delete the entire cart, or maybe this can be done in the Cart directly?
+      //we need to do this if we are trying to pay now.
       return {
         items: {},
         itemsArray: [],
@@ -116,7 +111,13 @@ export default function validateCart(
             );
             break;
           case "null":
-            validateNull(cartItem, cartProp, orderItem, orderItemProp);
+            validateNull(
+              cartItem,
+              cartProp,
+              orderItem,
+              orderItemProp,
+              optionsChanged
+            );
             break;
           default:
             break;
@@ -126,12 +127,6 @@ export default function validateCart(
 
     getOrderInstanceTotal(cartItem);
   }
-
-  const newOrderItemsArray = reconstructItemsArray(
-    itemsMutate,
-    orderItems,
-    false
-  );
 
   //TODO: this doesnt work properly.
   //NOTE: in the case that editCart is defined, that means that we are using the validation function when attempting to pay now.
@@ -146,7 +141,15 @@ export default function validateCart(
     });
   }
 
-  //TODO: if the items changed their hashes need to be recalculated
+
+  //TODO: test that items mutate works. 
+  itemsMutate = parseCart(itemsMutate);
+
+  const newOrderItemsArray = reconstructItemsArray(
+    itemsMutate,
+    orderItems,
+    false
+  );
 
   return {
     items: itemsMutate,
@@ -160,7 +163,8 @@ function validateNull(
   cartItem: ICartItem,
   cartProp: keyof ICartItem,
   orderItem: OrderModalResponse,
-  orderItemProp: keyof OrderModalResponse
+  orderItemProp: keyof OrderModalResponse,
+  optionsChanged: boolean
 ) {
   //TODO: change to use generic instead of hardcoding size and milk as single select.
   if ((orderItem[orderItemProp] as itemStringWithId[])[0]) {
@@ -170,6 +174,7 @@ function validateNull(
       cartItem[cartProp] = (
         orderItem[orderItemProp] as itemStringWithId[]
       ).find((x) => x.price == 0) as ICartAddOn;
+      optionsChanged = true;
     }
   }
 }

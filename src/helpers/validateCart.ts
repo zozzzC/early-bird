@@ -1,9 +1,11 @@
+import { Cart } from "@/components/schema/CartItem.schema";
 import { ICart, ICartAddOn, ICartItem, ICartItemWithId } from "@/types/Cart";
 import {
   itemStringWithId,
   OrderModalResponse,
 } from "@/types/OrderModalResponse";
 import { cloneDeep } from "lodash";
+import z from "zod";
 import { sortArrayAddOns } from "./arrayAddOnSort";
 import getOrderInstanceTotal from "./getOrderInstanceTotal";
 
@@ -25,6 +27,31 @@ export default function validateCart(
   const itemsMutate = cloneDeep(items);
   let priceChanged = false;
   let optionsChanged = false;
+
+  try {
+    Cart.parse(items);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      console.log(error.issues);
+      //then the cart is invalid.
+      console.log("Cart is invalid. Deleting cart...");
+
+      const newOrderItemsArray = reconstructItemsArray(
+        {},
+        orderItems,
+        false
+      );
+
+      //TODO: add functionality for us to directly delete the entire cart, or maybe this can be done in the Cart directly? 
+      //we need to do this if we are trying to pay now.   
+      return {
+        items: {},
+        itemsArray: [],
+        priceChanged: priceChanged,
+        optionsChanged: optionsChanged,
+      };
+    }
+  }
 
   for (const id in itemsMutate) {
     const correspondingArrayItem: number = itemsArrayMutate.findIndex((x) => {

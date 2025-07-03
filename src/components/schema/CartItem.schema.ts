@@ -6,15 +6,16 @@ const CartAddOn = z.object({
   price: z.number(),
 });
 
-const CartItem = z.object({
+export const CartItem = z.object({
   key: z.string(),
   name: z.string(),
   category: z.union([z.string(), z.null()]),
-  milk: z.union([CartAddOn, z.null()]),
-  extra: z.union([CartAddOn, z.null()]),
-  size: z.union([z.array(CartAddOn), z.null()]),
+  milk: CartAddOn.nullable(),
+  extra: z.array(CartAddOn).nullable(),
+  size: CartAddOn.nullable(),
   price: z.number(),
   basePrice: z.number(),
   quantity: z.number(),
 });
 
+export const Cart = z.record(z.string(), CartItem);

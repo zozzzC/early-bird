@@ -219,9 +219,6 @@ export default function CartProviderComponent({
     return undefined;
   }
 
-  //TODO: this function will be used to revalidate the options and
-  function validateCart() {}
-
   return (
     <CartContext.Provider
       value={{

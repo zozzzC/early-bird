@@ -4,6 +4,7 @@ import {
   OrderModalResponse,
 } from "@/types/OrderModalResponse";
 import { cloneDeep } from "lodash";
+import { sortArrayAddOns } from "./arrayAddOnSort";
 import getOrderInstanceTotal from "./getOrderInstanceTotal";
 
 //NOTE: if we are using validateCart when attempting to load the cart from localStorage, we must also re-add everything into the cart.
@@ -276,13 +277,12 @@ function reconstructItemsArray<T extends boolean>(
 ): T extends true ? null : ICartItemWithId[] {
   const newItemsArray: ICartItemWithId[] = [];
   Object.keys(items).forEach((i) => {
+    sortArrayAddOns(items[i]);
     newItemsArray.push({
       id: i,
       ...items[i],
     });
   });
-
-  //TODO: rememeber to sort extras.
 
   if (validate == true) {
     validateCart(items, newItemsArray, orderItems);

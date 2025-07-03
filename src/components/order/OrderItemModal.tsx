@@ -26,8 +26,7 @@ export default function OrderItemModal({
   close: () => void;
 }) {
   const orderItem = useOrderItemContext();
-  const { getOrderInstanceByHash, getOrderInstanceTotal } =
-    useCartContext();
+  const { getOrderInstanceByHash, getOrderInstanceTotal } = useCartContext();
   const [total, setTotal] = useState<number>(
     orderHash
       ? getOrderInstanceByHash(orderHash)
@@ -51,12 +50,15 @@ export default function OrderItemModal({
       return orderInstanceClone;
     }
 
+    const defaultSize = orderItem.size?.find((x) => x.price == 0);
+    const defaultMilk = orderItem.milk?.find((x) => x.price == 0);
+
     return {
       key: orderItem.key,
       name: orderItem.name,
       category: orderItem.category,
-      size: null,
-      milk: null,
+      size: defaultSize ? (defaultSize as ICartAddOn) : null,
+      milk: defaultMilk ? (defaultMilk as ICartAddOn) : null,
       extra: null,
       price: total,
       quantity: 1,

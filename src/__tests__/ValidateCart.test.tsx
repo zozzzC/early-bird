@@ -113,9 +113,20 @@ describe("validate cart function", () => {
       ])
     );
   });
-  test.todo(
-    "while paying, given an invalid cart with a milk option that cannot be found, and an extra option that cannot be found, the cart is updated, the item total is updated, and priceChanged and optionsChanged is true."
-  );
+  test("while paying, given an invalid cart with a milk option that cannot be found, and an extra option that cannot be found, the cart is updated with the default milk option, the extra option is removed, the item total is updated, and priceChanged and optionsChanged is true.", async () => {
+    const invalidMilkAndExtra =  
+    render(
+      <CartProviderComponent
+        defaultItems={invalidCartItem}
+        defaultItemsArray={invalidCartItemArray}
+      >
+        <InvalidCartButton orderItems={sampleOrderItems} />
+        <ViewCartJsx showItems={true} showItemsArray={true} />
+      </CartProviderComponent>
+    );
+
+    await userEvent.click(screen.getByText("validate cart"));
+  });
 
   test.todo(
     "while paying, given an invalid cart where required options are needed (EG: milk and size for americano), the item is updated with the default, priceChanged is true and optionsChanged is true."

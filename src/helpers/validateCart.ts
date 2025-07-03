@@ -82,6 +82,7 @@ export default function validateCart(
             validateICartAddOnArray(
               typedVal as ICartAddOn[],
               cartItem,
+              cartProp,
               orderItemVal as itemStringWithId[],
               priceChanged,
               optionsChanged
@@ -143,6 +144,7 @@ function validateNull(
 function validateICartAddOnArray(
   selectedOptionsArray: ICartAddOn[],
   cartItem: ICartItem,
+  cartProp: keyof ICartItem,
   optionArray: itemStringWithId[],
   priceChanged: boolean,
   optionsChanged: boolean
@@ -161,11 +163,16 @@ function validateICartAddOnArray(
         priceChanged = true;
       }
     } else {
-      //in this case we want to look for the corresponding id with whatever order item was selected. if we can't find it, then remove the option and set optionsChanged
+      //in this case we want to look for the corresponding id with whatever order item was selected. if we can't find it, then remove the option and set optionsChanged and priceChanged.
       optionsChanged = true;
+      priceChanged = true;
       selectedOptionsArray.splice(
         selectedOptionsArray.indexOf(selectedOption, 1)
       );
+
+      if (selectedOptionsArray.length == 0) {
+        (cartItem[cartProp] as ICartAddOn[] | null) = null;
+      }
     }
   }
 

@@ -33,12 +33,20 @@ describe("Cart functionalities", () => {
 
     expect(screen.getByTestId("items").innerHTML).toBe(
       JSON.stringify({
-        "4b16fc6f1806768de8c09bca26b0a856e82bb79a3888f636e6084ca65203bc31": {
+        ee7ef2c43ef1907fafec178d7faf6d5a50aebbcfadcd36e0ffe1e37b9075bd7f: {
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
-          size: null,
-          milk: null,
+          size: {
+            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            name: "small",
+            price: 0,
+          },
+          milk: {
+            id: "e2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+            name: "Fresh milk",
+            price: 0,
+          },
           extra: null,
           price: 4.5,
           basePrice: 4.5,
@@ -46,16 +54,23 @@ describe("Cart functionalities", () => {
         },
       })
     );
-
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
       JSON.stringify([
         {
-          id: "4b16fc6f1806768de8c09bca26b0a856e82bb79a3888f636e6084ca65203bc31",
+          id: "ee7ef2c43ef1907fafec178d7faf6d5a50aebbcfadcd36e0ffe1e37b9075bd7f",
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
-          size: null,
-          milk: null,
+          size: {
+            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            name: "small",
+            price: 0,
+          },
+          milk: {
+            id: "e2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+            name: "Fresh milk",
+            price: 0,
+          },
           extra: null,
           price: 4.5,
           basePrice: 4.5,
@@ -80,12 +95,20 @@ describe("Cart functionalities", () => {
 
     expect(screen.getByTestId("items").innerHTML).toBe(
       JSON.stringify({
-        "4b16fc6f1806768de8c09bca26b0a856e82bb79a3888f636e6084ca65203bc31": {
+        ee7ef2c43ef1907fafec178d7faf6d5a50aebbcfadcd36e0ffe1e37b9075bd7f: {
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
-          size: null,
-          milk: null,
+          size: {
+            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            name: "small",
+            price: 0,
+          },
+          milk: {
+            id: "e2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+            name: "Fresh milk",
+            price: 0,
+          },
           extra: null,
           price: 9.0,
           basePrice: 4.5,
@@ -97,12 +120,20 @@ describe("Cart functionalities", () => {
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
       JSON.stringify([
         {
-          id: "4b16fc6f1806768de8c09bca26b0a856e82bb79a3888f636e6084ca65203bc31",
+          id: "ee7ef2c43ef1907fafec178d7faf6d5a50aebbcfadcd36e0ffe1e37b9075bd7f",
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
-          size: null,
-          milk: null,
+          size: {
+            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            name: "small",
+            price: 0,
+          },
+          milk: {
+            id: "e2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+            name: "Fresh milk",
+            price: 0,
+          },
           extra: null,
           price: 9.0,
           basePrice: 4.5,
@@ -127,11 +158,15 @@ describe("Cart functionalities", () => {
 
     expect(screen.getByTestId("items").innerHTML).toBe(
       JSON.stringify({
-        "01bc3b4047d9b6eda4988ed928507ec8d5fb86d6e4748d2972f30109cdd03cce": {
+        "1981f499b4d9877061a4505024dc7c56895c7d044593c2bc137cf94b43b0cd01": {
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
-          size: null,
+          size: {
+            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            name: "small",
+            price: 0,
+          },
           milk: {
             id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
             name: "Soy milk",
@@ -175,12 +210,20 @@ describe("Cart functionalities", () => {
 
     expect(screen.getByTestId("items").innerHTML).toBe(
       JSON.stringify({
-        "4b16fc6f1806768de8c09bca26b0a856e82bb79a3888f636e6084ca65203bc31": {
+        ee7ef2c43ef1907fafec178d7faf6d5a50aebbcfadcd36e0ffe1e37b9075bd7f: {
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
-          size: null,
-          milk: null,
+          size: {
+            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            name: "small",
+            price: 0,
+          },
+          milk: {
+            id: "e2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+            name: "Fresh milk",
+            price: 0,
+          },
           extra: null,
           price: 4.5,
           basePrice: 4.5,
@@ -193,11 +236,15 @@ describe("Cart functionalities", () => {
 
     expect(screen.getByTestId("items").innerHTML).toBe(
       JSON.stringify({
-        "01bc3b4047d9b6eda4988ed928507ec8d5fb86d6e4748d2972f30109cdd03cce": {
+        "1981f499b4d9877061a4505024dc7c56895c7d044593c2bc137cf94b43b0cd01": {
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
-          size: null,
+          size: {
+            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            name: "small",
+            price: 0,
+          },
           milk: {
             id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
             name: "Soy milk",
@@ -248,26 +295,34 @@ describe("Cart functionalities", () => {
 
     expect(screen.getByTestId("items").innerHTML).toBe(
       JSON.stringify({
-        "881c1e070f0fbbceddd0acf28bdc047f016ba51bac636b9cb92e138bfd7ff303": {
+        "3503a0cd0f8f82ebcfc4d57fb146a8df9313062341241e55031e03b30f6ae03a": {
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
           size: {
             id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
             name: "small",
+            price: 0,
+          },
+          milk: {
+            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
+            name: "Soy milk",
             price: 1,
           },
-          milk: null,
           extra: null,
-          price: 4.5,
+          price: 5.5,
           basePrice: 4.5,
           quantity: 1,
         },
-        "01bc3b4047d9b6eda4988ed928507ec8d5fb86d6e4748d2972f30109cdd03cce": {
+        "1981f499b4d9877061a4505024dc7c56895c7d044593c2bc137cf94b43b0cd01": {
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
-          size: null,
+          size: {
+            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            name: "small",
+            price: 0,
+          },
           milk: {
             id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
             name: "Soy milk",
@@ -295,11 +350,15 @@ describe("Cart functionalities", () => {
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
       JSON.stringify([
         {
-          id: "01bc3b4047d9b6eda4988ed928507ec8d5fb86d6e4748d2972f30109cdd03cce",
+          id: "1981f499b4d9877061a4505024dc7c56895c7d044593c2bc137cf94b43b0cd01",
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
-          size: null,
+          size: {
+            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            name: "small",
+            price: 0,
+          },
           milk: {
             id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
             name: "Soy milk",
@@ -322,18 +381,22 @@ describe("Cart functionalities", () => {
           price: 15,
         },
         {
-          id: "881c1e070f0fbbceddd0acf28bdc047f016ba51bac636b9cb92e138bfd7ff303",
+          id: "3503a0cd0f8f82ebcfc4d57fb146a8df9313062341241e55031e03b30f6ae03a",
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
           size: {
             id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
             name: "small",
+            price: 0,
+          },
+          milk: {
+            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
+            name: "Soy milk",
             price: 1,
           },
-          milk: null,
           extra: null,
-          price: 4.5,
+          price: 5.5,
           basePrice: 4.5,
           quantity: 1,
         },
@@ -346,8 +409,16 @@ describe("Cart functionalities", () => {
       key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
       name: "Americano",
       category: "hot",
-      size: null,
-      milk: null,
+      size: {
+        id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+        name: "small",
+        price: 0,
+      },
+      milk: {
+        id: "e2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+        name: "Fresh milk",
+        price: 0,
+      },
       extra: null,
       price: 4.5,
       basePrice: 4.5,
@@ -370,12 +441,20 @@ describe("Cart functionalities", () => {
 
     expect(screen.getByTestId("items").innerHTML).toBe(
       JSON.stringify({
-        "4b16fc6f1806768de8c09bca26b0a856e82bb79a3888f636e6084ca65203bc31": {
+        ee7ef2c43ef1907fafec178d7faf6d5a50aebbcfadcd36e0ffe1e37b9075bd7f: {
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
-          size: null,
-          milk: null,
+          size: {
+            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            name: "small",
+            price: 0,
+          },
+          milk: {
+            id: "e2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+            name: "Fresh milk",
+            price: 0,
+          },
           extra: null,
           price: 4.5,
           basePrice: 4.5,
@@ -388,12 +467,20 @@ describe("Cart functionalities", () => {
 
     expect(screen.getByTestId("items").innerHTML).toBe(
       JSON.stringify({
-        "4b16fc6f1806768de8c09bca26b0a856e82bb79a3888f636e6084ca65203bc31": {
+        ee7ef2c43ef1907fafec178d7faf6d5a50aebbcfadcd36e0ffe1e37b9075bd7f: {
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
-          size: null,
-          milk: null,
+          size: {
+            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            name: "small",
+            price: 0,
+          },
+          milk: {
+            id: "e2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+            name: "Fresh milk",
+            price: 0,
+          },
           extra: null,
           price: 4.5,
           basePrice: 4.5,
@@ -405,12 +492,20 @@ describe("Cart functionalities", () => {
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
       JSON.stringify([
         {
-          id: "4b16fc6f1806768de8c09bca26b0a856e82bb79a3888f636e6084ca65203bc31",
+          id: "ee7ef2c43ef1907fafec178d7faf6d5a50aebbcfadcd36e0ffe1e37b9075bd7f",
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
-          size: null,
-          milk: null,
+          size: {
+            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            name: "small",
+            price: 0,
+          },
+          milk: {
+            id: "e2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+            name: "Fresh milk",
+            price: 0,
+          },
           extra: null,
           price: 4.5,
           basePrice: 4.5,
@@ -440,12 +535,20 @@ describe("Cart functionalities", () => {
 
     expect(screen.getByTestId("items").innerHTML).toBe(
       JSON.stringify({
-        "4b16fc6f1806768de8c09bca26b0a856e82bb79a3888f636e6084ca65203bc31": {
+        ee7ef2c43ef1907fafec178d7faf6d5a50aebbcfadcd36e0ffe1e37b9075bd7f: {
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
-          size: null,
-          milk: null,
+          size: {
+            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            name: "small",
+            price: 0,
+          },
+          milk: {
+            id: "e2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+            name: "Fresh milk",
+            price: 0,
+          },
           extra: null,
           price: 4.5,
           basePrice: 4.5,
@@ -458,12 +561,20 @@ describe("Cart functionalities", () => {
 
     expect(screen.getByTestId("items").innerHTML).toBe(
       JSON.stringify({
-        "4b16fc6f1806768de8c09bca26b0a856e82bb79a3888f636e6084ca65203bc31": {
+        ee7ef2c43ef1907fafec178d7faf6d5a50aebbcfadcd36e0ffe1e37b9075bd7f: {
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
-          size: null,
-          milk: null,
+          size: {
+            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            name: "small",
+            price: 0,
+          },
+          milk: {
+            id: "e2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+            name: "Fresh milk",
+            price: 0,
+          },
           extra: null,
           price: 9.0,
           basePrice: 4.5,
@@ -475,12 +586,20 @@ describe("Cart functionalities", () => {
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
       JSON.stringify([
         {
-          id: "4b16fc6f1806768de8c09bca26b0a856e82bb79a3888f636e6084ca65203bc31",
+          id: "ee7ef2c43ef1907fafec178d7faf6d5a50aebbcfadcd36e0ffe1e37b9075bd7f",
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
-          size: null,
-          milk: null,
+          size: {
+            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            name: "small",
+            price: 0,
+          },
+          milk: {
+            id: "e2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+            name: "Fresh milk",
+            price: 0,
+          },
           extra: null,
           price: 9.0,
           basePrice: 4.5,

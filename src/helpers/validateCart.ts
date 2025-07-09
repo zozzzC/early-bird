@@ -31,19 +31,22 @@ export default function validateCart(
 
   try {
     Cart.parse(items);
+    console.log("Cart schema is valid.");
   } catch (error) {
     if (error instanceof z.ZodError) {
       console.log(error.issues);
       //then the cart is invalid.
-      console.log("Cart is invalid. Deleting cart...");
+      console.log(
+        "Cart is invalid (one or more objects contains one or more unknown keys). Deleting cart..."
+      );
 
       //TODO: add functionality for us to directly delete the entire cart, or maybe this can be done in the Cart directly?
       //we need to do this if we are trying to pay now.
       return {
         items: {},
         itemsArray: [],
-        priceChanged: priceChanged,
-        optionsChanged: optionsChanged,
+        priceChanged: true,
+        optionsChanged: true,
       };
     }
   }
@@ -84,31 +87,40 @@ export default function validateCart(
 
         switch (typeOfVal) {
           case "number":
-            validateBasePrice(
+            priceChanged = validateBasePrice(
               cartProp,
               cartItem,
-              orderItemVal as number,
-              priceChanged
-            );
+              orderItemVal as number
+            )
+              ? true
+              : priceChanged;
             break;
           case "ICartAddOn":
-            validateICartAddOn(
+            const ICartAddOnChanges = validateICartAddOn(
               cartItem,
               cartProp,
-              orderItemVal as itemStringWithId[],
-              priceChanged,
-              optionsChanged
+              orderItemVal as itemStringWithId[]
             );
+            priceChanged = ICartAddOnChanges.newPriceChanged
+              ? true
+              : priceChanged;
+            optionsChanged = ICartAddOnChanges.newOptionsChanged
+              ? true
+              : optionsChanged;
             break;
           case "ICartAddOn[]":
-            validateICartAddOnArray(
+            const ICartAddOnArrayChanges = validateICartAddOnArray(
               typedVal as ICartAddOn[],
               cartItem,
               cartProp,
-              orderItemVal as itemStringWithId[],
-              priceChanged,
-              optionsChanged
+              orderItemVal as itemStringWithId[]
             );
+            priceChanged = ICartAddOnArrayChanges.newPriceChanged
+              ? true
+              : priceChanged;
+            optionsChanged = ICartAddOnArrayChanges.newOptionsChanged
+              ? true
+              : optionsChanged;
             break;
           case "null":
             validateNull(
@@ -136,14 +148,14 @@ export default function validateCart(
       //match the id to the previous id.
 
       editCartItem(itemsMutate[x], items[x]);
-      console.log(itemsMutate);
-      console.log(items);
     });
   }
 
-
-  //TODO: test that items mutate works. 
+  //TODO: test that items mutate works.
   itemsMutate = parseCart(itemsMutate);
+
+  console.log(itemsMutate);
+  console.log(items);
 
   const newOrderItemsArray = reconstructItemsArray(
     itemsMutate,
@@ -183,11 +195,11 @@ function validateICartAddOnArray(
   selectedOptionsArray: ICartAddOn[],
   cartItem: ICartItem,
   cartProp: keyof ICartItem,
-  optionArray: itemStringWithId[],
-  priceChanged: boolean,
-  optionsChanged: boolean
-) {
+  optionArray: itemStringWithId[]
+): { newPriceChanged: boolean; newOptionsChanged: boolean } {
   //we loop through the entire array.
+  let priceChanged = false;
+  let optionsChanged = false;
 
   for (const selectedOption of selectedOptionsArray) {
     //NOTE: we have to do this split because the id in the selectedOption is not just the same as the id in the option array -- it also has cartItem's key added onto it.
@@ -231,29 +243,31 @@ function validateICartAddOnArray(
       console.log(x.price);
     }
   });
+
+  return { newPriceChanged: priceChanged, newOptionsChanged: optionsChanged };
 }
 
 function validateBasePrice(
   cartProp: keyof ICartItem,
   cartItem: ICartItem,
-  orderItemVal: number,
-  priceChanged: boolean
-) {
+  orderItemVal: number
+): boolean {
   if (cartProp === "basePrice") {
     if (orderItemVal != cartItem[cartProp]) {
-      priceChanged = true;
       cartItem[cartProp] = orderItemVal;
+      return true;
     }
   }
+  return false;
 }
 
 function validateICartAddOn(
   cartItem: ICartItem,
   cartProp: keyof ICartItem,
-  optionArray: itemStringWithId[],
-  priceChanged: boolean,
-  optionsChanged: boolean
-) {
+  optionArray: itemStringWithId[]
+): { newPriceChanged: boolean; newOptionsChanged: boolean } {
+  let priceChanged = false;
+  let optionsChanged = false;
   const orderItemValue = optionArray.find((x) => {
     //NOTE: we use split here because the id in the order item (val) is key of the order item + key of the add on
     return (
@@ -278,6 +292,8 @@ function validateICartAddOn(
     ) as ICartAddOn;
     optionsChanged = true;
   }
+
+  return { newPriceChanged: priceChanged, newOptionsChanged: optionsChanged };
 }
 
 function containsPrice(val: ICartItem[keyof ICartItem]): {

@@ -10,7 +10,8 @@ export default function ValidateCartButton({
 }: {
   orderItems: OrderModalResponse[];
 }) {
-  const { items, itemsArray, editCartItem } = useCartContext();
+  const { items, setItems, itemsArray, setItemsArray, editCartItem } =
+    useCartContext();
   const [priceChanged, setPriceChanged] = useState<boolean>(false);
   const [optionsChanged, setOptionsChanged] = useState<boolean>(false);
 
@@ -18,15 +19,18 @@ export default function ValidateCartButton({
     <>
       <Button
         onClick={() => {
-          const { optionsChanged, priceChanged } = validateCart(
+          const validate = validateCart(
             items,
             itemsArray,
             orderItems,
             editCartItem
           );
 
-          setOptionsChanged(optionsChanged);
-          setPriceChanged(priceChanged);
+          setItems(validate.items);
+          setItemsArray(validate.itemsArray);
+
+          setOptionsChanged(validate.optionsChanged);
+          setPriceChanged(validate.priceChanged);
         }}
       >
         validate cart

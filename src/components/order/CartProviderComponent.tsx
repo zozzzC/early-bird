@@ -210,7 +210,9 @@ export default function CartProviderComponent({
     <CartContext.Provider
       value={{
         items,
+        setItems,
         itemsArray,
+        setItemsArray,
         addCartItem,
         removeCartItem,
         editCartItem,

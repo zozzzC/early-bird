@@ -1,8 +1,7 @@
-import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
+import { ICart, ICartItem } from "@/types/Cart";
 import getCartItemId from "./getCartItemId";
 
-export default function parseCart(cart: ICart): ICart
-{
+export default function parseCart(cart: ICart): ICart {
   let items: ICart = {};
 
   for (const cartItem in cart) {

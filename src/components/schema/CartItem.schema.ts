@@ -6,7 +6,7 @@ const CartAddOn = z.object({
   price: z.number(),
 });
 
-export const CartItem = z.object({
+export const CartItem = z.strictObject({
   key: z.string(),
   name: z.string(),
   category: z.union([z.string(), z.null()]),

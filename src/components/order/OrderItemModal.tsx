@@ -50,8 +50,14 @@ export default function OrderItemModal({
       return orderInstanceClone;
     }
 
-    const defaultSize = orderItem.size?.find((x) => x.price == 0);
-    const defaultMilk = orderItem.milk?.find((x) => x.price == 0);
+    let defaultSize = cloneDeep(orderItem.size?.find((x) => x.price == 0));
+    if (defaultSize) {
+      defaultSize.id = orderItem.key + defaultSize.id;
+    }
+    let defaultMilk = cloneDeep(orderItem.milk?.find((x) => x.price == 0));
+    if (defaultMilk) {
+      defaultMilk.id = orderItem.key + defaultMilk.id;
+    }
 
     return {
       key: orderItem.key,
@@ -74,6 +80,8 @@ export default function OrderItemModal({
     field: T;
     value: OrderInstanceType<T>;
   }): void {
+    console.log(JSON.stringify(value));
+
     const newOrderInstance: ICartItem = cloneDeep(orderInstance);
     //ICartItem[typeof field] is a lookup type. this checks the type of ICartItem at the type of field
     //EG: if field is 'milk' the ICartItem['milk'] = OrderInstanceType<"milk">
@@ -83,6 +91,7 @@ export default function OrderItemModal({
     getOrderInstanceTotal(newOrderInstance);
     setTotal(newOrderInstance.price);
     setOrderInstance(newOrderInstance);
+    console.log(JSON.stringify(newOrderInstance));
   }
 
   return (
@@ -121,17 +130,29 @@ export default function OrderItemModal({
               <SingleSelectManager
                 id={id}
                 orderItemCategory="size"
-                selectedItem={getDefaultSelection(orderHash)?.size}
+                selectedItem={
+                  getDefaultSelection(orderHash)?.size
+                    ? getDefaultSelection(orderHash)?.size
+                    : orderInstance.size
+                }
               />
               <SingleSelectManager
                 id={id}
                 orderItemCategory="milk"
-                selectedItem={getDefaultSelection(orderHash)?.milk}
+                selectedItem={
+                  getDefaultSelection(orderHash)?.milk
+                    ? getDefaultSelection(orderHash)?.milk
+                    : orderInstance.milk
+                }
               />
               <MultiSelectManager
                 id={id}
                 orderItemCategory="extra"
-                selectedItems={getDefaultSelection(orderHash)?.extra}
+                selectedItems={
+                  getDefaultSelection(orderHash)?.extra
+                    ? getDefaultSelection(orderHash)?.extra
+                    : orderInstance.extra
+                }
               />
             </div>
             <div className="w-full pt-5">

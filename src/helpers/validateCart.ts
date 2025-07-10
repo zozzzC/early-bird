@@ -163,6 +163,8 @@ export default function validateCart(
     false
   );
 
+  //TODO: if this is our first time adding the cart, then we need to find a way to add the items into the cart while using the correct keys for the items.
+
   return {
     items: itemsMutate,
     itemsArray: newOrderItemsArray,
@@ -233,14 +235,14 @@ function validateICartAddOnArray(
       return n.id === x.id.split(cartItem.key)[1];
     });
 
-    console.log(correspondingOption);
-    console.log(`corresponding option: ${correspondingOption?.price}`);
+    // console.log(correspondingOption);
+    // console.log(`corresponding option: ${correspondingOption?.price}`);
 
     if (x.price != correspondingOption?.price) {
       x.price = (correspondingOption as itemStringWithId).price;
       priceChanged = true;
-      console.log("new val: ");
-      console.log(x.price);
+      // console.log("new val: ");
+      // console.log(x.price);
     }
   });
 

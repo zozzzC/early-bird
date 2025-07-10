@@ -4,7 +4,7 @@
     "name": "Americano",
     "category": "hot",
     "size": {
-      "id": "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+      "id": "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
       "name": "small",
       "price": 0
     },
@@ -29,7 +29,7 @@
     "basePrice": 4.5,
     "quantity": 1
   },
-  "ee7ef2c43ef1907fafec178d7faf6d5a50aebbcfadcd36e0ffe1e37b9075bd7f": {
+  "42ecbbd59350a40235ce4bb78218da49467ab8ffb9465236aea55f8577701e0c": {
     "key": "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
     "name": "Americano",
     "category": "hot",
@@ -39,21 +39,21 @@
       "price": 0
     },
     "milk": {
-      "id": "e2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+      "id": "1c1f97ca-4876-81bc-bd7d-ef471bc0a6abe2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
       "name": "Fresh milk",
       "price": 0
     },
     "extra": null,
     "price": 4.5,
-    "basePrice": 4.5,
-    "quantity": 1
+    "quantity": 1,
+    "basePrice": 4.5
   },
-  "3503a0cd0f8f82ebcfc4d57fb146a8df9313062341241e55031e03b30f6ae03a": {
+  "1cfcf02ce84984ddb24de46279dc2ca4e160658c70abfee23350ff3444f2c737": {
     "key": "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
     "name": "Americano",
     "category": "hot",
     "size": {
-      "id": "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
+      "id": "30578160-04bf-45c6-8098-f2d4c6c06e9f",
       "name": "small",
       "price": 0
     },
@@ -64,7 +64,7 @@
     },
     "extra": null,
     "price": 5.5,
-    "basePrice": 4.5,
-    "quantity": 1
+    "quantity": 1,
+    "basePrice": 4.5
   }
 }

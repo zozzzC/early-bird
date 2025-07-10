@@ -6,13 +6,13 @@ import CartProviderComponent from "@/components/order/CartProviderComponent";
 import EditButton from "@/components/test/EditButton";
 import OrderInstanceWrapper from "@/components/test/OrderInstanceWrapper";
 import ViewCartJsx from "@/components/test/ViewCartJsx";
-import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
+import { ICart, ICartItem } from "@/types/Cart";
 import { MantineProvider } from "@mantine/core";
 import userEvent from "@testing-library/user-event";
 import { render, screen } from "../helpers/test-utils";
+import getItemsArray from "./helpers/getItemsArray";
 import defaultInstance from "./sample/defaultInstance.json";
 import defaultItems from "./sample/defaultItems.json";
-import defaultItemsArray from "./sample/defaultItemsArray.json";
 import instance from "./sample/instance.json";
 import sampleOrderItems from "./sample/sampleOrderItems.json";
 
@@ -275,7 +275,7 @@ describe("Cart functionalities", () => {
       <OrderInstanceWrapper>
         <CartProviderComponent
           defaultItems={defaultItems as ICart}
-          defaultItemsArray={defaultItemsArray as ICartItemWithId[]}
+          defaultItemsArray={getItemsArray(defaultItems as ICart)}
         >
           <ViewCartJsx showItems={true} showItemsArray={true} />
           <EditButton cartItem={instance as ICartItem} />
@@ -287,7 +287,7 @@ describe("Cart functionalities", () => {
       JSON.stringify(defaultItems)
     );
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
-      JSON.stringify(defaultItemsArray)
+      JSON.stringify(getItemsArray(defaultItems as ICart))
     );
 
     const edit = screen.getByText("edit cart item");
@@ -446,12 +446,12 @@ describe("Cart functionalities", () => {
           name: "Americano",
           category: "hot",
           size: {
-            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
             name: "small",
             price: 0,
           },
           milk: {
-            id: "e2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6abe2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
             name: "Fresh milk",
             price: 0,
           },
@@ -472,12 +472,12 @@ describe("Cart functionalities", () => {
           name: "Americano",
           category: "hot",
           size: {
-            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
             name: "small",
             price: 0,
           },
           milk: {
-            id: "e2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6abe2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
             name: "Fresh milk",
             price: 0,
           },
@@ -497,12 +497,12 @@ describe("Cart functionalities", () => {
           name: "Americano",
           category: "hot",
           size: {
-            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
             name: "small",
             price: 0,
           },
           milk: {
-            id: "e2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6abe2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
             name: "Fresh milk",
             price: 0,
           },
@@ -535,7 +535,7 @@ describe("Cart functionalities", () => {
 
     expect(screen.getByTestId("items").innerHTML).toBe(
       JSON.stringify({
-        ee7ef2c43ef1907fafec178d7faf6d5a50aebbcfadcd36e0ffe1e37b9075bd7f: {
+        cd95a6ece74af996094f966b72087d55564fccfd04ba27034231cbcf9ac4d45f: {
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
@@ -561,17 +561,17 @@ describe("Cart functionalities", () => {
 
     expect(screen.getByTestId("items").innerHTML).toBe(
       JSON.stringify({
-        ee7ef2c43ef1907fafec178d7faf6d5a50aebbcfadcd36e0ffe1e37b9075bd7f: {
+        cd95a6ece74af996094f966b72087d55564fccfd04ba27034231cbcf9ac4d45f: {
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
           size: {
-            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
             name: "small",
             price: 0,
           },
           milk: {
-            id: "e2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6abe2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
             name: "Fresh milk",
             price: 0,
           },
@@ -586,17 +586,17 @@ describe("Cart functionalities", () => {
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
       JSON.stringify([
         {
-          id: "ee7ef2c43ef1907fafec178d7faf6d5a50aebbcfadcd36e0ffe1e37b9075bd7f",
+          id: "cd95a6ece74af996094f966b72087d55564fccfd04ba27034231cbcf9ac4d45f",
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
           size: {
-            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
             name: "small",
             price: 0,
           },
           milk: {
-            id: "e2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6abe2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
             name: "Fresh milk",
             price: 0,
           },
@@ -614,7 +614,7 @@ describe("Cart functionalities", () => {
       <OrderInstanceWrapper>
         <CartProviderComponent
           defaultItems={defaultItems}
-          defaultItemsArray={defaultItemsArray}
+          defaultItemsArray={getItemsArray(defaultItems as ICart)}
         >
           <CheckoutList orderItems={sampleOrderItems} />
         </CartProviderComponent>

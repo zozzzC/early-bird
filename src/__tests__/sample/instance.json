@@ -24,6 +24,7 @@
       "price": 1
     }
   ],
-  "basePrice": 4.5,
-  "quantity": 1
+  "price": 7.5,
+  "quantity": 1,
+  "basePrice": 4.5
 }

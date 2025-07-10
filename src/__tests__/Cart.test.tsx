@@ -382,7 +382,7 @@ describe("Cart functionalities", () => {
     );
   });
 
-  //TODO: this is returning 2 quantities, when it should return none
+  //TODO: this is returning 2 quantities, when it should return ONE 
   it("edits the same instance to the same instance and nothing changed", async () => {
     render(
       <OrderInstanceWrapper>

@@ -17,8 +17,7 @@ export default function CheckoutList({
 
   const invalid = checkIfInvalid(itemsArray, orderItems);
 
-  //TODO: the below function does not update to the correct/expected value.
-  useValidateCart(items, itemsArray, orderItems);
+  useValidateCart(orderItems);
 
   return (
     <div className="p-5">

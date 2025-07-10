@@ -6,8 +6,6 @@ import { useEffect, useState } from "react";
 import { useCartContext } from "./useCartContext";
 
 export const useValidateCart = (
-  items: ICart,
-  itemsArray: ICartItemWithId[],
   orderItems: OrderModalResponse[]
 ): { priceChanged: boolean; optionsChanged: boolean } => {
   const { setItems, setItemsArray } = useCartContext();

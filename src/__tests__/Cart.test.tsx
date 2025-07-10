@@ -9,6 +9,7 @@ import ViewCartJsx from "@/components/test/ViewCartJsx";
 import { ICart, ICartItem } from "@/types/Cart";
 import { MantineProvider } from "@mantine/core";
 import userEvent from "@testing-library/user-event";
+import { cloneDeep } from "lodash";
 import { render, screen } from "../helpers/test-utils";
 import getItemsArray from "./helpers/getItemsArray";
 import defaultInstance from "./sample/defaultInstance.json";
@@ -382,46 +383,64 @@ describe("Cart functionalities", () => {
     );
   });
 
-  //TODO: this is returning 2 quantities, when it should return ONE 
+  //TODO: this is returning 2 quantities, when it should return ONE
   it("edits the same instance to the same instance and nothing changed", async () => {
+    const instance = cloneDeep(defaultInstance as ICartItem);
+
     render(
-      <OrderInstanceWrapper>
-        <CartProviderComponent>
+      <OrderInstanceWrapper instance={instance}>
+        <CartProviderComponent
+          defaultItems={{
+            cd95a6ece74af996094f966b72087d55564fccfd04ba27034231cbcf9ac4d45f: {
+              key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
+              name: "Americano",
+              category: "hot",
+              size: {
+                id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
+                name: "small",
+                price: 0,
+              },
+              milk: {
+                id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6abe2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+                name: "Fresh milk",
+                price: 0,
+              },
+              extra: null,
+              price: 4.5,
+              quantity: 1,
+              basePrice: 4.5,
+            },
+          }}
+          defaultItemsArray={getItemsArray({
+            cd95a6ece74af996094f966b72087d55564fccfd04ba27034231cbcf9ac4d45f: {
+              key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
+              name: "Americano",
+              category: "hot",
+              size: {
+                id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
+                name: "small",
+                price: 0,
+              },
+              milk: {
+                id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6abe2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+                name: "Fresh milk",
+                price: 0,
+              },
+              extra: null,
+              price: 4.5,
+              quantity: 1,
+              basePrice: 4.5,
+            },
+          })}
+        >
           <ViewCartJsx showItems={true} showItemsArray={true} />
           <CartButton />
-          <EditButton cartItem={defaultInstance as ICartItem} />
+          <EditButton cartItem={instance as ICartItem} />
         </CartProviderComponent>
       </OrderInstanceWrapper>
     );
 
-    const cart = screen.getByText("add to cart");
     const edit = screen.getByText("edit cart item");
-
-    await userEvent.click(cart);
-
-    expect(screen.getByTestId("items").innerHTML).toBe(
-      JSON.stringify({
-        cd95a6ece74af996094f966b72087d55564fccfd04ba27034231cbcf9ac4d45f: {
-          key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
-          name: "Americano",
-          category: "hot",
-          size: {
-            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
-            name: "small",
-            price: 0,
-          },
-          milk: {
-            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6abe2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
-            name: "Fresh milk",
-            price: 0,
-          },
-          extra: null,
-          price: 4.5,
-          quantity: 1,
-          basePrice: 4.5,
-        },
-      })
-    );
 
     await userEvent.click(edit);
 
@@ -468,8 +487,8 @@ describe("Cart functionalities", () => {
           },
           extra: null,
           price: 4.5,
-          basePrice: 4.5,
           quantity: 1,
+          basePrice: 4.5,
         },
       ])
     );

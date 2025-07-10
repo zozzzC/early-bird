@@ -1,5 +1,5 @@
 {
-  "1981f499b4d9877061a4505024dc7c56895c7d044593c2bc137cf94b43b0cd01": {
+  "5dcf4224b077dbebc8324df213a7b1a069024a6f1a31dd91f9a956e9d4b07199": {
     "key": "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
     "name": "Americano",
     "category": "hot",
@@ -26,15 +26,15 @@
       }
     ],
     "price": 7.5,
-    "basePrice": 4.5,
-    "quantity": 1
+    "quantity": 1,
+    "basePrice": 4.5
   },
-  "42ecbbd59350a40235ce4bb78218da49467ab8ffb9465236aea55f8577701e0c": {
+  "cd95a6ece74af996094f966b72087d55564fccfd04ba27034231cbcf9ac4d45f": {
     "key": "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
     "name": "Americano",
     "category": "hot",
     "size": {
-      "id": "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+      "id": "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
       "name": "small",
       "price": 0
     },
@@ -48,12 +48,12 @@
     "quantity": 1,
     "basePrice": 4.5
   },
-  "1cfcf02ce84984ddb24de46279dc2ca4e160658c70abfee23350ff3444f2c737": {
+  "3503a0cd0f8f82ebcfc4d57fb146a8df9313062341241e55031e03b30f6ae03a": {
     "key": "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
     "name": "Americano",
     "category": "hot",
     "size": {
-      "id": "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+      "id": "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
       "name": "small",
       "price": 0
     },

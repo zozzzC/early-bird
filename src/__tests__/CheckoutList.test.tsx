@@ -1,17 +1,17 @@
 import defaultItems from "@/__tests__/sample/defaultItems.json";
-import defaultItemsArray from "@/__tests__/sample/defaultItemsArray.json";
 import sampleOrderItemsAmericanoOutOfStock from "@/__tests__/sample/sampleOrderItemsAmericanoOutOfStock.json";
 import CheckoutList from "@/components/checkout/CheckoutList";
 import CartProviderComponent from "@/components/order/CartProviderComponent";
 import { render, screen } from "@/helpers/test-utils";
 import userEvent from "@testing-library/user-event";
+import getItemsArray from "./helpers/getItemsArray";
 
 describe("out of stock tests", () => {
   it("if an item in the cart is out of stock, the out of stock text appears", async () => {
     render(
       <CartProviderComponent
         defaultItems={defaultItems}
-        defaultItemsArray={defaultItemsArray}
+        defaultItemsArray={getItemsArray(defaultItems)}
       >
         <CheckoutList orderItems={sampleOrderItemsAmericanoOutOfStock} />
       </CartProviderComponent>
@@ -26,7 +26,7 @@ describe("out of stock tests", () => {
     render(
       <CartProviderComponent
         defaultItems={defaultItems}
-        defaultItemsArray={defaultItemsArray}
+        defaultItemsArray={getItemsArray(defaultItems)}
       >
         <CheckoutList orderItems={sampleOrderItemsAmericanoOutOfStock} />
       </CartProviderComponent>
@@ -46,7 +46,7 @@ describe("out of stock tests", () => {
     render(
       <CartProviderComponent
         defaultItems={defaultItems}
-        defaultItemsArray={defaultItemsArray}
+        defaultItemsArray={getItemsArray(defaultItems)}
       >
         <CheckoutList orderItems={sampleOrderItemsAmericanoOutOfStock} />
       </CartProviderComponent>
@@ -68,7 +68,7 @@ describe("out of stock tests", () => {
     render(
       <CartProviderComponent
         defaultItems={defaultItems}
-        defaultItemsArray={defaultItemsArray}
+        defaultItemsArray={getItemsArray(defaultItems)}
       >
         <CheckoutList orderItems={sampleOrderItemsAmericanoOutOfStock} />
       </CartProviderComponent>

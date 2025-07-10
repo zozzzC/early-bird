@@ -15,6 +15,9 @@ import userEvent from "@testing-library/user-event";
 import getItemsArray from "./helpers/getItemsArray";
 
 describe("validate cart function", () => {
+  beforeEach(() => {
+    jest.spyOn(console, "log").mockImplementation(jest.fn());
+  });
   test("expect hash of invalid cart item to be valid", async () => {
     render(
       <CartProviderComponent
@@ -64,12 +67,12 @@ describe("validate cart function", () => {
 
     expect(screen.getByTestId("items").innerHTML).toBe(
       JSON.stringify({
-        "1981f499b4d9877061a4505024dc7c56895c7d044593c2bc137cf94b43b0cd01": {
+        "5dcf4224b077dbebc8324df213a7b1a069024a6f1a31dd91f9a956e9d4b07199": {
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
           size: {
-            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
             name: "small",
             price: 0,
           },
@@ -100,12 +103,12 @@ describe("validate cart function", () => {
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
       JSON.stringify([
         {
-          id: "1981f499b4d9877061a4505024dc7c56895c7d044593c2bc137cf94b43b0cd01",
+          id: "5dcf4224b077dbebc8324df213a7b1a069024a6f1a31dd91f9a956e9d4b07199",
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
           size: {
-            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
             name: "small",
             price: 0,
           },
@@ -153,17 +156,17 @@ describe("validate cart function", () => {
     await userEvent.click(screen.getByText("validate cart"));
     expect(screen.getByTestId("items").innerHTML).toBe(
       JSON.stringify({
-        ee7ef2c43ef1907fafec178d7faf6d5a50aebbcfadcd36e0ffe1e37b9075bd7f: {
+        cd95a6ece74af996094f966b72087d55564fccfd04ba27034231cbcf9ac4d45f: {
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
           size: {
-            id: "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
             name: "small",
             price: 0,
           },
           milk: {
-            id: "e2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6abe2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
             name: "Fresh milk",
             price: 0,
           },

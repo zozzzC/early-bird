@@ -3,18 +3,18 @@ import CheckoutList from "@/components/checkout/CheckoutList";
 import CartProviderComponent from "@/components/order/CartProviderComponent";
 import ViewCartJsx from "@/components/test/ViewCartJsx";
 import { render, screen } from "@/helpers/test-utils";
-import { ICart, ICartItemWithId } from "@/types/Cart";
+import { ICart } from "@/types/Cart";
 import { OrderModalResponse } from "@/types/OrderModalResponse";
 import userEvent from "@testing-library/user-event";
+import getItemsArray from "./helpers/getItemsArray";
 import defaultItems from "./sample/defaultItems.json";
-import defaultItemsArray from "./sample/defaultItemsArray.json";
 describe("editing an existing order item with modal", () => {
   it("edits an existing item to itself (no change) using the modal", async () => {
     render(
       <>
         <CartProviderComponent
           defaultItems={defaultItems}
-          defaultItemsArray={defaultItemsArray}
+          defaultItemsArray={getItemsArray(defaultItems)}
         >
           <CheckoutList orderItems={sampleOrderItems as OrderModalResponse[]} />
           <ViewCartJsx showItems={true} showItemsArray={true} />
@@ -28,7 +28,7 @@ describe("editing an existing order item with modal", () => {
     await userEvent.click(edit);
 
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
-      JSON.stringify(defaultItemsArray)
+      JSON.stringify(getItemsArray(defaultItems))
     );
     expect(screen.getByTestId("items").innerHTML).toBe(
       JSON.stringify(defaultItems)
@@ -126,7 +126,7 @@ describe("editing an existing order item with modal", () => {
     render(
       <CartProviderComponent
         defaultItems={defaultItems as ICart}
-        defaultItemsArray={defaultItemsArray as ICartItemWithId[]}
+        defaultItemsArray={getItemsArray(defaultItems)}
       >
         <CheckoutList orderItems={sampleOrderItems as OrderModalResponse[]} />
         <ViewCartJsx showItems={true} showItemsArray={true} />
@@ -250,7 +250,7 @@ describe("editing an existing order item with modal", () => {
     render(
       <CartProviderComponent
         defaultItems={defaultItems as ICart}
-        defaultItemsArray={defaultItemsArray as ICartItemWithId[]}
+        defaultItemsArray={getItemsArray(defaultItems)}
       >
         <CheckoutList orderItems={sampleOrderItems as OrderModalResponse[]} />
         <ViewCartJsx showItems={true} showItemsArray={true} />
@@ -387,7 +387,7 @@ describe("editing an existing order item with modal", () => {
     render(
       <CartProviderComponent
         defaultItems={defaultItems as ICart}
-        defaultItemsArray={defaultItemsArray as ICartItemWithId[]}
+        defaultItemsArray={getItemsArray(defaultItems)}
       >
         <CheckoutList orderItems={sampleOrderItems as OrderModalResponse[]} />
         <ViewCartJsx showItems={true} showItemsArray={true} />
@@ -399,31 +399,43 @@ describe("editing an existing order item with modal", () => {
 
     expect(screen.getByTestId("items").innerHTML).toBe(
       JSON.stringify({
-        "4b16fc6f1806768de8c09bca26b0a856e82bb79a3888f636e6084ca65203bc31": {
-          key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
-          name: "Americano",
-          category: "hot",
-          size: null,
-          milk: null,
-          extra: null,
-          price: 4.5,
-          basePrice: 4.5,
-          quantity: 1,
-        },
-        "881c1e070f0fbbceddd0acf28bdc047f016ba51bac636b9cb92e138bfd7ff303": {
+        cd95a6ece74af996094f966b72087d55564fccfd04ba27034231cbcf9ac4d45f: {
           key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
           name: "Americano",
           category: "hot",
           size: {
             id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
             name: "small",
-            price: 1,
+            price: 0,
           },
-          milk: null,
+          milk: {
+            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6abe2b8dde1-18aa-4b55-9c4a-f0ba4f3a2710",
+            name: "Fresh milk",
+            price: 0,
+          },
           extra: null,
           price: 4.5,
-          basePrice: 4.5,
           quantity: 1,
+          basePrice: 4.5,
+        },
+        "3503a0cd0f8f82ebcfc4d57fb146a8df9313062341241e55031e03b30f6ae03a": {
+          key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
+          name: "Americano",
+          category: "hot",
+          size: {
+            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
+            name: "small",
+            price: 0,
+          },
+          milk: {
+            id: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
+            name: "Soy milk",
+            price: 1,
+          },
+          extra: null,
+          price: 5.5,
+          quantity: 1,
+          basePrice: 4.5,
         },
       })
     );

@@ -131,6 +131,7 @@ export default function OrderItemModal({
                 id={id}
                 orderItemCategory="size"
                 selectedItem={
+                  //TODO CHORE: maybe we dont need this function?
                   getDefaultSelection(orderHash)?.size
                     ? getDefaultSelection(orderHash)?.size
                     : orderInstance.size

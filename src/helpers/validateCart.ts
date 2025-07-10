@@ -51,6 +51,9 @@ export default function validateCart(
     }
   }
 
+  console.log("items");
+  console.log(JSON.stringify(items));
+
   for (const id in itemsMutate) {
     const correspondingArrayItem: number = itemsArrayMutate.findIndex((x) => {
       return x.id === id;
@@ -185,9 +188,15 @@ function validateNull(
     console.log(JSON.stringify(orderItem[orderItemProp] as itemStringWithId[]));
     if (cartProp == "milk" || cartProp == "size") {
       //this means that the field is null when it must have an option. so we get the default option (whatever is price of 0)
-      cartItem[cartProp] = (
-        orderItem[orderItemProp] as itemStringWithId[]
-      ).find((x) => x.price == 0) as ICartAddOn;
+      const clone = cloneDeep(
+        (orderItem[orderItemProp] as itemStringWithId[]).find(
+          (x) => x.price == 0
+        ) as ICartAddOn
+      );
+
+      clone.id = cartItem.key + clone.id;
+
+      cartItem[cartProp] = clone;
       optionsChanged = true;
     }
   }
@@ -288,10 +297,12 @@ function validateICartAddOn(
       ).price;
     }
   } else {
-    //in this case the corresponding id was not found. that means replace this with the default order option.
-    (cartItem[cartProp] as ICartAddOn | null) = optionArray.find(
-      (x) => x.price === 0
-    ) as ICartAddOn;
+    //in this case the corresponding id was not found. that means replace this with the default order option. BUT remember we have to append the id.
+    const clone = cloneDeep(
+      optionArray.find((x) => x.price === 0) as ICartAddOn
+    );
+    clone.id = cartItem.key + clone.id;
+    (cartItem[cartProp] as ICartAddOn | null) = clone;
     optionsChanged = true;
   }
 
@@ -324,7 +335,7 @@ function containsPrice(val: ICartItem[keyof ICartItem]): {
   }
 
   if ((val as ICartAddOn[])[0]) {
-    if ((val as ICartAddOn[])[0].price) {
+    if ((val as ICartAddOn[])[0].id) {
       return {
         containsPrice: true,
         typedVal: val as ICartAddOn[],

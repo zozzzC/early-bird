@@ -40,7 +40,9 @@ export default async function RootLayout({
         <main className="text-sm sm:text-base flex-1 w-full">
           <MantineProvider theme={mantineTheme}>
             <OrderItemsComponent orderItems={orderItems}>
-              <CartProviderComponent>{children}</CartProviderComponent>
+              <CartProviderComponent orderItems={orderItems}>
+                {children}
+              </CartProviderComponent>
             </OrderItemsComponent>
           </MantineProvider>
         </main>

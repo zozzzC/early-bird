@@ -1,16 +1,12 @@
 "use client";
-import "@mantine/core/styles.css";
-import { useCartContext } from "@/hooks/useCartContext";
-import { ICart, ICartItemWithId } from "@/types/Cart";
-import { OrderModalResponse } from "@/types/OrderModalResponse";
-import Image from "next/image";
-import CheckoutListItems from "./CheckoutListItems";
-import ViewCartJsx from "../test/ViewCartJsx";
-import { useEffect, useState } from "react";
-import PayButton from "./PayButton";
-import getModal from "@/helpers/getModal";
 import checkIfInvalid from "@/helpers/checkIfInvalid";
-import OrderDetailsList from "./OrderDetailsList";
+import getModal from "@/helpers/getModal";
+import validateCart from "@/helpers/validateCart";
+import { useCartContext } from "@/hooks/useCartContext";
+import { OrderModalResponse } from "@/types/OrderModalResponse";
+import "@mantine/core/styles.css";
+import CheckoutListItems from "./CheckoutListItems";
+import PayButton from "./PayButton";
 import TotalBar from "./TotalBar";
 
 export default function CheckoutList({
@@ -18,9 +14,11 @@ export default function CheckoutList({
 }: {
   orderItems: OrderModalResponse[];
 }) {
-  const { itemsArray } = useCartContext();
+  const { items, itemsArray } = useCartContext();
 
   const invalid = checkIfInvalid(itemsArray, orderItems);
+
+  validateCart(items, itemsArray, orderItems);
 
   return (
     <div className="p-5">

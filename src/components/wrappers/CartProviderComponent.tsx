@@ -2,24 +2,55 @@
 import { sortArrayAddOns } from "@/helpers/arrayAddOnSort";
 import getCartItemId from "@/helpers/getCartItemId";
 import getOrderInstanceTotal from "@/helpers/getOrderInstanceTotal";
+import validateCart from "@/helpers/validateCart";
 import { CartContext } from "@/hooks/CartContext";
 import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
+import { OrderModalResponse } from "@/types/OrderModalResponse";
 import { cloneDeep } from "lodash";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function CartProviderComponent({
   children,
   defaultItems,
   defaultItemsArray,
+  orderItems,
 }: {
   children: React.ReactNode;
   defaultItems?: ICart;
   defaultItemsArray?: Array<ICartItemWithId>;
+  orderItems?: OrderModalResponse[];
 }) {
-  const [items, setItems] = useState<ICart>(defaultItems ? defaultItems : {});
   const [itemsArray, setItemsArray] = useState<Array<ICartItemWithId>>(
     defaultItemsArray ? defaultItemsArray : []
   );
+  const [items, setItems] = useState<ICart>(defaultItems ? defaultItems : {});
+
+  useEffect(() => {
+    if (orderItems) {
+      //NOTE: TODO kind of rudimentary, but we do this so that the test suites dont fail. there's probably a better way of writing this though.
+      if (localStorage.getItem("items")) {
+        const validate = validateCart(
+          JSON.parse(localStorage.getItem("items") as string) as ICart,
+          JSON.parse(
+            localStorage.getItem("itemsArray") as string
+          ) as ICartItemWithId[],
+          orderItems
+        );
+
+        setItems(validate.items);
+        setItemsArray(validate.itemsArray);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (orderItems) {
+      const validate = validateCart(items, itemsArray, orderItems);
+      //store into localStorage
+      localStorage.setItem("items", JSON.stringify(validate.items));
+      localStorage.setItem("itemsArray", JSON.stringify(validate.itemsArray));
+    }
+  }, [items]);
 
   function addCartItem(
     cartItem: ICartItem,

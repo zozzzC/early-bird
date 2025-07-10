@@ -7,8 +7,10 @@ import { useState } from "react";
 
 export default function ValidateCartButton({
   orderItems,
+  pay,
 }: {
   orderItems: OrderModalResponse[];
+  pay: boolean;
 }) {
   const { items, setItems, itemsArray, setItemsArray, editCartItem } =
     useCartContext();
@@ -19,12 +21,18 @@ export default function ValidateCartButton({
     <>
       <Button
         onClick={() => {
-          const validate = validateCart(
-            items,
-            itemsArray,
-            orderItems,
-            editCartItem
-          );
+          let validate = null;
+          if (pay) {
+            validate = validateCart(
+              items,
+              itemsArray,
+              orderItems,
+              editCartItem
+            );
+          } else {
+            //this is when we intialize the cart (load from localStorage)
+            validate = validateCart(items, itemsArray, orderItems);
+          }
 
           setItems(validate.items);
           setItemsArray(validate.itemsArray);

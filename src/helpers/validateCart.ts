@@ -143,7 +143,6 @@ export default function validateCart(
     getOrderInstanceTotal(cartItem);
   }
 
-  //TODO: this doesnt work properly.
   //NOTE: in the case that editCart is defined, that means that we are using the validation function when attempting to pay now.
   //in that case, we want to edit the cart directly (to keep the order of the items in the cart.)
   if (editCartItem !== undefined) {
@@ -155,6 +154,7 @@ export default function validateCart(
   }
 
   //TODO: test that items mutate works.
+  //this regenerates the ids.
   itemsMutate = parseCart(itemsMutate);
 
   console.log(itemsMutate);
@@ -165,8 +165,6 @@ export default function validateCart(
     orderItems,
     false
   );
-
-  //TODO: if this is our first time adding the cart, then we need to find a way to add the items into the cart while using the correct keys for the items.
 
   return {
     items: itemsMutate,

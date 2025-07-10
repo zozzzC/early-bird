@@ -1,0 +1,987 @@
+[
+  {
+    "key": "1c1f97ca-4876-8114-9f94-e93b4d3e71b7",
+    "name": "Short black",
+    "category": "hot",
+    "allergy": null,
+    "media": "https://prod-files-secure.s3.us-west-2.amazonaws.com/10705b08-b04b-47a9-9f40-8802b6dfd6c0/4200764b-b3b2-42c8-8625-bfb385cbb31d/nathan-dumlao-Y3AqmbmtLQI-unsplash.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466S3GZG5R2%2F20250627%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250627T000610Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEG8aCXVzLXdlc3QtMiJGMEQCIGSaWwz4C1lN9h%2F%2FoZMdow2p%2B3JnFdN5Lq6lcnyBT%2FCsAiA8eiPJXgaRDNjYNreHUUy%2FaXx1Ft%2BADDfOuMsLK%2BnOdyr9AwhoEAAaDDYzNzQyMzE4MzgwNSIMqQ1MHbT%2FFEQyU3FSKtoD1AYD%2Blw%2F8EdJvthU1%2BRlNU3FJbED4LSoXy99FcPIPlzb2j4X%2BCGPMusnHqyA9wueQRWTNMTMgCo1mSV4A7n7DqHBBx9cSc4QAoJpZkp5om9UzUcIrNARe8wTTGu0LlcbLvUHLlaTaQ%2BM1ee4pceXYPP7R9srfqdi5KmWhTpxsXwyAc%2Bkb%2Brdmc%2FRauBKbdFnzYDYuDP91xTiNM2rSe3YfHkEVIeV5WOxmUW3oubaOPHMJhK6Zd%2Fx8hMty1D56%2B%2B1boPeGJRfJv93M6tBkLZqSrAdVAO9oVU0iCSRm%2BKbKcJws%2FgEYQeV4aXWjqOkbizg%2F3W5kNzMqMxMmOJLnexXGCnKb%2BVDMfLL6zoPxbceP%2FdHGdhu4R6F%2BYnCoTkBQPP9c0ZfIsF%2FGDYRosNW1j%2FgSZLYqELR%2BN1zqmmqIaqbjfyO4Fef%2FzJxyl%2Fbe6WLoiZyNZJ8ioTPQWnVqGgh5GTwCepb0ub3QDTyEgAvkKC%2FHcwhx%2BG2%2FrMLzaaBimJ0smqWjCS2%2B3t1I3%2F3OKB9cxJ6cuWRgin2kD7SopM8M0iyKPsV7UO7xrava3u9wVk9rcrdqB5WDlTps62r3gkcjDfPfonBoCM57RW9KwcW4iZZWYZYDdaC7f%2B5nbl8MMOe98IGOqYB3hnFKcEg%2ByNJ2%2FYm%2FxP3QedhTR96vs5G%2FFGS%2Fs6GfhHmIWPL6iwsE4U6XUmqcYECmhNKuP3YoTCJclwGyxA6z59BEJU1VBIO3%2BbTGmscSK%2FQUj2g06ypY766OLOkaiMDY8EhwSpfJwHVoihRw1eSDSn1feoxcwmcFUFOOtP%2F8yBZHirYU0FtnLq4RpBslFHwJe6Msg13Uea9xdtArzZxF1RKYYbxkw%3D%3D&X-Amz-Signature=00a9662dec256be427f2e28d840238131147e1adc9e203eb186d91e7f45dc383&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
+    "extra": [
+      {
+        "id": "9bff625c-9f08-4e1e-b40c-e4241d132071",
+        "name": "Vanilla syrup",
+        "price": 1
+      },
+      {
+        "id": "5e49466a-1fc7-49f2-8721-d01135f41b40",
+        "name": "Caramel syrup",
+        "price": 1
+      },
+      {
+        "id": "e2a9faad-9f79-4397-bf0b-73f0dd9b1901",
+        "name": "Hazelnut syrup",
+        "price": 1
+      },
+      {
+        "id": "af9dea87-ba77-48a8-baac-fe0be25a66a1",
+        "name": "extra shot",
+        "price": 1
+      }
+    ],
+    "size": [
+      {
+        "id": "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+        "name": "small",
+        "price": 1
+      }
+    ],
+    "milk": [
+      {
+        "id": "6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
+        "name": "Soy milk",
+        "price": 1
+      },
+      {
+        "id": "91195121-c0be-45c2-9fea-06ad134d4924",
+        "name": "Almond milk",
+        "price": 1
+      },
+      {
+        "id": "0e77ef38-965c-40b3-a58f-8f34689d482f",
+        "name": "Coconut milk",
+        "price": 1
+      },
+      {
+        "id": "42f9fe46-4af2-4c0d-a4a1-339276672a16",
+        "name": "Oat milk",
+        "price": 1
+      }
+    ],
+    "price": 4.5,
+    "basePrice": 4.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
+    "name": "Americano",
+    "category": "hot",
+    "allergy": null,
+    "media": null,
+    "extra": [
+      {
+        "id": "9bff625c-9f08-4e1e-b40c-e4241d132071",
+        "name": "Vanilla syrup",
+        "price": 1
+      },
+      {
+        "id": "5e49466a-1fc7-49f2-8721-d01135f41b40",
+        "name": "Caramel syrup",
+        "price": 1
+      },
+      {
+        "id": "e2a9faad-9f79-4397-bf0b-73f0dd9b1901",
+        "name": "Hazelnut syrup",
+        "price": 1
+      },
+      {
+        "id": "af9dea87-ba77-48a8-baac-fe0be25a66a1",
+        "name": "extra shot",
+        "price": 1
+      }
+    ],
+    "size": [
+      {
+        "id": "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+        "name": "small",
+        "price": 1
+      }
+    ],
+    "milk": [
+      {
+        "id": "6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
+        "name": "Soy milk",
+        "price": 1
+      },
+      {
+        "id": "91195121-c0be-45c2-9fea-06ad134d4924",
+        "name": "Almond milk",
+        "price": 1
+      },
+      {
+        "id": "0e77ef38-965c-40b3-a58f-8f34689d482f",
+        "name": "Coconut milk",
+        "price": 1
+      },
+      {
+        "id": "42f9fe46-4af2-4c0d-a4a1-339276672a16",
+        "name": "Oat milk",
+        "price": 1
+      }
+    ],
+    "price": 4.5,
+    "basePrice": 4.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-8123-bd9a-c854ae49ed03",
+    "name": "Long black",
+    "category": "hot",
+    "allergy": null,
+    "media": "https://prod-files-secure.s3.us-west-2.amazonaws.com/10705b08-b04b-47a9-9f40-8802b6dfd6c0/45a9abc0-0210-40d8-b1a3-f9ac1c299b16/mae-mu-m9pzwmxm2rk-unsplash.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466S3GZG5R2%2F20250627%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250627T000610Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEG8aCXVzLXdlc3QtMiJGMEQCIGSaWwz4C1lN9h%2F%2FoZMdow2p%2B3JnFdN5Lq6lcnyBT%2FCsAiA8eiPJXgaRDNjYNreHUUy%2FaXx1Ft%2BADDfOuMsLK%2BnOdyr9AwhoEAAaDDYzNzQyMzE4MzgwNSIMqQ1MHbT%2FFEQyU3FSKtoD1AYD%2Blw%2F8EdJvthU1%2BRlNU3FJbED4LSoXy99FcPIPlzb2j4X%2BCGPMusnHqyA9wueQRWTNMTMgCo1mSV4A7n7DqHBBx9cSc4QAoJpZkp5om9UzUcIrNARe8wTTGu0LlcbLvUHLlaTaQ%2BM1ee4pceXYPP7R9srfqdi5KmWhTpxsXwyAc%2Bkb%2Brdmc%2FRauBKbdFnzYDYuDP91xTiNM2rSe3YfHkEVIeV5WOxmUW3oubaOPHMJhK6Zd%2Fx8hMty1D56%2B%2B1boPeGJRfJv93M6tBkLZqSrAdVAO9oVU0iCSRm%2BKbKcJws%2FgEYQeV4aXWjqOkbizg%2F3W5kNzMqMxMmOJLnexXGCnKb%2BVDMfLL6zoPxbceP%2FdHGdhu4R6F%2BYnCoTkBQPP9c0ZfIsF%2FGDYRosNW1j%2FgSZLYqELR%2BN1zqmmqIaqbjfyO4Fef%2FzJxyl%2Fbe6WLoiZyNZJ8ioTPQWnVqGgh5GTwCepb0ub3QDTyEgAvkKC%2FHcwhx%2BG2%2FrMLzaaBimJ0smqWjCS2%2B3t1I3%2F3OKB9cxJ6cuWRgin2kD7SopM8M0iyKPsV7UO7xrava3u9wVk9rcrdqB5WDlTps62r3gkcjDfPfonBoCM57RW9KwcW4iZZWYZYDdaC7f%2B5nbl8MMOe98IGOqYB3hnFKcEg%2ByNJ2%2FYm%2FxP3QedhTR96vs5G%2FFGS%2Fs6GfhHmIWPL6iwsE4U6XUmqcYECmhNKuP3YoTCJclwGyxA6z59BEJU1VBIO3%2BbTGmscSK%2FQUj2g06ypY766OLOkaiMDY8EhwSpfJwHVoihRw1eSDSn1feoxcwmcFUFOOtP%2F8yBZHirYU0FtnLq4RpBslFHwJe6Msg13Uea9xdtArzZxF1RKYYbxkw%3D%3D&X-Amz-Signature=2e6f663b86f339224455487f54aded27cb08b73528bc007d648d2104c798ecf7&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
+    "extra": [
+      {
+        "id": "9bff625c-9f08-4e1e-b40c-e4241d132071",
+        "name": "Vanilla syrup",
+        "price": 1
+      },
+      {
+        "id": "5e49466a-1fc7-49f2-8721-d01135f41b40",
+        "name": "Caramel syrup",
+        "price": 1
+      },
+      {
+        "id": "e2a9faad-9f79-4397-bf0b-73f0dd9b1901",
+        "name": "Hazelnut syrup",
+        "price": 1
+      },
+      {
+        "id": "af9dea87-ba77-48a8-baac-fe0be25a66a1",
+        "name": "extra shot",
+        "price": 1
+      }
+    ],
+    "size": [
+      {
+        "id": "30578160-04bf-45c6-8098-f2d4c6c06e9f",
+        "name": "small",
+        "price": 1
+      }
+    ],
+    "milk": [
+      {
+        "id": "6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
+        "name": "Soy milk",
+        "price": 1
+      },
+      {
+        "id": "91195121-c0be-45c2-9fea-06ad134d4924",
+        "name": "Almond milk",
+        "price": 1
+      },
+      {
+        "id": "0e77ef38-965c-40b3-a58f-8f34689d482f",
+        "name": "Coconut milk",
+        "price": 1
+      },
+      {
+        "id": "42f9fe46-4af2-4c0d-a4a1-339276672a16",
+        "name": "Oat milk",
+        "price": 1
+      }
+    ],
+    "price": 4.5,
+    "basePrice": 4.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-812a-b498-cd7948afc517",
+    "name": "Iced Mocha",
+    "category": "cold",
+    "allergy": null,
+    "media": null,
+    "extra": [
+      {
+        "id": "9bff625c-9f08-4e1e-b40c-e4241d132071",
+        "name": "Vanilla syrup",
+        "price": 1
+      },
+      {
+        "id": "5e49466a-1fc7-49f2-8721-d01135f41b40",
+        "name": "Caramel syrup",
+        "price": 1
+      },
+      {
+        "id": "e2a9faad-9f79-4397-bf0b-73f0dd9b1901",
+        "name": "Hazelnut syrup",
+        "price": 1
+      },
+      {
+        "id": "af9dea87-ba77-48a8-baac-fe0be25a66a1",
+        "name": "extra shot",
+        "price": 1
+      }
+    ],
+    "size": null,
+    "milk": [
+      {
+        "id": "6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
+        "name": "Soy milk",
+        "price": 1
+      },
+      {
+        "id": "91195121-c0be-45c2-9fea-06ad134d4924",
+        "name": "Almond milk",
+        "price": 1
+      },
+      {
+        "id": "0e77ef38-965c-40b3-a58f-8f34689d482f",
+        "name": "Coconut milk",
+        "price": 1
+      },
+      {
+        "id": "42f9fe46-4af2-4c0d-a4a1-339276672a16",
+        "name": "Oat milk",
+        "price": 1
+      }
+    ],
+    "price": 7,
+    "basePrice": 7,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-81cd-87ca-d11d21221681",
+    "name": "Iced Americano",
+    "category": "cold",
+    "allergy": null,
+    "media": null,
+    "extra": [
+      {
+        "id": "9bff625c-9f08-4e1e-b40c-e4241d132071",
+        "name": "Vanilla syrup",
+        "price": 1
+      },
+      {
+        "id": "5e49466a-1fc7-49f2-8721-d01135f41b40",
+        "name": "Caramel syrup",
+        "price": 1
+      },
+      {
+        "id": "e2a9faad-9f79-4397-bf0b-73f0dd9b1901",
+        "name": "Hazelnut syrup",
+        "price": 1
+      },
+      {
+        "id": "af9dea87-ba77-48a8-baac-fe0be25a66a1",
+        "name": "extra shot",
+        "price": 1
+      }
+    ],
+    "size": null,
+    "milk": [
+      {
+        "id": "6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
+        "name": "Soy milk",
+        "price": 1
+      },
+      {
+        "id": "91195121-c0be-45c2-9fea-06ad134d4924",
+        "name": "Almond milk",
+        "price": 1
+      },
+      {
+        "id": "0e77ef38-965c-40b3-a58f-8f34689d482f",
+        "name": "Coconut milk",
+        "price": 1
+      },
+      {
+        "id": "42f9fe46-4af2-4c0d-a4a1-339276672a16",
+        "name": "Oat milk",
+        "price": 1
+      }
+    ],
+    "price": 7,
+    "basePrice": 7,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-810e-91f8-dec98362d4c4",
+    "name": "Iced Chocolate",
+    "category": "cold",
+    "allergy": null,
+    "media": null,
+    "extra": [
+      {
+        "id": "9bff625c-9f08-4e1e-b40c-e4241d132071",
+        "name": "Vanilla syrup",
+        "price": 1
+      },
+      {
+        "id": "5e49466a-1fc7-49f2-8721-d01135f41b40",
+        "name": "Caramel syrup",
+        "price": 1
+      },
+      {
+        "id": "e2a9faad-9f79-4397-bf0b-73f0dd9b1901",
+        "name": "Hazelnut syrup",
+        "price": 1
+      },
+      {
+        "id": "af9dea87-ba77-48a8-baac-fe0be25a66a1",
+        "name": "extra shot",
+        "price": 1
+      }
+    ],
+    "size": null,
+    "milk": [
+      {
+        "id": "6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
+        "name": "Soy milk",
+        "price": 1
+      },
+      {
+        "id": "91195121-c0be-45c2-9fea-06ad134d4924",
+        "name": "Almond milk",
+        "price": 1
+      },
+      {
+        "id": "0e77ef38-965c-40b3-a58f-8f34689d482f",
+        "name": "Coconut milk",
+        "price": 1
+      },
+      {
+        "id": "42f9fe46-4af2-4c0d-a4a1-339276672a16",
+        "name": "Oat milk",
+        "price": 1
+      }
+    ],
+    "price": 7,
+    "basePrice": 7,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-817f-b526-c2e44b5b7313",
+    "name": "Iced Latte",
+    "category": "cold",
+    "allergy": null,
+    "media": null,
+    "extra": [
+      {
+        "id": "9bff625c-9f08-4e1e-b40c-e4241d132071",
+        "name": "Vanilla syrup",
+        "price": 1
+      },
+      {
+        "id": "5e49466a-1fc7-49f2-8721-d01135f41b40",
+        "name": "Caramel syrup",
+        "price": 1
+      },
+      {
+        "id": "e2a9faad-9f79-4397-bf0b-73f0dd9b1901",
+        "name": "Hazelnut syrup",
+        "price": 1
+      },
+      {
+        "id": "af9dea87-ba77-48a8-baac-fe0be25a66a1",
+        "name": "extra shot",
+        "price": 1
+      }
+    ],
+    "size": null,
+    "milk": [
+      {
+        "id": "6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
+        "name": "Soy milk",
+        "price": 1
+      },
+      {
+        "id": "91195121-c0be-45c2-9fea-06ad134d4924",
+        "name": "Almond milk",
+        "price": 1
+      },
+      {
+        "id": "0e77ef38-965c-40b3-a58f-8f34689d482f",
+        "name": "Coconut milk",
+        "price": 1
+      },
+      {
+        "id": "42f9fe46-4af2-4c0d-a4a1-339276672a16",
+        "name": "Oat milk",
+        "price": 1
+      }
+    ],
+    "price": 7,
+    "basePrice": 7,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-81bf-87e8-d8e11ffa01b3",
+    "name": "Iced Chai Latte",
+    "category": "cold",
+    "allergy": null,
+    "media": null,
+    "extra": [
+      {
+        "id": "9bff625c-9f08-4e1e-b40c-e4241d132071",
+        "name": "Vanilla syrup",
+        "price": 1
+      },
+      {
+        "id": "5e49466a-1fc7-49f2-8721-d01135f41b40",
+        "name": "Caramel syrup",
+        "price": 1
+      },
+      {
+        "id": "e2a9faad-9f79-4397-bf0b-73f0dd9b1901",
+        "name": "Hazelnut syrup",
+        "price": 1
+      },
+      {
+        "id": "af9dea87-ba77-48a8-baac-fe0be25a66a1",
+        "name": "extra shot",
+        "price": 1
+      }
+    ],
+    "size": null,
+    "milk": [
+      {
+        "id": "6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
+        "name": "Soy milk",
+        "price": 1
+      },
+      {
+        "id": "91195121-c0be-45c2-9fea-06ad134d4924",
+        "name": "Almond milk",
+        "price": 1
+      },
+      {
+        "id": "0e77ef38-965c-40b3-a58f-8f34689d482f",
+        "name": "Coconut milk",
+        "price": 1
+      },
+      {
+        "id": "42f9fe46-4af2-4c0d-a4a1-339276672a16",
+        "name": "Oat milk",
+        "price": 1
+      }
+    ],
+    "price": 7,
+    "basePrice": 7,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-81e7-be4c-e26ac4946ad0",
+    "name": "Green tea",
+    "category": "tea",
+    "allergy": null,
+    "media": null,
+    "extra": null,
+    "size": null,
+    "milk": null,
+    "price": 4.5,
+    "basePrice": 4.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-81e8-9807-d58bc7c07f6d",
+    "name": "Ginger Kawakawa",
+    "category": "tea",
+    "allergy": null,
+    "media": null,
+    "extra": null,
+    "size": null,
+    "milk": null,
+    "price": 4.5,
+    "basePrice": 4.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-81c5-ae0e-f9d096b5d12d",
+    "name": "Earl Grey",
+    "category": "tea",
+    "allergy": null,
+    "media": null,
+    "extra": null,
+    "size": null,
+    "milk": null,
+    "price": 4.5,
+    "basePrice": 4.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-812d-bc46-fafd4d385864",
+    "name": "English Breakfast",
+    "category": "tea",
+    "allergy": null,
+    "media": null,
+    "extra": null,
+    "size": null,
+    "milk": null,
+    "price": 4.5,
+    "basePrice": 4.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-81fa-8b81-e44e14833316",
+    "name": "Peppermint",
+    "category": "tea",
+    "allergy": null,
+    "media": null,
+    "extra": null,
+    "size": null,
+    "milk": null,
+    "price": 4.5,
+    "basePrice": 4.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-8100-8105-c02b1f558a52",
+    "name": "Caramel Frappes",
+    "category": "frappes",
+    "allergy": null,
+    "media": null,
+    "extra": [
+      {
+        "id": "2c4c9cc8-b677-4d40-a1be-ccb970eb47f5",
+        "name": "extra cream",
+        "price": 1
+      }
+    ],
+    "size": null,
+    "milk": [
+      {
+        "id": "6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
+        "name": "Soy milk",
+        "price": 1
+      },
+      {
+        "id": "91195121-c0be-45c2-9fea-06ad134d4924",
+        "name": "Almond milk",
+        "price": 1
+      },
+      {
+        "id": "0e77ef38-965c-40b3-a58f-8f34689d482f",
+        "name": "Coconut milk",
+        "price": 1
+      },
+      {
+        "id": "42f9fe46-4af2-4c0d-a4a1-339276672a16",
+        "name": "Oat milk",
+        "price": 1
+      }
+    ],
+    "price": 7.5,
+    "basePrice": 7.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-815e-ba56-d42a6dc97c7e",
+    "name": "Chocolate Frappes",
+    "category": "frappes",
+    "allergy": null,
+    "media": null,
+    "extra": [
+      {
+        "id": "2c4c9cc8-b677-4d40-a1be-ccb970eb47f5",
+        "name": "extra cream",
+        "price": 1
+      }
+    ],
+    "size": null,
+    "milk": [
+      {
+        "id": "6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
+        "name": "Soy milk",
+        "price": 1
+      },
+      {
+        "id": "91195121-c0be-45c2-9fea-06ad134d4924",
+        "name": "Almond milk",
+        "price": 1
+      },
+      {
+        "id": "0e77ef38-965c-40b3-a58f-8f34689d482f",
+        "name": "Coconut milk",
+        "price": 1
+      },
+      {
+        "id": "42f9fe46-4af2-4c0d-a4a1-339276672a16",
+        "name": "Oat milk",
+        "price": 1
+      }
+    ],
+    "price": 7.5,
+    "basePrice": 7.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-81bd-bf27-d78d3754f497",
+    "name": "Vanilla Frappes",
+    "category": "frappes",
+    "allergy": null,
+    "media": null,
+    "extra": [
+      {
+        "id": "2c4c9cc8-b677-4d40-a1be-ccb970eb47f5",
+        "name": "extra cream",
+        "price": 1
+      }
+    ],
+    "size": null,
+    "milk": [
+      {
+        "id": "6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
+        "name": "Soy milk",
+        "price": 1
+      },
+      {
+        "id": "91195121-c0be-45c2-9fea-06ad134d4924",
+        "name": "Almond milk",
+        "price": 1
+      },
+      {
+        "id": "0e77ef38-965c-40b3-a58f-8f34689d482f",
+        "name": "Coconut milk",
+        "price": 1
+      },
+      {
+        "id": "42f9fe46-4af2-4c0d-a4a1-339276672a16",
+        "name": "Oat milk",
+        "price": 1
+      }
+    ],
+    "price": 7.5,
+    "basePrice": 7.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-810c-bd77-e4e7fa08c4c3",
+    "name": "Hazelnut Frappes",
+    "category": "frappes",
+    "allergy": null,
+    "media": null,
+    "extra": [
+      {
+        "id": "2c4c9cc8-b677-4d40-a1be-ccb970eb47f5",
+        "name": "extra cream",
+        "price": 1
+      }
+    ],
+    "size": null,
+    "milk": [
+      {
+        "id": "6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
+        "name": "Soy milk",
+        "price": 1
+      },
+      {
+        "id": "91195121-c0be-45c2-9fea-06ad134d4924",
+        "name": "Almond milk",
+        "price": 1
+      },
+      {
+        "id": "0e77ef38-965c-40b3-a58f-8f34689d482f",
+        "name": "Coconut milk",
+        "price": 1
+      },
+      {
+        "id": "42f9fe46-4af2-4c0d-a4a1-339276672a16",
+        "name": "Oat milk",
+        "price": 1
+      }
+    ],
+    "price": 7.5,
+    "basePrice": 7.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-812f-b4bd-cc72cc14c48b",
+    "name": "Mocha Frappes",
+    "category": "frappes",
+    "allergy": null,
+    "media": null,
+    "extra": [
+      {
+        "id": "2c4c9cc8-b677-4d40-a1be-ccb970eb47f5",
+        "name": "extra cream",
+        "price": 1
+      }
+    ],
+    "size": null,
+    "milk": [
+      {
+        "id": "6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
+        "name": "Soy milk",
+        "price": 1
+      },
+      {
+        "id": "91195121-c0be-45c2-9fea-06ad134d4924",
+        "name": "Almond milk",
+        "price": 1
+      },
+      {
+        "id": "0e77ef38-965c-40b3-a58f-8f34689d482f",
+        "name": "Coconut milk",
+        "price": 1
+      },
+      {
+        "id": "42f9fe46-4af2-4c0d-a4a1-339276672a16",
+        "name": "Oat milk",
+        "price": 1
+      }
+    ],
+    "price": 7.5,
+    "basePrice": 7.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-812a-b7e1-dd5223c0a313",
+    "name": "Coffee Frappes",
+    "category": "frappes",
+    "allergy": null,
+    "media": null,
+    "extra": [
+      {
+        "id": "2c4c9cc8-b677-4d40-a1be-ccb970eb47f5",
+        "name": "extra cream",
+        "price": 1
+      }
+    ],
+    "size": null,
+    "milk": [
+      {
+        "id": "6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
+        "name": "Soy milk",
+        "price": 1
+      },
+      {
+        "id": "91195121-c0be-45c2-9fea-06ad134d4924",
+        "name": "Almond milk",
+        "price": 1
+      },
+      {
+        "id": "0e77ef38-965c-40b3-a58f-8f34689d482f",
+        "name": "Coconut milk",
+        "price": 1
+      },
+      {
+        "id": "42f9fe46-4af2-4c0d-a4a1-339276672a16",
+        "name": "Oat milk",
+        "price": 1
+      }
+    ],
+    "price": 7.5,
+    "basePrice": 7.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-81fa-8efa-d6875e998be2",
+    "name": "Chai Frappes",
+    "category": "frappes",
+    "allergy": null,
+    "media": null,
+    "extra": [
+      {
+        "id": "2c4c9cc8-b677-4d40-a1be-ccb970eb47f5",
+        "name": "extra cream",
+        "price": 1
+      }
+    ],
+    "size": null,
+    "milk": [
+      {
+        "id": "6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
+        "name": "Soy milk",
+        "price": 1
+      },
+      {
+        "id": "91195121-c0be-45c2-9fea-06ad134d4924",
+        "name": "Almond milk",
+        "price": 1
+      },
+      {
+        "id": "0e77ef38-965c-40b3-a58f-8f34689d482f",
+        "name": "Coconut milk",
+        "price": 1
+      },
+      {
+        "id": "42f9fe46-4af2-4c0d-a4a1-339276672a16",
+        "name": "Oat milk",
+        "price": 1
+      }
+    ],
+    "price": 7.5,
+    "basePrice": 7.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-810f-942a-fd570b11aef0",
+    "name": "Black Forrest",
+    "category": "smoothies",
+    "allergy": null,
+    "media": null,
+    "extra": null,
+    "size": null,
+    "milk": null,
+    "price": 7.5,
+    "basePrice": 7.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-81d1-bce0-e012a837a4af",
+    "name": "Mango",
+    "category": "smoothies",
+    "allergy": null,
+    "media": null,
+    "extra": null,
+    "size": null,
+    "milk": null,
+    "price": 7.5,
+    "basePrice": 7.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-81ef-90aa-d2bc33ed70d5",
+    "name": "Mixed Berry",
+    "category": "smoothies",
+    "allergy": null,
+    "media": null,
+    "extra": null,
+    "size": null,
+    "milk": null,
+    "price": 7.5,
+    "basePrice": 7.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-8182-8464-f12ccbdde9cd",
+    "name": "Feijoa and Apple",
+    "category": "smoothies",
+    "allergy": null,
+    "media": null,
+    "extra": null,
+    "size": null,
+    "milk": null,
+    "price": 7.5,
+    "basePrice": 7.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-81ea-a221-e6ce13ca54da",
+    "name": "Tropical",
+    "category": "smoothies",
+    "allergy": null,
+    "media": null,
+    "extra": null,
+    "size": null,
+    "milk": null,
+    "price": 7.5,
+    "basePrice": 7.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-80de-89c6-f501a0e9b4e5",
+    "name": "Plain Croissant",
+    "category": "food",
+    "allergy": null,
+    "media": null,
+    "extra": null,
+    "size": null,
+    "milk": null,
+    "price": 4.5,
+    "basePrice": 4.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-80a9-87f8-f3206e2226b6",
+    "name": "Danish Chocolate",
+    "category": "food",
+    "allergy": null,
+    "media": null,
+    "extra": null,
+    "size": null,
+    "milk": null,
+    "price": 5.5,
+    "basePrice": 5.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-802d-9a35-fa65d4cd8ffe",
+    "name": "Cinnamon Rolls",
+    "category": "food",
+    "allergy": null,
+    "media": null,
+    "extra": null,
+    "size": null,
+    "milk": null,
+    "price": 6,
+    "basePrice": 6,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-80f3-b203-dd056258346a",
+    "name": "Almond Croissant",
+    "category": "food",
+    "allergy": null,
+    "media": null,
+    "extra": null,
+    "size": null,
+    "milk": null,
+    "price": 6.5,
+    "basePrice": 6.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-802e-a0ba-eeec74d8cb48",
+    "name": "Blueberry Muffins",
+    "category": "food",
+    "allergy": null,
+    "media": null,
+    "extra": null,
+    "size": null,
+    "milk": null,
+    "price": 6.5,
+    "basePrice": 6.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-80cf-a7d7-d1e557165e18",
+    "name": "Chocolate Brownie",
+    "category": "food",
+    "allergy": null,
+    "media": null,
+    "extra": null,
+    "size": null,
+    "milk": null,
+    "price": 5.5,
+    "basePrice": 5.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-802a-8a9f-c833cb98df5b",
+    "name": "Dates Scone",
+    "category": "food",
+    "allergy": null,
+    "media": null,
+    "extra": null,
+    "size": null,
+    "milk": null,
+    "price": 5.3,
+    "basePrice": 5.3,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-80d4-9e2b-d40b703ad9a9",
+    "name": "Spinach Feta & Pesto",
+    "category": "food",
+    "allergy": null,
+    "media": null,
+    "extra": null,
+    "size": null,
+    "milk": null,
+    "price": 6.5,
+    "basePrice": 6.5,
+    "outOfStock": false
+  },
+  {
+    "key": "1c1f97ca-4876-803a-9089-dfb868e67bae",
+    "name": "Cheese Scone",
+    "category": "food",
+    "allergy": null,
+    "media": null,
+    "extra": null,
+    "size": null,
+    "milk": null,
+    "price": 5.3,
+    "basePrice": 5.3,
+    "outOfStock": false
+  }
+]

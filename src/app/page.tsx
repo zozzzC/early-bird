@@ -1,6 +1,7 @@
+import "@mantine/core/styles.css";
+import "@mantine/dates/styles.css";
 import HomepageCarousel from "@/components/home/HomepageCarousel";
 import { Carousel } from "@mantine/carousel";
-import "@mantine/core/styles.css";
 import "@mantine/carousel/styles.css";
 import Image from "next/image";
 import FullPageHeader from "@/components/layout/FullPageHeader";
@@ -40,7 +41,7 @@ export default function Home() {
         <div className="w-full flex items-center justify-center bg-red-50">
           <Image
             src={logoPhoto}
-            alt="Company Logo"
+            alt="Earlybird Company Logo"
             className="object-contain"
           />
         </div>

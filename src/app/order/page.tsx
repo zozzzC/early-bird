@@ -1,9 +1,9 @@
-import OrderItem from "@/components/order/OrderItem";
-
+"use client";
 import ViewCartButton from "@/components/checkout/ViewCartButton";
-import { getOrderItems } from "../../lib/orderItems";
-export default async function Order() {
-  const orderItems = await getOrderItems();
+import OrderItem from "@/components/order/OrderItem";
+import { useOrderItemsContext } from "@/hooks/useOrderItemsContext";
+export default function Order() {
+  const { orderItems } = useOrderItemsContext();
 
   return (
     <div className="w-full h-full">

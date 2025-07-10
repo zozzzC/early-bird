@@ -1,10 +1,10 @@
+"use client";
 import CheckoutList from "@/components/checkout/CheckoutList";
 import OrderDetailsList from "@/components/checkout/OrderDetailsList";
-import TotalBar from "@/components/checkout/TotalBar";
-import { getOrderItems } from "@/lib/orderItems";
+import { useOrderItemsContext } from "@/hooks/useOrderItemsContext";
 
-export default async function Checkout() {
-  const orderItems = await getOrderItems();
+export default function Checkout() {
+  const { orderItems } = useOrderItemsContext();
 
   return (
     <div className="pt-28 outline w-full flex xl:flex-row gap-5 md:justify-between items-center flex-col py-10">

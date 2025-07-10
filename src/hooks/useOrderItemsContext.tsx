@@ -1,10 +1,10 @@
 "use client";
 
 import { useContext } from "react";
-import { OrderItemContext } from "./OrderItemContext";
+import { OrderItemsContext } from "./OrderItemsContext";
 
 export const useOrderItemsContext = () => {
-  const orderItems = useContext(OrderItemContext);
+  const orderItems = useContext(OrderItemsContext);
   if (orderItems === undefined) {
     throw new Error("Order Items Context must be wrapped in a provider.");
   }

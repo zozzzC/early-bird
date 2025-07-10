@@ -1,4 +1,4 @@
-import formatPrice from "@/helpers/formatPrice";
+import formatPrice from "@/helpers/format/formatPrice";
 import getDefaultSelection from "@/helpers/getDefaultSelection";
 import { OrderInstanceContext } from "@/hooks/OrderInstanceContext";
 import { useCartContext } from "@/hooks/useCartContext";

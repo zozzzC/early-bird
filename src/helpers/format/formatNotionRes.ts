@@ -1,4 +1,4 @@
-import { rawNotionOrderPage } from "../types/rawNotionDbRes";
+import { rawNotionOrderPage } from "../../types/rawNotionDbRes";
 
 export default async function formatNotionRes<T>(
   data: rawNotionOrderPage<T>[]

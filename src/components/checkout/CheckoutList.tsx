@@ -1,14 +1,13 @@
 "use client";
 import checkIfInvalid from "@/helpers/checkIfInvalid";
 import getModal from "@/helpers/getModal";
-import validateCart from "@/helpers/validateCart";
 import { useCartContext } from "@/hooks/useCartContext";
+import { useValidateCart } from "@/hooks/useValidateCart";
 import { OrderModalResponse } from "@/types/OrderModalResponse";
 import "@mantine/core/styles.css";
 import CheckoutListItems from "./CheckoutListItems";
 import PayButton from "./PayButton";
 import TotalBar from "./TotalBar";
-
 export default function CheckoutList({
   orderItems,
 }: {
@@ -18,7 +17,8 @@ export default function CheckoutList({
 
   const invalid = checkIfInvalid(itemsArray, orderItems);
 
-  validateCart(items, itemsArray, orderItems);
+  //TODO: the below function does not update to the correct/expected value.
+  useValidateCart(items, itemsArray, orderItems);
 
   return (
     <div className="p-5">

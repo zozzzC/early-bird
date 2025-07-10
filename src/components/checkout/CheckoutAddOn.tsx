@@ -1,4 +1,4 @@
-import formatPrice from "@/helpers/formatPrice";
+import formatPrice from "@/helpers/format/formatPrice";
 
 export default function CheckoutAddOn({
   name,

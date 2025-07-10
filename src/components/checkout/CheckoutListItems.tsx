@@ -1,5 +1,5 @@
 "use client";
-import formatPrice from "@/helpers/formatPrice";
+import formatPrice from "@/helpers/format/formatPrice";
 import { OrderItemContext } from "@/hooks/OrderItemContext";
 import { useCartContext } from "@/hooks/useCartContext";
 import { ICartItem, ICartItemWithId } from "@/types/Cart";

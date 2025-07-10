@@ -1,7 +1,7 @@
 import sampleOrderItems from "@/__tests__/sample/sampleOrderItems.json";
 import CheckoutList from "@/components/checkout/CheckoutList";
-import CartProviderComponent from "@/components/order/CartProviderComponent";
 import ViewCartJsx from "@/components/test/ViewCartJsx";
+import CartProviderComponent from "@/components/wrappers/CartProviderComponent";
 import { render, screen } from "@/helpers/test-utils";
 import { ICart } from "@/types/Cart";
 import { OrderModalResponse } from "@/types/OrderModalResponse";

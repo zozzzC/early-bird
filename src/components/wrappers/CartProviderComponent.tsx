@@ -21,7 +21,6 @@ export default function CartProviderComponent({
     defaultItemsArray ? defaultItemsArray : []
   );
 
-  //To prevent abuse, we require that the ID of each options is also passed in, EG: milk requires both the name AND the id.
   function addCartItem(
     cartItem: ICartItem,
     editedItemsArray?: ICartItemWithId[],

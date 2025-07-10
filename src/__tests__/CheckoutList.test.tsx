@@ -1,7 +1,7 @@
 import defaultItems from "@/__tests__/sample/defaultItems.json";
 import sampleOrderItemsAmericanoOutOfStock from "@/__tests__/sample/sampleOrderItemsAmericanoOutOfStock.json";
 import CheckoutList from "@/components/checkout/CheckoutList";
-import CartProviderComponent from "@/components/order/CartProviderComponent";
+import CartProviderComponent from "@/components/wrappers/CartProviderComponent";
 import { render, screen } from "@/helpers/test-utils";
 import userEvent from "@testing-library/user-event";
 import getItemsArray from "./helpers/getItemsArray";

@@ -5,10 +5,10 @@ import invalidCartItemMilkExtraNotFound from "@/__tests__/sample/invalidCartItem
 import invalidCartOptionsNeeded from "@/__tests__/sample/invalidCartItems/invalidCartOptionsNeeded.json";
 import sampleOrderItems from "@/__tests__/sample/sampleOrderItems.json";
 import sampleOrderItemsAmericanoOutOfStock from "@/__tests__/sample/sampleOrderItemsAmericanoOutOfStock.json";
-import CartProviderComponent from "@/components/order/CartProviderComponent";
 import GetItemHashButton from "@/components/test/GetItemHashButton";
 import ValidateCartButton from "@/components/test/ValidateCartButton";
 import ViewCartJsx from "@/components/test/ViewCartJsx";
+import CartProviderComponent from "@/components/wrappers/CartProviderComponent";
 import { render, screen } from "@/helpers/test-utils";
 import { ICart } from "@/types/Cart";
 import userEvent from "@testing-library/user-event";

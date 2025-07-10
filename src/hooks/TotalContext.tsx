@@ -1,4 +1,4 @@
-import { useState, createContext, SetStateAction } from "react";
+import { createContext, SetStateAction } from "react";
 
 export const TotalContext = createContext<
   | {

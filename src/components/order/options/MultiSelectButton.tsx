@@ -35,7 +35,7 @@ export default function MultiSelectButton({
       <div className="flex gap-3 items-center">
         {on ? <CheckCircle2 /> : <PlusCircle />}
         <div className="flex flex-col">
-          <p>{name}</p>
+          <p className="text-wrap">{name}</p>
           {price ? <p>{formatPrice(price)}</p> : null}
         </div>
       </div>

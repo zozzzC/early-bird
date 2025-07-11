@@ -1,7 +1,5 @@
 "use client";
 import { ShoppingCartIcon } from "lucide-react";
-import { useState } from "react";
-import { useCartContext } from "@/hooks/useCartContext";
 import Link from "next/link";
 
 export default function ViewCartButton() {

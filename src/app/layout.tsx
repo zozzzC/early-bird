@@ -2,7 +2,7 @@ import Footer from "@/components/layout/Footer";
 import FullPageHeader from "@/components/layout/FullPageHeader";
 import { mantineTheme } from "@/components/MantineTheme";
 import CartProviderComponent from "@/components/wrappers/CartProviderComponent";
-import { getOrderItems } from "@/lib/orderItems";
+import { getOrderItems } from "@/services/orderItems";
 import { MantineProvider } from "@mantine/core";
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";

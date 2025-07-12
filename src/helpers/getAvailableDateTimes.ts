@@ -28,12 +28,18 @@ export function getMinDate(date: Date): Date | undefined {
   //get today's date and time
   if (isAvailableDay(date.toDateString())) {
     const { max } = isAvailableTime(date.toDateString());
-    console.log(date.toDateString() + " T" + max);
-    const maxTimeToday = new Date(date.toISOString() + " T" + max);
-    console.log(maxTimeToday)
+    const maxTimeToday = new Date(date.toISOString());
+
+    console.log(
+      maxTimeToday.setHours(
+        parseInt(max?.split(":")[0] as string),
+        parseInt(max?.split(":")[0] as string),
+        parseInt(max?.split(":")[0] as string)
+      )
+    );
 
     console.log("dif: " + (maxTimeToday.getTime() - date.getTime()));
-    console.log(maxTimeToday.getTime());
+    console.log("Max time today: " + maxTimeToday.getTime());
 
     if (maxTimeToday.getTime() - date.getTime()) {
       //then today is a min date
@@ -41,12 +47,15 @@ export function getMinDate(date: Date): Date | undefined {
       console.log("today you can still make an order.");
       return date;
     }
-    console.log("today you cannot make an order.");
   }
 
+  console.log(
+    "cannot make an order today, trying to get next available day to order..."
+  );
+
   const newDate = new Date();
-  newDate.setDate(date.getDate() + 1);
+  newDate.setDate(newDate.getDate() + 1);
+  newDate.setHours(0, 0, 0, 0);
   console.log(newDate);
-  return undefined;
-  //   return getMinDate(newDate);
+  return getMinDate(newDate);
 }

@@ -3,6 +3,7 @@ import {
   getMinDate,
   isAvailableDay,
   isAvailableTime,
+  validateDateTime,
 } from "@/helpers/getAvailableDateTimes";
 import { InputBase, TextInput } from "@mantine/core";
 import { DateTimePicker } from "@mantine/dates";
@@ -24,6 +25,12 @@ export default function OrderDetailsList() {
 
   const [minTime, setMinTime] = useState<string | undefined>(undefined);
   const [maxTime, setMaxTime] = useState<string | undefined>(undefined);
+  const [selectedDate, setSelectedDate] = useState<string | undefined>(
+    undefined
+  );
+  const [selectedTime, setSelectedTime] = useState<string | undefined>(
+    undefined
+  );
   const [showNotif, setShowNotif] = useState<boolean>(false);
 
   console.log(minTime);
@@ -59,8 +66,14 @@ export default function OrderDetailsList() {
         minDate={getMinDate(new Date())}
         onChange={(date) => {
           if (date != null) {
-            setMinTime(isAvailableTime(date).min);
-            setMaxTime(isAvailableTime(date).max);
+            console.log(`Date changed to: ${date}`);
+
+            const { min, max } = isAvailableTime(date);
+            setSelectedDate(date);
+            setMinTime(min);
+            setMaxTime(max);
+            const { valid } = validateDateTime(date, min, max);
+            console.log(valid)
             //if our selected time is before or after the min / max time then we show notif.
           }
         }}
@@ -71,6 +84,12 @@ export default function OrderDetailsList() {
           popoverProps: { withinPortal: false },
           minutesStep: 10,
           format: "12h",
+        }}
+        submitButtonProps={{
+          onClick: () => {
+            //before submit we need to ensure that the time selected is indeed valid.
+            validateDateTime(selectedDate, minTime, maxTime);
+          },
         }}
         excludeDate={(date) => !isAvailableDay(date)}
       />

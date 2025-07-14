@@ -9,7 +9,7 @@ import { Button, InputBase, TextInput } from "@mantine/core";
 import { DateTimePicker } from "@mantine/dates";
 import "@mantine/dates/styles.css";
 import { hasLength, isEmail, useForm } from "@mantine/form";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { IMaskInput } from "react-imask";
 
 export default function OrderDetailsList() {
@@ -27,11 +27,16 @@ export default function OrderDetailsList() {
         "Name must be between 2-100 characters long."
       ),
       email: isEmail("Invalid email."),
-      phone: hasLength(
-        //TODO: not working cause of the mask.
-        { min: 8, max: 10 },
-        "Phone number must be between 8-10 digits long."
-      ),
+      phone: () => {
+        console.log(ref.current?.maskRef.unmaskedValue);
+        if (
+          ref.current?.maskRef.unmaskedValue.length > 7 &&
+          ref.current?.maskRef.unmaskedValue.length < 11
+        ) {
+          return null;
+        }
+        return "Phone number must be between 8-10 digits.";
+      },
       date: () => {
         if (validateDateTime(selectedDate, minTime, maxTime).valid) {
           return null;
@@ -46,9 +51,8 @@ export default function OrderDetailsList() {
   const [selectedDate, setSelectedDate] = useState<string | undefined>(
     undefined
   );
+  const ref = useRef(null);
 
-  console.log(minTime);
-  console.log(maxTime);
   return (
     <div className="p-5 flex flex-col items-center ">
       <form onSubmit={form.onSubmit(() => {})}>
@@ -74,6 +78,7 @@ export default function OrderDetailsList() {
           component={IMaskInput}
           mask="+64 (000) 000-0000"
           {...form.getInputProps("phone")}
+          ref={ref}
         />
         <DateTimePicker
           key={form.key("date")}

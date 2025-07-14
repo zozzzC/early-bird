@@ -2,20 +2,16 @@
 
 import { ICartItemWithId } from "@/types/Cart";
 import { CustomerDetails } from "@/types/CustomerDetails";
+import { ItemsAndDetails } from "@/types/Preorders";
 import { Client } from "@notionhq/client";
 
 export async function createPreorderProcessing(
   itemsArray: ICartItemWithId[],
   customerDetails: CustomerDetails
 ) {
-  interface itemsAndDetails {
-    customerDetails: CustomerDetails;
-    itemsArray: ICartItemWithId[];
-  }
-
-  const body: itemsAndDetails = {
-    customerDetails: customerDetails,
-    itemsArray: itemsArray,
+  const body: ItemsAndDetails = {
+    customerDetails,
+    itemsArray,
   };
 
   const notion = new Client({

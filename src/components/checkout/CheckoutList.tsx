@@ -1,5 +1,4 @@
 "use client";
-import checkIfInvalid from "@/helpers/checkIfInvalid";
 import getModal from "@/helpers/getModal";
 import { useCartContext } from "@/hooks/useCartContext";
 import { useValidateCart } from "@/hooks/useValidateCart";
@@ -8,7 +7,6 @@ import { Alert } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { InfoIcon } from "lucide-react";
 import CheckoutListItems from "./CheckoutListItems";
-import ContinueButton from "./ContinueButton";
 import TotalBar from "./TotalBar";
 export default function CheckoutList({
   orderItems,
@@ -17,21 +15,19 @@ export default function CheckoutList({
 }) {
   const { items, itemsArray } = useCartContext();
 
-  const invalid = checkIfInvalid(itemsArray, orderItems);
-
   const { optionsChanged, priceChanged } = useValidateCart(orderItems);
 
   return (
     <div className="p-5">
-      {optionsChanged ? (
-        <Alert icon={<InfoIcon />} color="red">
-          some selected options are unavailable and were changed. please check
-          your cart before continuing.
-        </Alert>
-      ) : null}
-      <div className="pt-2">
+      <div className="flex items-center flex-col">
+        {optionsChanged ? (
+          <Alert icon={<InfoIcon />} color="red" className="px-10 w-full">
+            some selected options are unavailable and were changed. please check
+            your cart before continuing.
+          </Alert>
+        ) : null}
         {priceChanged ? (
-          <Alert icon={<InfoIcon />} color="red">
+          <Alert icon={<InfoIcon />} color="red" className="px-10 pt-5 w-full">
             some prices were updated. please check your cart before continuing.
           </Alert>
         ) : null}
@@ -47,9 +43,9 @@ export default function CheckoutList({
         );
       })}
       <TotalBar />
-      <div className="py-5">
+      {/* <div className="py-5">
         <ContinueButton invalidOrder={invalid} itemsArray={itemsArray} />
-      </div>
+      </div> */}
     </div>
   );
 }

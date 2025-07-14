@@ -20,9 +20,10 @@ export default function ContinueButton({
 
       <div>
         <Button
+          type="submit"
           onClick={() => {
-            if (invalidOrder || itemsArray.length == 0) {
-              open();
+            if (!invalidOrder && itemsArray.length != 0) {
+              //TODO: then allow us to continue.
             }
           }}
         >

@@ -1,18 +1,26 @@
 "use client";
+import checkIfInvalid from "@/helpers/checkIfInvalid";
 import {
   getMinDate,
   isAvailableDay,
   isAvailableTime,
   validateDateTime,
 } from "@/helpers/getAvailableDateTimes";
-import { Button, InputBase, TextInput } from "@mantine/core";
+import { useCartContext } from "@/hooks/useCartContext";
+import { OrderModalResponse } from "@/types/OrderModalResponse";
+import { InputBase, TextInput } from "@mantine/core";
 import { DateTimePicker } from "@mantine/dates";
 import "@mantine/dates/styles.css";
 import { hasLength, isEmail, useForm } from "@mantine/form";
 import { useRef, useState } from "react";
 import { IMaskInput } from "react-imask";
+import ContinueButton from "./ContinueButton";
 
-export default function OrderDetailsList() {
+export default function OrderDetailsList({
+  orderItems,
+}: {
+  orderItems: OrderModalResponse[];
+}) {
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -41,10 +49,18 @@ export default function OrderDetailsList() {
         if (validateDateTime(selectedDate, minTime, maxTime).valid) {
           return null;
         }
+
+        if (minTime == undefined) {
+          return `Please select a date and time to pickup.`;
+        }
+
         return `Please select a time between ${minTime} - ${maxTime} for this date.`;
       },
     },
   });
+
+  const { itemsArray } = useCartContext();
+  const invalid = checkIfInvalid(itemsArray, orderItems);
 
   const [minTime, setMinTime] = useState<string | undefined>(undefined);
   const [maxTime, setMaxTime] = useState<string | undefined>(undefined);
@@ -54,7 +70,7 @@ export default function OrderDetailsList() {
   const ref = useRef(null);
 
   return (
-    <div className="p-5 flex flex-col items-center ">
+    <div className=" flex flex-col items-center ">
       <form onSubmit={form.onSubmit(() => {})}>
         <TextInput
           withAsterisk
@@ -101,7 +117,10 @@ export default function OrderDetailsList() {
           }}
           excludeDate={(date) => !isAvailableDay(date)}
         />
-        <Button type="submit">submit</Button>
+        <div className="py-5 flex justify-center">
+          <ContinueButton invalidOrder={invalid} itemsArray={itemsArray} />
+        </div>
+        {/* <Button type="submit">submit</Button> */}
       </form>
     </div>
   );

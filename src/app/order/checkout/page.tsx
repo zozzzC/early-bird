@@ -11,8 +11,8 @@ export default async function Checkout() {
       <div className="grow shrink">
         <CheckoutList orderItems={orderItems} />
       </div>
-      <div className="outline py-10 shrink w-lg max-w-sm md:grow-0 md:max-w-lg">
-        <OrderDetailsList />
+      <div className="py-10 shrink w-lg max-w-sm md:grow-0 md:max-w-lg">
+        <OrderDetailsList orderItems={orderItems} />
       </div>
     </div>
   );

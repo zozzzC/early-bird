@@ -23,7 +23,7 @@ export function isAvailableTime(date: string): {
 
   if (selectedDate.getDay() == 6) {
     //now we want to return whichever is greater -- either today at 8 AM or today at current time
-    selectedDate.setHours(8, 0, 0, 0);
+    selectedDate.setHours(8, 15, 0, 0);
 
     let minTime = `${today.getHours().toString().padStart(2, "0")}:${today.getMinutes().toString().padStart(2, "0")}:${today.getSeconds().toString().padStart(2, "0")}`;
 
@@ -33,10 +33,10 @@ export function isAvailableTime(date: string): {
     }
 
     console.log(`min: ${minTime} `);
-    return { min: minTime, max: "11:30:00" };
+    return { min: minTime, max: "11:15:00" };
   }
 
-  selectedDate.setHours(7, 0, 0, 0);
+  selectedDate.setHours(7, 15, 0, 0);
 
   let minTime = `${today.getHours().toString().padStart(2, "0")}:${today.getMinutes().toString().padStart(2, "0")}:${today.getSeconds().toString().padStart(2, "0")}`;
   //if today's time is greater than the min time then the min time is now the
@@ -46,7 +46,7 @@ export function isAvailableTime(date: string): {
 
   console.log(`min: ${minTime} `);
 
-  return { min: minTime, max: "13:30:00" };
+  return { min: minTime, max: "13:15:00" };
 }
 
 export function getMinDate(date: Date): Date {
@@ -62,7 +62,7 @@ export function getMinDate(date: Date): Date {
       parseInt(max?.split(":")[0] as string)
     );
 
-    if (maxTimeToday.getTime() - date.getTime()) {
+    if (maxTimeToday.getTime() - date.getTime() > 0) {
       //then today is a min date
 
       console.log(
@@ -87,8 +87,9 @@ export function validateDateTime(
   date: string | undefined,
   minTime: string | undefined,
   maxTime: string | undefined
-): { valid: boolean; message?: string } {
+): { valid: boolean } {
   if (date == undefined || minTime == undefined || maxTime == undefined) {
+    return { valid: false };
   }
 
   const selectedDate = new Date(date as string);
@@ -120,12 +121,12 @@ export function validateDateTime(
 
   //if the date is greater than the min time and less than the max time then it is valid.
   if (
-    (selectedDate.getTime() - minTimeForDate.getTime() > 0) &&
-    (maxTimeForDate.getTime() - selectedDate.getTime() > 0)
+    selectedDate.getTime() - minTimeForDate.getTime() >= 0 &&
+    maxTimeForDate.getTime() - selectedDate.getTime() >= 0
   ) {
     console.log("Valid time.");
     return { valid: true };
   }
   console.log("Invalid time.");
-  return { valid: false, message: "Please choose a different time." };
+  return { valid: false };
 }

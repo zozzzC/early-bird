@@ -22,7 +22,7 @@ describe("out of stock tests", () => {
     );
   });
 
-  it("if an item in cart is out of stock, clicking the pay now button pulls up the warning modal", async () => {
+  it("if an item in cart is out of stock, clicking the continue button pulls up the warning modal", async () => {
     render(
       <CartProviderComponent
         defaultItems={defaultItems}
@@ -32,7 +32,7 @@ describe("out of stock tests", () => {
       </CartProviderComponent>
     );
 
-    const payNow = screen.getByRole("button", { name: "pay now" });
+    const payNow = screen.getByRole("button", { name: "continue" });
     await userEvent.click(payNow);
 
     expect(
@@ -42,7 +42,7 @@ describe("out of stock tests", () => {
     ).toBeDefined;
   });
 
-  it("when only 1 of 2 out of stock items are removed from the cart, the pay now button still pulls up the warning modal", async () => {
+  it("when only 1 of 2 out of stock items are removed from the cart, the continue button still pulls up the warning modal", async () => {
     render(
       <CartProviderComponent
         defaultItems={defaultItems}
@@ -54,7 +54,7 @@ describe("out of stock tests", () => {
 
     const deleteButton = screen.getAllByTestId("delete order item")[0];
     await userEvent.click(deleteButton);
-    const payNow = screen.getByRole("button", { name: "pay now" });
+    const payNow = screen.getByRole("button", { name: "continue" });
     await userEvent.click(payNow);
 
     expect(
@@ -64,7 +64,7 @@ describe("out of stock tests", () => {
     ).toBeDefined;
   });
 
-  it("if all out of stock items are removed from the cart, the pay now button does not pull up the warning modal", async () => {
+  it("if all out of stock items are removed from the cart, the continue button does not pull up the warning modal", async () => {
     render(
       <CartProviderComponent
         defaultItems={defaultItems}
@@ -79,7 +79,7 @@ describe("out of stock tests", () => {
       await userEvent.click(deleteButton);
     }
 
-    const payNow = screen.getByRole("button", { name: "pay now" });
+    const payNow = screen.getByRole("button", { name: "continue" });
     await userEvent.click(payNow);
 
     expect(

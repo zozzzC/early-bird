@@ -57,21 +57,18 @@ export default function OrderDetailsList() {
     <div className="p-5 flex flex-col items-center ">
       <form onSubmit={form.onSubmit(() => {})}>
         <TextInput
-          className="w-2/3"
           withAsterisk
           label="name"
           key={form.key("name")}
           {...form.getInputProps("name")}
         />
         <TextInput
-          className="w-2/3"
           withAsterisk
           label="email"
           key={form.key("email")}
           {...form.getInputProps("email")}
         />
         <InputBase
-          className="w-2/3"
           withAsterisk
           label="phone number"
           key={form.key("phone")}

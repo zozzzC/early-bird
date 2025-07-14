@@ -8,7 +8,7 @@ import { Alert } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { InfoIcon } from "lucide-react";
 import CheckoutListItems from "./CheckoutListItems";
-import PayButton from "./PayButton";
+import ContinueButton from "./ContinueButton";
 import TotalBar from "./TotalBar";
 export default function CheckoutList({
   orderItems,
@@ -48,7 +48,7 @@ export default function CheckoutList({
       })}
       <TotalBar />
       <div className="py-5">
-        <PayButton invalidOrder={invalid} />
+        <ContinueButton invalidOrder={invalid} itemsArray={itemsArray} />
       </div>
     </div>
   );

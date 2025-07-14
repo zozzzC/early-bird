@@ -15,7 +15,7 @@ export const CartItem = z.strictObject({
   size: CartAddOn.nullable(),
   price: z.number(),
   basePrice: z.number(),
-  quantity: z.number(),
+  quantity: z.number().int(),
 });
 
 export const Cart = z.record(z.string(), CartItem);

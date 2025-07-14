@@ -4,10 +4,10 @@ import { OrderItemContext } from "@/hooks/OrderItemContext";
 import { useCartContext } from "@/hooks/useCartContext";
 import { ICartItem, ICartItemWithId } from "@/types/Cart";
 import { OrderModalResponse } from "@/types/OrderModalResponse";
-import { Button, Modal } from "@mantine/core";
+import { Alert, Button, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { cloneDeep } from "lodash";
-import { MessageCircleWarning } from "lucide-react";
+import { InfoIcon } from "lucide-react";
 import Image from "next/image";
 import OrderItemModal from "../order/OrderItemModal";
 import CheckoutAddOn from "./CheckoutAddOn";
@@ -131,8 +131,10 @@ export default function CheckoutListItems({
       ) : (
         <div className="">
           <div className="flex px-10 pt-5 items-center gap-1 text-rose-700">
-            <MessageCircleWarning size={20} />
-            <p className="pr-5">this item is currently unavailable.</p>
+            <Alert icon={<InfoIcon />} color="red">
+              this item is currently unavailable. please remove it from your
+              cart before continuing.
+            </Alert>
           </div>
           <div
             key={cartItem.id}

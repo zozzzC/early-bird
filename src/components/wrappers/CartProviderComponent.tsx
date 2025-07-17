@@ -1,26 +1,57 @@
 "use client";
 import { sortArrayAddOns } from "@/helpers/arrayAddOnSort";
+import getCartItemId from "@/helpers/getCartItemId";
+import getOrderInstanceTotal from "@/helpers/getOrderInstanceTotal";
+import validateCart from "@/helpers/validateCart";
 import { CartContext } from "@/hooks/CartContext";
 import { ICart, ICartItem, ICartItemWithId } from "@/types/Cart";
-import { createHash } from "crypto";
+import { OrderModalResponse } from "@/types/OrderModalResponse";
 import { cloneDeep } from "lodash";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function CartProviderComponent({
   children,
   defaultItems,
   defaultItemsArray,
+  orderItems,
 }: {
   children: React.ReactNode;
   defaultItems?: ICart;
   defaultItemsArray?: Array<ICartItemWithId>;
+  orderItems?: OrderModalResponse[];
 }) {
-  const [items, setItems] = useState<ICart>(defaultItems ? defaultItems : {});
   const [itemsArray, setItemsArray] = useState<Array<ICartItemWithId>>(
     defaultItemsArray ? defaultItemsArray : []
   );
+  const [items, setItems] = useState<ICart>(defaultItems ? defaultItems : {});
 
-  //To prevent abuse, we require that the ID of each options is also passed in, EG: milk requires both the name AND the id.
+  useEffect(() => {
+    if (orderItems) {
+      //NOTE: TODO kind of rudimentary, but we do this so that the test suites dont fail. there's probably a better way of writing this though.
+      if (localStorage.getItem("items")) {
+        const validate = validateCart(
+          JSON.parse(localStorage.getItem("items") as string) as ICart,
+          JSON.parse(
+            localStorage.getItem("itemsArray") as string
+          ) as ICartItemWithId[],
+          orderItems
+        );
+
+        setItems(validate.items);
+        setItemsArray(validate.itemsArray);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (orderItems) {
+      const validate = validateCart(items, itemsArray, orderItems);
+      //store into localStorage
+      localStorage.setItem("items", JSON.stringify(validate.items));
+      localStorage.setItem("itemsArray", JSON.stringify(validate.itemsArray));
+    }
+  }, [items]);
+
   function addCartItem(
     cartItem: ICartItem,
     editedItemsArray?: ICartItemWithId[],
@@ -100,6 +131,9 @@ export default function CartProviderComponent({
     const oldHash = getCartItemId(oldCartItem);
     const newHash = getCartItemId(cartItem);
 
+    console.log(oldHash);
+    console.log(newHash);
+
     const itemsArrayMutate = [...itemsArray];
     const itemsMutate = { ...items };
 
@@ -175,17 +209,6 @@ export default function CartProviderComponent({
     console.log([...itemsArrayMutate]);
   }
 
-  function getCartItemId(cartItem: ICartItem) {
-    const cartItemNoQuantity: ICartItem | any = cloneDeep(
-      cartItem
-    ) as ICartItem;
-    delete cartItemNoQuantity.quantity;
-    delete cartItemNoQuantity.price;
-    const hash = createHash("sha256");
-    hash.update(JSON.stringify(cartItemNoQuantity));
-    return hash.digest("hex");
-  }
-
   function getCartTotal(): {
     total: number;
     totalWithoutAddOns: number;
@@ -206,19 +229,6 @@ export default function CartProviderComponent({
     return { total, totalWithoutAddOns, totalAddOns };
   }
 
-  function getOrderInstanceTotal(cartItem: ICartItem): number {
-    var orderInstanceTotal = cartItem.basePrice;
-    orderInstanceTotal += cartItem.milk ? cartItem.milk.price : 0;
-    orderInstanceTotal += cartItem.size ? cartItem.size.price : 0;
-    if (cartItem.extra?.length != 0) {
-      cartItem.extra?.forEach((i) => {
-        orderInstanceTotal += i.price;
-      });
-    }
-    cartItem.price = orderInstanceTotal * cartItem.quantity;
-    return cartItem.price;
-  }
-
   function getOrderInstanceByHash(hash: string): ICartItem | undefined {
     if (hash in items) {
       return items[hash];
@@ -226,14 +236,13 @@ export default function CartProviderComponent({
     return undefined;
   }
 
-  //TODO: this function will be used to revalidate the options and
-  function validateCart() {}
-
   return (
     <CartContext.Provider
       value={{
         items,
+        setItems,
         itemsArray,
+        setItemsArray,
         addCartItem,
         removeCartItem,
         editCartItem,

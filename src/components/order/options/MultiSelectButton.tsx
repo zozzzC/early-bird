@@ -1,4 +1,4 @@
-import formatPrice from "@/helpers/formatPrice";
+import formatPrice from "@/helpers/format/formatPrice";
 import { Button } from "@mantine/core";
 import { CheckCircle2, PlusCircle } from "lucide-react";
 import { useState } from "react";

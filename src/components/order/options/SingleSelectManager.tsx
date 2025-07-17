@@ -30,6 +30,8 @@ export default function SingleSelectManager({
       price: price,
     };
 
+    console.log(JSON.stringify(value));
+
     orderInstance.setOrderInstanceByField({ field, value });
     setSelectedItemId(id);
   }

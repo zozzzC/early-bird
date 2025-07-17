@@ -1,5 +1,5 @@
 "use client";
-import formatPrice from "@/helpers/formatPrice";
+import formatPrice from "@/helpers/format/formatPrice";
 import { useCartContext } from "@/hooks/useCartContext";
 
 export default function TotalBar() {

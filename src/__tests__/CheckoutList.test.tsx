@@ -1,17 +1,17 @@
 import defaultItems from "@/__tests__/sample/defaultItems.json";
-import defaultItemsArray from "@/__tests__/sample/defaultItemsArray.json";
 import sampleOrderItemsAmericanoOutOfStock from "@/__tests__/sample/sampleOrderItemsAmericanoOutOfStock.json";
 import CheckoutList from "@/components/checkout/CheckoutList";
-import CartProviderComponent from "@/components/order/CartProviderComponent";
+import CartProviderComponent from "@/components/wrappers/CartProviderComponent";
 import { render, screen } from "@/helpers/test-utils";
 import userEvent from "@testing-library/user-event";
+import getItemsArray from "./helpers/getItemsArray";
 
 describe("out of stock tests", () => {
   it("if an item in the cart is out of stock, the out of stock text appears", async () => {
     render(
       <CartProviderComponent
         defaultItems={defaultItems}
-        defaultItemsArray={defaultItemsArray}
+        defaultItemsArray={getItemsArray(defaultItems)}
       >
         <CheckoutList orderItems={sampleOrderItemsAmericanoOutOfStock} />
       </CartProviderComponent>
@@ -22,17 +22,17 @@ describe("out of stock tests", () => {
     );
   });
 
-  it("if an item in cart is out of stock, clicking the pay now button pulls up the warning modal", async () => {
+  it("if an item in cart is out of stock, clicking the continue button pulls up the warning modal", async () => {
     render(
       <CartProviderComponent
         defaultItems={defaultItems}
-        defaultItemsArray={defaultItemsArray}
+        defaultItemsArray={getItemsArray(defaultItems)}
       >
         <CheckoutList orderItems={sampleOrderItemsAmericanoOutOfStock} />
       </CartProviderComponent>
     );
 
-    const payNow = screen.getByRole("button", { name: "pay now" });
+    const payNow = screen.getByRole("button", { name: "continue" });
     await userEvent.click(payNow);
 
     expect(
@@ -42,11 +42,11 @@ describe("out of stock tests", () => {
     ).toBeDefined;
   });
 
-  it("when only 1 of 2 out of stock items are removed from the cart, the pay now button still pulls up the warning modal", async () => {
+  it("when only 1 of 2 out of stock items are removed from the cart, the continue button still pulls up the warning modal", async () => {
     render(
       <CartProviderComponent
         defaultItems={defaultItems}
-        defaultItemsArray={defaultItemsArray}
+        defaultItemsArray={getItemsArray(defaultItems)}
       >
         <CheckoutList orderItems={sampleOrderItemsAmericanoOutOfStock} />
       </CartProviderComponent>
@@ -54,7 +54,7 @@ describe("out of stock tests", () => {
 
     const deleteButton = screen.getAllByTestId("delete order item")[0];
     await userEvent.click(deleteButton);
-    const payNow = screen.getByRole("button", { name: "pay now" });
+    const payNow = screen.getByRole("button", { name: "continue" });
     await userEvent.click(payNow);
 
     expect(
@@ -64,11 +64,11 @@ describe("out of stock tests", () => {
     ).toBeDefined;
   });
 
-  it("if all out of stock items are removed from the cart, the pay now button does not pull up the warning modal", async () => {
+  it("if all out of stock items are removed from the cart, the continue button does not pull up the warning modal", async () => {
     render(
       <CartProviderComponent
         defaultItems={defaultItems}
-        defaultItemsArray={defaultItemsArray}
+        defaultItemsArray={getItemsArray(defaultItems)}
       >
         <CheckoutList orderItems={sampleOrderItemsAmericanoOutOfStock} />
       </CartProviderComponent>
@@ -79,7 +79,7 @@ describe("out of stock tests", () => {
       await userEvent.click(deleteButton);
     }
 
-    const payNow = screen.getByRole("button", { name: "pay now" });
+    const payNow = screen.getByRole("button", { name: "continue" });
     await userEvent.click(payNow);
 
     expect(

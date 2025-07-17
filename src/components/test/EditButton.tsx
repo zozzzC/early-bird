@@ -12,6 +12,8 @@ export default function EditButton({cartItem} : {cartItem: ICartItem}) {
       <Button
         onClick={() => {
           if (orderInstance) {
+            console.log(cartItem === orderInstance)
+
             editCartItem(cartItem, orderInstance);
           }
         }}

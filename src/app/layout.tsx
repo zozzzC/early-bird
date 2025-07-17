@@ -1,11 +1,14 @@
-import type { Metadata } from "next";
-import { mantineTheme } from "@/components/MantineTheme";
-import { DM_Sans, Bokor } from "next/font/google";
-import "./globals.css";
-import { MantineProvider } from "@mantine/core";
-import FullPageHeader from "@/components/layout/FullPageHeader";
 import Footer from "@/components/layout/Footer";
-import CartProviderComponent from "@/components/order/CartProviderComponent";
+import FullPageHeader from "@/components/layout/FullPageHeader";
+import { mantineTheme } from "@/components/MantineTheme";
+import CartProviderComponent from "@/components/wrappers/CartProviderComponent";
+import { getOrderItems } from "@/services/orderItems";
+import { MantineProvider } from "@mantine/core";
+import type { Metadata } from "next";
+import { DM_Sans } from "next/font/google";
+
+import OrderItemsComponent from "@/components/wrappers/OrderItemsComponent";
+import "./globals.css";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -19,11 +22,15 @@ export const metadata: Metadata = {
   description: "website for the earlybird cafe in Rotorua",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const orderItems = await getOrderItems();
+
+  console.log("got order items");
+  console.log(orderItems);
   return (
     <html lang="en" className="h-full">
       <body className={`flex flex-col min-h-screen  ${dmSans.className}`}>
@@ -32,7 +39,11 @@ export default function RootLayout({
         </div>
         <main className="text-sm sm:text-base flex-1 w-full">
           <MantineProvider theme={mantineTheme}>
-            <CartProviderComponent>{children}</CartProviderComponent>
+            <OrderItemsComponent orderItems={orderItems}>
+              <CartProviderComponent orderItems={orderItems}>
+                {children}
+              </CartProviderComponent>
+            </OrderItemsComponent>
           </MantineProvider>
         </main>
         <Footer />

@@ -2,7 +2,11 @@
   "key": "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
   "name": "Americano",
   "category": "hot",
-  "size": null,
+  "size": {
+    "id": "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab30578160-04bf-45c6-8098-f2d4c6c06e9f",
+    "name": "small",
+    "price": 0
+  },
   "milk": {
     "id": "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
     "name": "Soy milk",
@@ -20,6 +24,7 @@
       "price": 1
     }
   ],
-  "basePrice": 4.5,
-  "quantity": 1
+  "price": 7.5,
+  "quantity": 1,
+  "basePrice": 4.5
 }

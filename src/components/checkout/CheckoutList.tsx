@@ -1,29 +1,38 @@
 "use client";
-import "@mantine/core/styles.css";
-import { useCartContext } from "@/hooks/useCartContext";
-import { ICart, ICartItemWithId } from "@/types/Cart";
-import { OrderModalResponse } from "@/types/OrderModalResponse";
-import Image from "next/image";
-import CheckoutListItems from "./CheckoutListItems";
-import ViewCartJsx from "../test/ViewCartJsx";
-import { useEffect, useState } from "react";
-import PayButton from "./PayButton";
 import getModal from "@/helpers/getModal";
-import checkIfInvalid from "@/helpers/checkIfInvalid";
-import OrderDetailsList from "./OrderDetailsList";
+import { useCartContext } from "@/hooks/useCartContext";
+import { useValidateCart } from "@/hooks/useValidateCart";
+import { OrderModalResponse } from "@/types/OrderModalResponse";
+import { Alert } from "@mantine/core";
+import "@mantine/core/styles.css";
+import { InfoIcon } from "lucide-react";
+import CheckoutListItems from "./CheckoutListItems";
 import TotalBar from "./TotalBar";
-
 export default function CheckoutList({
   orderItems,
 }: {
   orderItems: OrderModalResponse[];
 }) {
-  const { itemsArray } = useCartContext();
+  const { items, itemsArray } = useCartContext();
 
-  const invalid = checkIfInvalid(itemsArray, orderItems);
+  const { optionsChanged, priceChanged } = useValidateCart(orderItems);
 
   return (
     <div className="p-5">
+      <div className="flex items-center flex-col">
+        {optionsChanged ? (
+          <Alert icon={<InfoIcon />} color="red" className="px-10 w-full">
+            some selected options are unavailable and were changed. please check
+            your cart before continuing.
+          </Alert>
+        ) : null}
+        {priceChanged ? (
+          <Alert icon={<InfoIcon />} color="red" className="px-10 pt-5 w-full">
+            some prices were updated. please check your cart before continuing.
+          </Alert>
+        ) : null}
+      </div>
+
       {itemsArray.map((x) => {
         return (
           <CheckoutListItems
@@ -34,9 +43,9 @@ export default function CheckoutList({
         );
       })}
       <TotalBar />
-      <div className="py-5">
-        <PayButton invalidOrder={invalid} />
-      </div>
+      {/* <div className="py-5">
+        <ContinueButton invalidOrder={invalid} itemsArray={itemsArray} />
+      </div> */}
     </div>
   );
 }

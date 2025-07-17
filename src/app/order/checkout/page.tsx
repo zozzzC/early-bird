@@ -1,9 +1,9 @@
 import CheckoutList from "@/components/checkout/CheckoutList";
 import OrderDetailsList from "@/components/checkout/OrderDetailsList";
-import TotalBar from "@/components/checkout/TotalBar";
-import { getOrderItems } from "@/lib/orderItems";
+import { getOrderItems } from "@/services/orderItems";
 
 export default async function Checkout() {
+  // const { orderItems } = useOrderItemsContext();
   const orderItems = await getOrderItems();
 
   return (
@@ -11,8 +11,8 @@ export default async function Checkout() {
       <div className="grow shrink">
         <CheckoutList orderItems={orderItems} />
       </div>
-      <div className="outline py-10 shrink w-lg max-w-sm md:grow-0 md:max-w-lg">
-        <OrderDetailsList />
+      <div className="py-10 shrink w-lg max-w-sm md:grow-0 md:max-w-lg">
+        <OrderDetailsList orderItems={orderItems} />
       </div>
     </div>
   );

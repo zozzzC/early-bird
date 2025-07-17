@@ -1,6 +1,7 @@
 "use client";
+import defaultInstance from "@/__tests__/sample/defaultInstance.json";
 import { OrderInstanceContext } from "@/hooks/OrderInstanceContext";
-import { ICart, ICartItem, OrderInstanceType } from "@/types/Cart";
+import { ICartItem, OrderInstanceType } from "@/types/Cart";
 import { useState } from "react";
 
 export default function OrderInstanceWrapper({
@@ -13,19 +14,7 @@ export default function OrderInstanceWrapper({
   resetInstance?: boolean;
 }) {
   const [orderInstance, setOrderInstance] = useState<ICartItem>(
-    instance
-      ? instance
-      : ({
-          key: "1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab",
-          name: "Americano",
-          category: "hot",
-          size: null,
-          milk: null,
-          extra: null,
-          price: 4.5,
-          basePrice: 4.5,
-          quantity: 1,
-        } as ICartItem)
+    instance ? instance : (defaultInstance as ICartItem)
   );
 
   function setOrderInstanceByField<T extends "milk" | "size" | "extra">({

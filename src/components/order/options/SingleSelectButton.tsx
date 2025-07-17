@@ -1,7 +1,6 @@
-import formatPrice from "@/helpers/formatPrice";
+import formatPrice from "@/helpers/format/formatPrice";
 import { Button } from "@mantine/core";
 import { CheckCircle2, Circle } from "lucide-react";
-import { useEffect } from "react";
 
 export default function SingleSelectButton({
   id,
@@ -16,14 +15,16 @@ export default function SingleSelectButton({
   select(id: string, name: string, price: number): void;
   selectedItemId: string | null;
 }) {
-  useEffect(() => {
-    if (selectedItemId == null && price == 0) {
-      console.log(
-        ` no single select item selected. trying to use default ${name}.`
-      );
-      select(id, name, price);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (selectedItemId == null && price == 0) {
+  //     console.log(
+  //       ` no single select item selected. trying to use default ${name}.`
+  //     );
+  //     console.log(id);
+  //     //TODO: for some reason, in size option although the id in here is correct, when its added to the cart it does not have the appended item id at the start of it
+  //     select(id, name, price);
+  //   }
+  // }, []);
 
   return (
     <Button

@@ -1,5 +1,5 @@
+import formatPrice from "@/helpers/format/formatPrice";
 import { ItemsAndDetails } from "@/types/Preorders";
-import formatPrice from "./formatPrice";
 
 export default function formatPreordersForDb(itemsAndDetails: ItemsAndDetails) {
   let bodyString = "";

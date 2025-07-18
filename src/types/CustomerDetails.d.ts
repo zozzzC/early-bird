@@ -3,4 +3,5 @@ export interface CustomerDetails {
   email: string;
   phone: string;
   pickupDate: string;
+  createdDate: string;
 }

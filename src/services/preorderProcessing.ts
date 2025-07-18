@@ -6,9 +6,9 @@ import { ItemsAndDetails } from "@/types/Preorders";
 import { Client } from "@notionhq/client";
 
 export async function createPreorderProcessing(
-  itemsArray: ICartItemWithId[],
-  customerDetails: CustomerDetails
-) {
+  customerDetails: CustomerDetails,
+  itemsArray: ICartItemWithId[]
+): Promise<string> {
   const body: ItemsAndDetails = {
     customerDetails,
     itemsArray,
@@ -21,7 +21,7 @@ export async function createPreorderProcessing(
   const dbId = process.env.NOTION_PREORDER_PROCESSING_DB_ID;
 
   if (dbId) {
-    await notion.pages.create({
+    const id = await notion.pages.create({
       parent: {
         type: "database_id",
         database_id: dbId,
@@ -57,6 +57,37 @@ export async function createPreorderProcessing(
         },
       ],
     });
+    return id.id;
   }
   throw new Error("Notion DB ID and/or Notion Key not found.");
+}
+
+export async function setPreorderProcessing(
+  id: string,
+  status: "processing" | "unpaid" | "paid"
+) {
+  const notion = new Client({
+    auth: process.env.NOTION_KEY,
+  });
+
+  const dbId = process.env.NOTION_PREORDER_PROCESSING_DB_ID;
+
+  if (dbId) {
+    try {
+      await notion.pages.update({
+        page_id: id,
+        properties: {
+          status: {
+            select: {
+              name: status,
+            },
+          },
+        },
+      });
+    } catch (err) {
+      throw new Error("Error trying to update Preorder Processing.");
+    }
+  } else {
+    throw new Error("Notion DB ID was not found for Preorder processing.");
+  }
 }

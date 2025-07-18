@@ -101,7 +101,7 @@ export default function OrderDetailsList({
           minDate={getMinDate(new Date())}
           onChange={(date) => {
             if (date != null) {
-              const { min, max } = isAvailableTime(date);
+              const { min, max } = isAvailableTime(date, new Date());
               setSelectedDate(date);
               setMinTime(min);
               setMaxTime(max);

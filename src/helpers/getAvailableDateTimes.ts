@@ -1,5 +1,11 @@
-export function isAvailableDay(date: string) {
-  //determines where a day should be available or not
+import setHoursFromTimeString from "./timezone/setHoursFromTimeString";
+
+/**
+ * Determines whether a day is available or not.
+ * @param date The user's selected date.
+ * @returns True is the day is available, false if not available.
+ */
+export function isAvailableDay(date: string): boolean {
   const newDate = new Date(date);
   if (newDate.getDay() == 0) {
     return false;
@@ -14,7 +20,7 @@ export function isAvailableTime(
   min: string | undefined;
   max: string | undefined;
 } {
-  console.log(`attempting to get available times for ${date}`);
+  // console.log(`attempting to get available times for ${date}`);
   if (!isAvailableDay(date)) {
     return { min: undefined, max: undefined };
   }
@@ -34,10 +40,11 @@ export function isAvailableTime(
       minTime = `${selectedDate.getHours().toString().padStart(2, "0")}:${selectedDate.getMinutes().toString().padStart(2, "0")}:${selectedDate.getSeconds().toString().padStart(2, "0")}`;
     }
 
-    console.log(`min: ${minTime} `);
+    // console.log(`min: ${minTime} `);
     return { min: minTime, max: "11:15:00" };
   }
 
+  //on weekdays the time we open and close is different.
   selectedDate.setHours(7, 15, 0, 0);
 
   let minTime = `${currentDate.getHours().toString().padStart(2, "0")}:${currentDate.getMinutes().toString().padStart(2, "0")}:${currentDate.getSeconds().toString().padStart(2, "0")}`;
@@ -55,23 +62,27 @@ export function isAvailableTime(
 export function getMinDate(date: Date): Date {
   date.setMinutes(date.getMinutes() + 15);
   if (isAvailableDay(date.toDateString())) {
-    const { max } = isAvailableTime(
-      date.toISOString(),
-      new Date(date.toISOString())
-    );
-    const maxTimeToday = new Date(date.toISOString());
+    const { max, min } = isAvailableTime(date.toISOString(), new Date(date));
 
-    maxTimeToday.setHours(
-      parseInt(max?.split(":")[0] as string),
-      parseInt(max?.split(":")[0] as string),
-      parseInt(max?.split(":")[0] as string)
-    );
+    const maxTimeToday = setHoursFromTimeString(date, max as string) as Date;
+    const minTimeToday = setHoursFromTimeString(date, min as string) as Date;
 
     if (maxTimeToday.getTime() - date.getTime() > 0) {
-      //then today is a min date
+      //then today is a min date, but we need to ensure the time is correct.
+
+      if (date.getTime() - minTimeToday.getTime() < 0) {
+        date.setHours(
+          parseInt(min?.split(":")[0] as string),
+          parseInt(min?.split(":")[1] as string),
+          parseInt(min?.split(":")[2] as string)
+        );
+      }
 
       console.log(
-        "Next available day to make an order is " + date.toDateString()
+        "Next available day to make an order is " +
+          date.toDateString() +
+          "\n The min date is: " +
+          date
       );
       return date;
     }
@@ -81,10 +92,17 @@ export function getMinDate(date: Date): Date {
     `Cannot make an order on ${date.toDateString()}, trying to get next available day to order...`
   );
 
-  const newDate = new Date(date.toISOString());
-  newDate.setDate(newDate.getDate() + 1);
+  const newDate = new Date(date.toDateString());
   newDate.setHours(0, 0, 0, 0);
-  console.log(newDate);
+
+  let newMin = undefined;
+  //recursively check the next min date -- this is important since the next min date is not necessarily tomorrow.
+  while (newMin == undefined) {
+    newDate.setDate(newDate.getDate() + 1);
+    const { min } = isAvailableTime(newDate.toISOString(), newDate);
+    newMin = min as string;
+  }
+
   return getMinDate(newDate);
 }
 
@@ -123,6 +141,7 @@ export function validateDateTime(
   );
 
   console.log(`Selected date: ${date}`);
+  console.log(`Selected date${selectedDate}`);
   console.log(
     `Min time for date is: ${minTimeForDate} \n Max time for date is: ${maxTimeForDate}`
   );

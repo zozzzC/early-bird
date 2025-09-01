@@ -71,6 +71,7 @@ export async function setPreorderProcessing(
   });
 
   const dbId = process.env.NOTION_PREORDER_PROCESSING_DB_ID;
+  console.log(id);
 
   if (dbId) {
     try {
@@ -85,6 +86,7 @@ export async function setPreorderProcessing(
         },
       });
     } catch (err) {
+      console.warn(err);
       throw new Error("Error trying to update Preorder Processing.");
     }
   } else {

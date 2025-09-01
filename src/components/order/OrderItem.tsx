@@ -1,21 +1,13 @@
 "use client";
-import "@mantine/core/styles.css"; //styles will not load properly if not imported
-import { Item } from "@/types/Item";
-import Image from "next/image";
-import { Modal } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import OrderItemModal from "./OrderItemModal";
-import { useOrderItemContext } from "@/hooks/useOrderItemContext";
 import { OrderItemContext } from "@/hooks/OrderItemContext";
-import { Suspense } from "react";
+import { Item } from "@/types/Item";
+import { Modal } from "@mantine/core";
+import "@mantine/core/styles.css"; //styles will not load properly if not imported
+import { useDisclosure } from "@mantine/hooks";
+import Image from "next/image";
+import OrderItemModal from "./OrderItemModal";
 
-export default function OrderItem({
-  id,
-  name,
-  description,
-  photo,
-  orderModal,
-}: Item) {
+export default function OrderItem({ id, name, photo, orderModal }: Item) {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (

@@ -13,7 +13,7 @@ export default function CheckoutList({
 }: {
   orderItems: OrderModalResponse[];
 }) {
-  const { items, itemsArray } = useCartContext();
+  const { itemsArray } = useCartContext();
 
   const { optionsChanged, priceChanged } = useValidateCart(orderItems);
 

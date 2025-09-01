@@ -7,7 +7,8 @@ import {
   validateDateTime,
 } from "@/helpers/getAvailableDateTimes";
 import { useCartContext } from "@/hooks/useCartContext";
-import { OrderModalResponse } from "@/types/OrderModalResponse";
+import type { CustomerDetails } from "@/types/CustomerDetails";
+import type { OrderModalResponse } from "@/types/OrderModalResponse";
 import { InputBase, TextInput } from "@mantine/core";
 import { DateTimePicker } from "@mantine/dates";
 import "@mantine/dates/styles.css";
@@ -60,8 +61,7 @@ export default function OrderDetailsList({
   });
 
   const { itemsArray } = useCartContext();
-  const invalid = checkIfInvalid(itemsArray, orderItems);
-
+  const customerDetailsRef = useRef<CustomerDetails | null>(null);
   const [minTime, setMinTime] = useState<string | undefined>(undefined);
   const [maxTime, setMaxTime] = useState<string | undefined>(undefined);
   const [selectedDate, setSelectedDate] = useState<string | undefined>(
@@ -71,57 +71,79 @@ export default function OrderDetailsList({
 
   return (
     <div className=" flex flex-col items-center ">
-      <form onSubmit={form.onSubmit(() => {})}>
-        <TextInput
-          withAsterisk
-          label="name"
-          key={form.key("name")}
-          {...form.getInputProps("name")}
-        />
-        <TextInput
-          withAsterisk
-          label="email"
-          key={form.key("email")}
-          {...form.getInputProps("email")}
-        />
-        <InputBase
-          withAsterisk
-          label="phone number"
-          key={form.key("phone")}
-          component={IMaskInput}
-          mask="+64 (000) 000-0000"
-          {...form.getInputProps("phone")}
-          ref={ref}
-        />
-        <DateTimePicker
-          key={form.key("date")}
-          {...form.getInputProps("date")}
-          withAsterisk
-          label="pickup date and time"
-          minDate={getMinDate(new Date())}
-          onChange={(date) => {
-            if (date != null) {
-              const { min, max } = isAvailableTime(date, new Date());
-              setSelectedDate(date);
-              setMinTime(min);
-              setMaxTime(max);
+      {itemsArray.length != 0 ? (
+        <form
+          onSubmit={form.onSubmit((values) => {
+            if (
+              !checkIfInvalid(itemsArray, orderItems) &&
+              itemsArray.length != 0 &&
+              form.isValid()
+            ) {
+              console.log("we can continue.");
+            } else {
+              console.error("Still need to delete some items.");
             }
-          }}
-          timePickerProps={{
-            withDropdown: true,
-            min: minTime,
-            max: maxTime,
-            popoverProps: { withinPortal: false },
-            minutesStep: 10,
-            format: "12h",
-          }}
-          excludeDate={(date) => !isAvailableDay(date)}
-        />
-        <div className="py-5 flex justify-center">
-          <ContinueButton invalidOrder={invalid} itemsArray={itemsArray} />
-        </div>
-        {/* <Button type="submit">submit</Button> */}
-      </form>
+
+            customerDetailsRef.current = {
+              name: values.name,
+              email: values.email,
+              phone: values.phone,
+              pickupDate: values.date,
+              createdDate: new Date().toISOString(),
+            };
+            return;
+          })}
+        >
+          <TextInput
+            withAsterisk
+            label="name"
+            key={form.key("name")}
+            {...form.getInputProps("name")}
+          />
+          <TextInput
+            withAsterisk
+            label="email"
+            key={form.key("email")}
+            {...form.getInputProps("email")}
+          />
+          <InputBase
+            withAsterisk
+            label="phone number"
+            key={form.key("phone")}
+            component={IMaskInput}
+            mask="+64 (000) 000-0000"
+            {...form.getInputProps("phone")}
+            ref={ref}
+          />
+          <DateTimePicker
+            key={form.key("date")}
+            {...form.getInputProps("date")}
+            withAsterisk
+            label="pickup date and time"
+            minDate={getMinDate(new Date())}
+            onChange={(date) => {
+              if (date != null) {
+                const { min, max } = isAvailableTime(date, new Date());
+                setSelectedDate(date);
+                setMinTime(min);
+                setMaxTime(max);
+              }
+            }}
+            timePickerProps={{
+              withDropdown: true,
+              min: minTime,
+              max: maxTime,
+              popoverProps: { withinPortal: false },
+              minutesStep: 10,
+              format: "12h",
+            }}
+            excludeDate={(date) => !isAvailableDay(date)}
+          />
+          <div className="py-5 flex justify-center">
+            <ContinueButton />
+          </div>
+        </form>
+      ) : null}
     </div>
   );
 }

@@ -1,5 +1,9 @@
 "use server";
 
+import {
+  cartItemWithIdArraySchema,
+  customerDetailsSchema,
+} from "@/models/CustomerDetails.model";
 import { ICartItemWithId } from "@/types/Cart";
 import { CustomerDetails } from "@/types/CustomerDetails";
 import { ItemsAndDetails } from "@/types/Preorders";
@@ -9,6 +13,14 @@ export async function createPreorderProcessing(
   customerDetails: CustomerDetails,
   itemsArray: ICartItemWithId[]
 ): Promise<string> {
+  try {
+    await customerDetailsSchema.validate(customerDetails);
+    await cartItemWithIdArraySchema.validate(itemsArray);
+  } catch (err) {
+    console.warn("Error passing in props due to malformed input.");
+    console.warn(err);
+  }
+
   const body: ItemsAndDetails = {
     customerDetails,
     itemsArray,

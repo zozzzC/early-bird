@@ -6,7 +6,7 @@ import {
 } from "@/models/CustomerDetails.model";
 import { ICartItemWithId } from "@/types/Cart";
 import { CustomerDetails } from "@/types/CustomerDetails";
-import { ItemsAndDetails } from "@/types/Preorders";
+import { ICustomerDetailsAndItems } from "@/types/Preorders";
 import { Client } from "@notionhq/client";
 
 export async function createPreorderProcessing(
@@ -21,7 +21,7 @@ export async function createPreorderProcessing(
     console.warn(err);
   }
 
-  const body: ItemsAndDetails = {
+  const body: Omit<ICustomerDetailsAndItems, "orderId"> = {
     customerDetails,
     itemsArray,
   };

@@ -1,7 +1,8 @@
 import { ICartItemWithId } from "./Cart";
 import { CustomerDetails } from "./CustomerDetails";
 
-export interface ItemsAndDetails {
+export interface ICustomerDetailsAndItems {
+  orderId: string;
   customerDetails: CustomerDetails;
   itemsArray: ICartItemWithId[];
 }

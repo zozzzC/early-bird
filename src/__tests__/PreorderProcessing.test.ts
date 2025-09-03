@@ -13,7 +13,7 @@ describe("test preorder processing function", () => {
         name: "name",
         email: "email@email.com",
         phone: "+64 (203) 121-2312",
-        pickupDate: "",
+        pickupDate: "2025-09-05T08:09:15.001Z",
         createdDate: "2025-09-01T08:09:15.001Z",
       } as CustomerDetails,
       [

@@ -1,6 +1,6 @@
 import { Button } from "@mantine/core";
 
-export default function InvalidOrderModal({close} : {close(): void}) {
+export default function InvalidOrderModal({ close }: { close(): void }) {
   return (
     <div className="flex w-full flex-col items-center justify-center">
       <p>

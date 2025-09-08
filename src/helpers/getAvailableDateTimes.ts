@@ -15,7 +15,7 @@ export function isAvailableDay(date: string): boolean {
 
 export function isAvailableTime(
   date: string,
-  currentDate: Date
+  currentDate: Date,
 ): {
   min: string | undefined;
   max: string | undefined;
@@ -74,7 +74,7 @@ export function getMinDate(date: Date): Date {
         date.setHours(
           parseInt(min?.split(":")[0] as string),
           parseInt(min?.split(":")[1] as string),
-          parseInt(min?.split(":")[2] as string)
+          parseInt(min?.split(":")[2] as string),
         );
       }
 
@@ -82,14 +82,14 @@ export function getMinDate(date: Date): Date {
         "Next available day to make an order is " +
           date.toDateString() +
           "\n The min date is: " +
-          date
+          date,
       );
       return date;
     }
   }
 
   console.log(
-    `Cannot make an order on ${date.toDateString()}, trying to get next available day to order...`
+    `Cannot make an order on ${date.toDateString()}, trying to get next available day to order...`,
   );
 
   const newDate = new Date(date.toDateString());
@@ -109,7 +109,7 @@ export function getMinDate(date: Date): Date {
 export function validateDateTime(
   date: string | undefined,
   minTime: string | undefined,
-  maxTime: string | undefined
+  maxTime: string | undefined,
 ): { valid: boolean } {
   if (date == undefined || minTime == undefined || maxTime == undefined) {
     return { valid: false };
@@ -119,7 +119,7 @@ export function validateDateTime(
 
   const { min, max } = isAvailableTime(
     date as string,
-    new Date(date as string)
+    new Date(date as string),
   );
 
   //ensures that the selected date is both after the min time and before the max time
@@ -129,7 +129,7 @@ export function validateDateTime(
     parseInt((min as string).split(":")[0]),
     parseInt((min as string).split(":")[1]),
     parseInt((min as string).split(":")[2]),
-    0
+    0,
   );
 
   const maxTimeForDate = new Date(date as string);
@@ -137,13 +137,13 @@ export function validateDateTime(
     parseInt((max as string).split(":")[0]),
     parseInt((max as string).split(":")[1]),
     parseInt((max as string).split(":")[2]),
-    0
+    0,
   );
 
   console.log(`Selected date: ${date}`);
   console.log(`Selected date${selectedDate}`);
   console.log(
-    `Min time for date is: ${minTimeForDate} \n Max time for date is: ${maxTimeForDate}`
+    `Min time for date is: ${minTimeForDate} \n Max time for date is: ${maxTimeForDate}`,
   );
 
   //if the date is greater than the min time and less than the max time then it is valid.

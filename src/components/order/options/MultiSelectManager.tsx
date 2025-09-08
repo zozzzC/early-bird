@@ -5,10 +5,6 @@ import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
 import { ICartAddOn } from "@/types/Cart";
 import { cloneDeep } from "lodash";
 
-type itemsId = {
-  id: string;
-};
-
 export default function MultiSelectManager({
   id,
   orderItemCategory,
@@ -32,12 +28,12 @@ export default function MultiSelectManager({
   const orderInstance = useOrderInstanceContext();
 
   function select(id: string, name: string, price: number, on: boolean) {
-    var value = selectedItemsId;
+    const value = selectedItemsId;
 
     if (on) {
       value.splice(
         value.findIndex((x) => x.id == id),
-        1
+        1,
       );
     } else {
       value.push({ id: id, name: name, price: price });

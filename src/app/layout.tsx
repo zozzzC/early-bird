@@ -6,6 +6,7 @@ import { getOrderItems } from "@/services/orderItems";
 import { MantineProvider } from "@mantine/core";
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
+import "@mantine/core/styles.css";
 
 import OrderItemsComponent from "@/components/wrappers/OrderItemsComponent";
 import "./globals.css";

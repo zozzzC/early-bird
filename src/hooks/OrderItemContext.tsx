@@ -4,5 +4,5 @@ import { rawNotionOrderProps } from "@/types/rawNotionDbRes";
 import { createContext, useContext } from "react";
 
 export const OrderItemContext = createContext<OrderModalResponse | undefined>(
-  undefined
+  undefined,
 );

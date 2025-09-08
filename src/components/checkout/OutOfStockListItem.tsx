@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import formatPrice from "@/helpers/format/formatPrice";
 import { ICartItem, ICartItemWithId } from "@/types/Cart";
 import { Alert } from "@mantine/core";

@@ -14,11 +14,11 @@ describe("out of stock tests", () => {
         defaultItemsArray={getItemsArray(defaultItems)}
       >
         <CheckoutList orderItems={sampleOrderItemsAmericanoOutOfStock} />
-      </CartProviderComponent>
+      </CartProviderComponent>,
     );
 
     expect(screen.getAllByRole("paragraph")[0].innerHTML).toBe(
-      "this item is currently unavailable."
+      "this item is currently unavailable.",
     );
   });
 
@@ -29,7 +29,7 @@ describe("out of stock tests", () => {
         defaultItemsArray={getItemsArray(defaultItems)}
       >
         <CheckoutList orderItems={sampleOrderItemsAmericanoOutOfStock} />
-      </CartProviderComponent>
+      </CartProviderComponent>,
     );
 
     const payNow = screen.getByRole("button", { name: "continue" });
@@ -37,8 +37,8 @@ describe("out of stock tests", () => {
 
     expect(
       screen.findByText(
-        "you have unavailable items in your cart. please remove them from your cart to continue."
-      )
+        "you have unavailable items in your cart. please remove them from your cart to continue.",
+      ),
     ).toBeDefined;
   });
 
@@ -49,7 +49,7 @@ describe("out of stock tests", () => {
         defaultItemsArray={getItemsArray(defaultItems)}
       >
         <CheckoutList orderItems={sampleOrderItemsAmericanoOutOfStock} />
-      </CartProviderComponent>
+      </CartProviderComponent>,
     );
 
     const deleteButton = screen.getAllByTestId("delete order item")[0];
@@ -59,8 +59,8 @@ describe("out of stock tests", () => {
 
     expect(
       screen.findByText(
-        "you have unavailable items in your cart. please remove them from your cart to continue."
-      )
+        "you have unavailable items in your cart. please remove them from your cart to continue.",
+      ),
     ).toBeDefined;
   });
 
@@ -71,7 +71,7 @@ describe("out of stock tests", () => {
         defaultItemsArray={getItemsArray(defaultItems)}
       >
         <CheckoutList orderItems={sampleOrderItemsAmericanoOutOfStock} />
-      </CartProviderComponent>
+      </CartProviderComponent>,
     );
 
     for (let i = 0; i < 3; i++) {
@@ -84,8 +84,8 @@ describe("out of stock tests", () => {
 
     expect(
       screen.findByText(
-        "you have unavailable items in your cart. please remove them from your cart to continue."
-      )
+        "you have unavailable items in your cart. please remove them from your cart to continue.",
+      ),
     ).toBeUndefined;
   });
 });

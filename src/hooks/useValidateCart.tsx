@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useCartContext } from "./useCartContext";
 
 export const useValidateCart = (
-  orderItems: OrderModalResponse[]
+  orderItems: OrderModalResponse[],
 ): { priceChanged: boolean; optionsChanged: boolean } => {
   const { setItems, setItemsArray } = useCartContext();
   const [priceChanged, setPriceChanged] = useState<boolean>(false);
@@ -17,9 +17,9 @@ export const useValidateCart = (
       const validate = validateCart(
         JSON.parse(localStorage.getItem("items") as string) as ICart,
         JSON.parse(
-          localStorage.getItem("itemsArray") as string
+          localStorage.getItem("itemsArray") as string,
         ) as ICartItemWithId[],
-        orderItems
+        orderItems,
       );
 
       setItems(validate.items);

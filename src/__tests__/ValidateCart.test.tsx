@@ -46,7 +46,7 @@ describe("validate cart function", () => {
           }}
         />
         <ViewCartJsx showItems={true} showItemsArray={true} />
-      </CartProviderComponent>
+      </CartProviderComponent>,
     );
 
     await userEvent.click(screen.getByText("get cart item id"));
@@ -60,7 +60,7 @@ describe("validate cart function", () => {
       >
         <ValidateCartButton orderItems={sampleOrderItems} pay={true} />
         <ViewCartJsx showItems={true} showItemsArray={true} />
-      </CartProviderComponent>
+      </CartProviderComponent>,
     );
 
     await userEvent.click(screen.getByText("validate cart"));
@@ -97,7 +97,7 @@ describe("validate cart function", () => {
           basePrice: 4.5,
           quantity: 1,
         },
-      })
+      }),
     );
 
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
@@ -133,7 +133,7 @@ describe("validate cart function", () => {
           basePrice: 4.5,
           quantity: 1,
         },
-      ])
+      ]),
     );
 
     expect(screen.getByTestId("price-changed").innerHTML).toBe("true");
@@ -145,12 +145,12 @@ describe("validate cart function", () => {
       <CartProviderComponent
         defaultItems={invalidCartItemMilkExtraNotFound}
         defaultItemsArray={getItemsArray(
-          invalidCartItemMilkExtraNotFound as ICart
+          invalidCartItemMilkExtraNotFound as ICart,
         )}
       >
         <ValidateCartButton orderItems={sampleOrderItems} pay={true} />
         <ViewCartJsx showItems={true} showItemsArray={true} />
-      </CartProviderComponent>
+      </CartProviderComponent>,
     );
 
     await userEvent.click(screen.getByText("validate cart"));
@@ -175,7 +175,7 @@ describe("validate cart function", () => {
           basePrice: 4.5,
           quantity: 1,
         },
-      })
+      }),
     );
   });
 
@@ -187,7 +187,7 @@ describe("validate cart function", () => {
       >
         <ValidateCartButton orderItems={sampleOrderItems} pay={true} />
         <ViewCartJsx showItems={true} showItemsArray={true} />
-      </CartProviderComponent>
+      </CartProviderComponent>,
     );
 
     await userEvent.click(screen.getByText("validate cart"));
@@ -205,12 +205,12 @@ describe("validate cart function", () => {
       >
         <ValidateCartButton orderItems={sampleOrderItems} pay={true} />
         <ViewCartJsx showItems={true} showItemsArray={true} />
-      </CartProviderComponent>
+      </CartProviderComponent>,
     );
 
     await userEvent.click(screen.getByText("validate cart"));
     expect(screen.getByTestId("items").innerHTML).toBe(
-      JSON.stringify(defaultItems)
+      JSON.stringify(defaultItems),
     );
 
     expect(screen.getByTestId("price-changed").innerHTML).toBe("false");
@@ -228,12 +228,12 @@ describe("validate cart function", () => {
           pay={true}
         />
         <ViewCartJsx showItems={true} showItemsArray={true} />
-      </CartProviderComponent>
+      </CartProviderComponent>,
     );
 
     await userEvent.click(screen.getByText("validate cart"));
     expect(screen.getByTestId("items").innerHTML).toBe(
-      JSON.stringify(defaultItems)
+      JSON.stringify(defaultItems),
     );
 
     expect(screen.getByTestId("price-changed").innerHTML).toBe("false");
@@ -248,7 +248,7 @@ describe("validate cart function", () => {
       >
         <ValidateCartButton orderItems={sampleOrderItems} pay={false} />
         <ViewCartJsx showItems={true} showItemsArray={true} />
-      </CartProviderComponent>
+      </CartProviderComponent>,
     );
 
     await userEvent.click(screen.getByText("validate cart"));
@@ -285,7 +285,7 @@ describe("validate cart function", () => {
           basePrice: 4.5,
           quantity: 1,
         },
-      })
+      }),
     );
 
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
@@ -321,7 +321,7 @@ describe("validate cart function", () => {
           basePrice: 4.5,
           quantity: 1,
         },
-      ])
+      ]),
     );
 
     expect(screen.getByTestId("price-changed").innerHTML).toBe("true");
@@ -333,12 +333,12 @@ describe("validate cart function", () => {
       <CartProviderComponent
         defaultItems={invalidCartItemMilkExtraNotFound}
         defaultItemsArray={getItemsArray(
-          invalidCartItemMilkExtraNotFound as ICart
+          invalidCartItemMilkExtraNotFound as ICart,
         )}
       >
         <ValidateCartButton orderItems={sampleOrderItems} pay={false} />
         <ViewCartJsx showItems={true} showItemsArray={true} />
-      </CartProviderComponent>
+      </CartProviderComponent>,
     );
 
     await userEvent.click(screen.getByText("validate cart"));
@@ -363,7 +363,7 @@ describe("validate cart function", () => {
           basePrice: 4.5,
           quantity: 1,
         },
-      })
+      }),
     );
   });
 
@@ -375,7 +375,7 @@ describe("validate cart function", () => {
       >
         <ValidateCartButton orderItems={sampleOrderItems} pay={false} />
         <ViewCartJsx showItems={true} showItemsArray={true} />
-      </CartProviderComponent>
+      </CartProviderComponent>,
     );
 
     await userEvent.click(screen.getByText("validate cart"));
@@ -393,12 +393,12 @@ describe("validate cart function", () => {
       >
         <ValidateCartButton orderItems={sampleOrderItems} pay={false} />
         <ViewCartJsx showItems={true} showItemsArray={true} />
-      </CartProviderComponent>
+      </CartProviderComponent>,
     );
 
     await userEvent.click(screen.getByText("validate cart"));
     expect(screen.getByTestId("items").innerHTML).toBe(
-      JSON.stringify(defaultItems)
+      JSON.stringify(defaultItems),
     );
 
     expect(screen.getByTestId("price-changed").innerHTML).toBe("false");

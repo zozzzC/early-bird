@@ -18,7 +18,7 @@ const testTheme = mergeThemeOverrides(
         },
       }),
     },
-  })
+  }),
 );
 
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
@@ -31,7 +31,7 @@ const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
 
 const customRender = (
   ui: ReactElement,
-  options?: Omit<RenderOptions, "wrapper">
+  options?: Omit<RenderOptions, "wrapper">,
 ) => render(ui, { wrapper: AllTheProviders, ...options });
 
 export * from "@testing-library/react";

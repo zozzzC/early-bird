@@ -4,7 +4,7 @@ import getModal from "./getModal";
 
 export default function checkIfInvalid(
   itemsArray: ICartItemWithId[],
-  orderItems: OrderModalResponse[]
+  orderItems: OrderModalResponse[],
 ): boolean {
   let invalid = false;
   itemsArray.forEach((i) => {

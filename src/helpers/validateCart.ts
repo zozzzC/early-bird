@@ -17,7 +17,7 @@ export default function validateCart(
   items: ICart,
   itemsArray: ICartItemWithId[],
   orderItems: OrderModalResponse[],
-  editCartItem?: (cartItem: ICartItem, oldCartItem: ICartItem) => void
+  editCartItem?: (cartItem: ICartItem, oldCartItem: ICartItem) => void,
 ): {
   items: ICart;
   itemsArray: ICartItemWithId[];
@@ -37,7 +37,7 @@ export default function validateCart(
       console.log(error.issues);
       //then the cart is invalid.
       console.log(
-        "Cart is invalid (one or more objects contains one or more unknown keys). Deleting cart..."
+        "Cart is invalid (one or more objects contains one or more unknown keys). Deleting cart...",
       );
 
       //TODO: add functionality for us to directly delete the entire cart, or maybe this can be done in the Cart directly?
@@ -76,14 +76,14 @@ export default function validateCart(
 
       if (!orderItem[orderItemProp]) {
         console.log(
-          `Property ${cartProp} has no corresponding Order Item property.`
+          `Property ${cartProp} has no corresponding Order Item property.`,
         );
       }
 
       if (orderItem[orderItemProp]) {
         const { typedVal, typeOfVal } = containsPrice(cartItem[cartProp]);
         console.log(
-          `Property ${cartProp} has a corresponding Order Item property.\n Type of Val: ${typeOfVal}\n Val: ${JSON.stringify(typedVal)}`
+          `Property ${cartProp} has a corresponding Order Item property.\n Type of Val: ${typeOfVal}\n Val: ${JSON.stringify(typedVal)}`,
         );
 
         const orderItemVal = orderItem[orderItemProp];
@@ -93,7 +93,7 @@ export default function validateCart(
             priceChanged = validateBasePrice(
               cartProp,
               cartItem,
-              orderItemVal as number
+              orderItemVal as number,
             )
               ? true
               : priceChanged;
@@ -102,7 +102,7 @@ export default function validateCart(
             const ICartAddOnChanges = validateICartAddOn(
               cartItem,
               cartProp,
-              orderItemVal as itemStringWithId[]
+              orderItemVal as itemStringWithId[],
             );
             priceChanged = ICartAddOnChanges.newPriceChanged
               ? true
@@ -116,7 +116,7 @@ export default function validateCart(
               typedVal as ICartAddOn[],
               cartItem,
               cartProp,
-              orderItemVal as itemStringWithId[]
+              orderItemVal as itemStringWithId[],
             );
             priceChanged = ICartAddOnArrayChanges.newPriceChanged
               ? true
@@ -131,7 +131,7 @@ export default function validateCart(
               cartProp,
               orderItem,
               orderItemProp,
-              optionsChanged
+              optionsChanged,
             );
             break;
           default:
@@ -163,7 +163,7 @@ export default function validateCart(
   const newOrderItemsArray = reconstructItemsArray(
     itemsMutate,
     orderItems,
-    false
+    false,
   );
 
   return {
@@ -179,7 +179,7 @@ function validateNull(
   cartProp: keyof ICartItem,
   orderItem: OrderModalResponse,
   orderItemProp: keyof OrderModalResponse,
-  optionsChanged: boolean
+  optionsChanged: boolean,
 ) {
   //TODO: change to use generic instead of hardcoding size and milk as single select.
   if ((orderItem[orderItemProp] as itemStringWithId[])[0]) {
@@ -188,8 +188,8 @@ function validateNull(
       //this means that the field is null when it must have an option. so we get the default option (whatever is price of 0)
       const clone = cloneDeep(
         (orderItem[orderItemProp] as itemStringWithId[]).find(
-          (x) => x.price == 0
-        ) as ICartAddOn
+          (x) => x.price == 0,
+        ) as ICartAddOn,
       );
 
       clone.id = cartItem.key + clone.id;
@@ -204,7 +204,7 @@ function validateICartAddOnArray(
   selectedOptionsArray: ICartAddOn[],
   cartItem: ICartItem,
   cartProp: keyof ICartItem,
-  optionArray: itemStringWithId[]
+  optionArray: itemStringWithId[],
 ): { newPriceChanged: boolean; newOptionsChanged: boolean } {
   //we loop through the entire array.
   let priceChanged = false;
@@ -226,7 +226,7 @@ function validateICartAddOnArray(
       optionsChanged = true;
       priceChanged = true;
       selectedOptionsArray.splice(
-        selectedOptionsArray.indexOf(selectedOption, 1)
+        selectedOptionsArray.indexOf(selectedOption, 1),
       );
 
       if (selectedOptionsArray.length == 0) {
@@ -259,7 +259,7 @@ function validateICartAddOnArray(
 function validateBasePrice(
   cartProp: keyof ICartItem,
   cartItem: ICartItem,
-  orderItemVal: number
+  orderItemVal: number,
 ): boolean {
   if (cartProp === "basePrice") {
     if (orderItemVal != cartItem[cartProp]) {
@@ -273,7 +273,7 @@ function validateBasePrice(
 function validateICartAddOn(
   cartItem: ICartItem,
   cartProp: keyof ICartItem,
-  optionArray: itemStringWithId[]
+  optionArray: itemStringWithId[],
 ): { newPriceChanged: boolean; newOptionsChanged: boolean } {
   let priceChanged = false;
   let optionsChanged = false;
@@ -297,7 +297,7 @@ function validateICartAddOn(
   } else {
     //in this case the corresponding id was not found. that means replace this with the default order option. BUT remember we have to append the id.
     const clone = cloneDeep(
-      optionArray.find((x) => x.price === 0) as ICartAddOn
+      optionArray.find((x) => x.price === 0) as ICartAddOn,
     );
     clone.id = cartItem.key + clone.id;
     (cartItem[cartProp] as ICartAddOn | null) = clone;
@@ -356,7 +356,7 @@ function containsPrice(val: ICartItem[keyof ICartItem]): {
 function reconstructItemsArray<T extends boolean>(
   items: ICart,
   orderItems: OrderModalResponse[],
-  validate: T
+  validate: T,
 ): T extends true ? null : ICartItemWithId[] {
   const newItemsArray: ICartItemWithId[] = [];
   Object.keys(items).forEach((i) => {

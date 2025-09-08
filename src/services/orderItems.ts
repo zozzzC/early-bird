@@ -33,7 +33,7 @@ export async function getOrderItems(): Promise<Array<OrderModalResponse>> {
 
     return await formatOrderModal(
       await formatNotionRes(data),
-      await getExtraCosts()
+      await getExtraCosts(),
     );
   }
 

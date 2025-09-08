@@ -5,7 +5,7 @@ import {
 import { rawNotionExtraCostProps } from "@/types/rawNotionDbRes";
 
 export default async function formatExtraCosts(
-  extraCosts: Array<{ key: string; value: rawNotionExtraCostProps }>
+  extraCosts: Array<{ key: string; value: rawNotionExtraCostProps }>,
 ): Promise<ExtraCostsResponse> {
   //we want the response to be an object with key value pairs, since we will be using the name as the key
   const res: ExtraCostsResponse = {};

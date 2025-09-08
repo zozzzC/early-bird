@@ -21,7 +21,7 @@ export default function CartProviderComponent({
   orderItems?: OrderModalResponse[];
 }) {
   const [itemsArray, setItemsArray] = useState<Array<ICartItemWithId>>(
-    defaultItemsArray ? defaultItemsArray : []
+    defaultItemsArray ? defaultItemsArray : [],
   );
   const [items, setItems] = useState<ICart>(defaultItems ? defaultItems : {});
 
@@ -32,9 +32,9 @@ export default function CartProviderComponent({
         const validate = validateCart(
           JSON.parse(localStorage.getItem("items") as string) as ICart,
           JSON.parse(
-            localStorage.getItem("itemsArray") as string
+            localStorage.getItem("itemsArray") as string,
           ) as ICartItemWithId[],
-          orderItems
+          orderItems,
         );
 
         setItems(validate.items);
@@ -56,7 +56,7 @@ export default function CartProviderComponent({
     cartItem: ICartItem,
     editedItemsArray?: ICartItemWithId[],
     editedItems?: ICart,
-    index?: number
+    index?: number,
   ) {
     const hash = getCartItemId(cartItem);
     const itemsArrayMutate = editedItemsArray
@@ -67,7 +67,7 @@ export default function CartProviderComponent({
 
     if (itemsMutate[hash]) {
       console.log(
-        "Cart item already exists in cart. Adding cart item is updating teh quantity.,,"
+        "Cart item already exists in cart. Adding cart item is updating teh quantity.,,",
       );
       const index = itemsArrayMutate.findIndex((x) => {
         return x.id === hash;
@@ -78,7 +78,7 @@ export default function CartProviderComponent({
       itemsArrayMutate[index] = { id: hash, ...editedItem };
     } else {
       console.log(
-        "Cart item does not already exist in cart. Adding new cart item to cart..."
+        "Cart item does not already exist in cart. Adding new cart item to cart...",
       );
       getOrderInstanceTotal(cartItem);
       itemsMutate[hash] = cartItem;

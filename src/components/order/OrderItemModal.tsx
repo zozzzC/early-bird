@@ -31,16 +31,16 @@ export default function OrderItemModal({
     orderHash
       ? getOrderInstanceByHash(orderHash)
         ? JSON.parse(
-            JSON.stringify(getOrderInstanceByHash(orderHash) as ICartItem)
+            JSON.stringify(getOrderInstanceByHash(orderHash) as ICartItem),
           ).price
         : orderItem.basePrice
-      : orderItem.price
+      : orderItem.price,
   );
 
   const [orderInstance, setOrderInstance] = useState<ICartItem>(() => {
     if (orderInstanceClone) {
       const extraClone: ICartAddOn[] | null = cloneDeep(
-        orderInstanceClone.extra
+        orderInstanceClone.extra,
       );
 
       if (extraClone) {
@@ -174,7 +174,7 @@ export default function OrderItemModal({
                       getOrderInstanceTotal({
                         ...orderInstance,
                         quantity: e.valueOf() as number,
-                      })
+                      }),
                     );
                   }}
                   allowDecimal={false}

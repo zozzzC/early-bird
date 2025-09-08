@@ -6,7 +6,7 @@ import formatPreordersForDb from "./formatPreordersForDb";
 
 export default async function paymentProcessing(
   customerDetails: CustomerDetails,
-  itemsArray: ICartItemWithId[]
+  itemsArray: ICartItemWithId[],
 ) {
   const details: ItemsAndDetails = {
     customerDetails: customerDetails,
@@ -18,32 +18,22 @@ export default async function paymentProcessing(
   try {
     const preorderProcessingId = await createPreorderProcessing(
       customerDetails,
-      itemsArray
+      itemsArray,
     );
   } catch (err) {
     //if an error occurs, then we cannot continue.
-
   }
-
 
   //stripe stuff
 
-
-
   //if the payment goes through then we can attempt to first save into our preorder db -- if this fails, then we refund the payment
-  
+
   try {
-    
-  } catch (err) {
+  } catch (err) {}
 
-  }
-
-
-  //if we can successfuly save into the preorder db, then we can attempt to send an email -- if this fails, then we refund the payment, set to unpaid, and remove the order from the preorder db 
-
+  //if we can successfuly save into the preorder db, then we can attempt to send an email -- if this fails, then we refund the payment, set to unpaid, and remove the order from the preorder db
 
   //if this is successful, then send a 'success' console.log.
-
 
   //IDEA:
   //put customer details and items inside of preorder processing db -- this means that we can get which customer did what payment

@@ -14,7 +14,7 @@ export default function OrderInstanceWrapper({
   resetInstance?: boolean;
 }) {
   const [orderInstance, setOrderInstance] = useState<ICartItem>(
-    instance ? instance : (defaultInstance as ICartItem)
+    instance ? instance : (defaultInstance as ICartItem),
   );
 
   function setOrderInstanceByField<T extends "milk" | "size" | "extra">({

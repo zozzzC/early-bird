@@ -19,7 +19,7 @@ describe("editing an existing order item with modal", () => {
           <CheckoutList orderItems={sampleOrderItems as OrderModalResponse[]} />
           <ViewCartJsx showItems={true} showItemsArray={true} />
         </CartProviderComponent>
-      </>
+      </>,
     );
 
     const editItem = screen.getAllByRole("button", { name: "edit item" })[0];
@@ -28,10 +28,10 @@ describe("editing an existing order item with modal", () => {
     await userEvent.click(edit);
 
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
-      JSON.stringify(getItemsArray(defaultItems))
+      JSON.stringify(getItemsArray(defaultItems)),
     );
     expect(screen.getByTestId("items").innerHTML).toBe(
-      JSON.stringify(defaultItems)
+      JSON.stringify(defaultItems),
     );
   });
 
@@ -74,7 +74,7 @@ describe("editing an existing order item with modal", () => {
           <CheckoutList orderItems={sampleOrderItems as OrderModalResponse[]} />
           <ViewCartJsx showItems={true} showItemsArray={true} />
         </CartProviderComponent>
-      </>
+      </>,
     );
 
     const editItem = screen.getAllByRole("button", { name: "edit item" })[0];
@@ -118,7 +118,7 @@ describe("editing an existing order item with modal", () => {
           basePrice: 4.5,
           quantity: 1,
         },
-      })
+      }),
     );
   });
 
@@ -130,20 +130,20 @@ describe("editing an existing order item with modal", () => {
       >
         <CheckoutList orderItems={sampleOrderItems as OrderModalResponse[]} />
         <ViewCartJsx showItems={true} showItemsArray={true} />
-      </CartProviderComponent>
+      </CartProviderComponent>,
     );
 
     const editItem = screen.getAllByRole("button", { name: "edit item" })[1];
     await userEvent.click(editItem);
 
     const soyMilkButton = screen.getByTestId(
-      "single-select-1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab6ffffebb-93ea-4616-b3ce-5f59b33e8a63"
+      "single-select-1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab6ffffebb-93ea-4616-b3ce-5f59b33e8a63",
     );
     const vanillaSyrupButton = screen.getByTestId(
-      "mutli-select-1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab9bff625c-9f08-4e1e-b40c-e4241d132071"
+      "mutli-select-1c1f97ca-4876-81bc-bd7d-ef471bc0a6ab9bff625c-9f08-4e1e-b40c-e4241d132071",
     );
     const hazelnutSyrupButton = screen.getByTestId(
-      "mutli-select-1c1f97ca-4876-81bc-bd7d-ef471bc0a6abe2a9faad-9f79-4397-bf0b-73f0dd9b1901"
+      "mutli-select-1c1f97ca-4876-81bc-bd7d-ef471bc0a6abe2a9faad-9f79-4397-bf0b-73f0dd9b1901",
     );
 
     await userEvent.click(soyMilkButton);
@@ -202,7 +202,7 @@ describe("editing an existing order item with modal", () => {
           quantity: 2,
           basePrice: 4.5,
         },
-      })
+      }),
     );
 
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
@@ -258,7 +258,7 @@ describe("editing an existing order item with modal", () => {
           quantity: 1,
           basePrice: 4.5,
         },
-      ])
+      ]),
     );
   });
 
@@ -270,7 +270,7 @@ describe("editing an existing order item with modal", () => {
       >
         <CheckoutList orderItems={sampleOrderItems as OrderModalResponse[]} />
         <ViewCartJsx showItems={true} showItemsArray={true} />
-      </CartProviderComponent>
+      </CartProviderComponent>,
     );
 
     const editItem = screen.getAllByRole("button", { name: "edit item" })[0];
@@ -351,7 +351,7 @@ describe("editing an existing order item with modal", () => {
           quantity: 2,
           basePrice: 4.5,
         },
-      })
+      }),
     );
 
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
@@ -427,7 +427,7 @@ describe("editing an existing order item with modal", () => {
           quantity: 1,
           basePrice: 4.5,
         },
-      ])
+      ]),
     );
   });
 
@@ -439,7 +439,7 @@ describe("editing an existing order item with modal", () => {
       >
         <CheckoutList orderItems={sampleOrderItems as OrderModalResponse[]} />
         <ViewCartJsx showItems={true} showItemsArray={true} />
-      </CartProviderComponent>
+      </CartProviderComponent>,
     );
 
     const deleteButton = screen.getAllByTestId("delete order item")[0];
@@ -485,7 +485,7 @@ describe("editing an existing order item with modal", () => {
           quantity: 1,
           basePrice: 4.5,
         },
-      })
+      }),
     );
   });
 });

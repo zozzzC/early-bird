@@ -27,7 +27,7 @@ export default function ValidateCartButton({
               items,
               itemsArray,
               orderItems,
-              editCartItem
+              editCartItem,
             );
           } else {
             //this is when we intialize the cart (load from localStorage)

@@ -28,7 +28,7 @@ describe("Cart functionalities", () => {
           <ViewCartJsx showItems={true} showItemsArray={true} />
           <CartButton />
         </CartProviderComponent>
-      </OrderInstanceWrapper>
+      </OrderInstanceWrapper>,
     );
 
     const cart = screen.getByText("add to cart");
@@ -56,7 +56,7 @@ describe("Cart functionalities", () => {
           basePrice: 4.5,
           quantity: 1,
         },
-      })
+      }),
     );
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
       JSON.stringify([
@@ -80,7 +80,7 @@ describe("Cart functionalities", () => {
           basePrice: 4.5,
           quantity: 1,
         },
-      ])
+      ]),
     );
   });
 
@@ -91,7 +91,7 @@ describe("Cart functionalities", () => {
           <CartButton />
           <ViewCartJsx showItems={true} showItemsArray={true} />
         </CartProviderComponent>
-      </OrderInstanceWrapper>
+      </OrderInstanceWrapper>,
     );
 
     await userEvent.click(screen.getByText("add to cart"));
@@ -118,7 +118,7 @@ describe("Cart functionalities", () => {
           basePrice: 4.5,
           quantity: 2,
         },
-      })
+      }),
     );
 
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
@@ -143,7 +143,7 @@ describe("Cart functionalities", () => {
           basePrice: 4.5,
           quantity: 2,
         },
-      ])
+      ]),
     );
   });
 
@@ -205,7 +205,7 @@ describe("Cart functionalities", () => {
           <CartButton />
           <EditButton cartItem={instance as ICartItem} />
         </CartProviderComponent>
-      </OrderInstanceWrapper>
+      </OrderInstanceWrapper>,
     );
 
     const cart = screen.getByText("add to cart");
@@ -245,7 +245,7 @@ describe("Cart functionalities", () => {
           quantity: 1,
           basePrice: 4.5,
         },
-      })
+      }),
     );
   });
 
@@ -259,14 +259,14 @@ describe("Cart functionalities", () => {
           <ViewCartJsx showItems={true} showItemsArray={true} />
           <EditButton cartItem={instance as ICartItem} />
         </CartProviderComponent>
-      </OrderInstanceWrapper>
+      </OrderInstanceWrapper>,
     );
 
     expect(screen.getByTestId("items").innerHTML).toBe(
-      JSON.stringify(defaultItems)
+      JSON.stringify(defaultItems),
     );
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
-      JSON.stringify(getItemsArray(defaultItems as ICart))
+      JSON.stringify(getItemsArray(defaultItems as ICart)),
     );
 
     const edit = screen.getByText("edit cart item");
@@ -323,7 +323,7 @@ describe("Cart functionalities", () => {
           quantity: 2,
           basePrice: 4.5,
         },
-      })
+      }),
     );
 
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
@@ -379,7 +379,7 @@ describe("Cart functionalities", () => {
           quantity: 1,
           basePrice: 4.5,
         },
-      ])
+      ]),
     );
   });
 
@@ -437,7 +437,7 @@ describe("Cart functionalities", () => {
           <CartButton />
           <EditButton cartItem={instance as ICartItem} />
         </CartProviderComponent>
-      </OrderInstanceWrapper>
+      </OrderInstanceWrapper>,
     );
 
     const edit = screen.getByText("edit cart item");
@@ -465,7 +465,7 @@ describe("Cart functionalities", () => {
           quantity: 1,
           basePrice: 4.5,
         },
-      })
+      }),
     );
 
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
@@ -490,7 +490,7 @@ describe("Cart functionalities", () => {
           quantity: 1,
           basePrice: 4.5,
         },
-      ])
+      ]),
     );
   });
 
@@ -504,7 +504,7 @@ describe("Cart functionalities", () => {
             cartItem={{ ...(defaultInstance as ICartItem), quantity: 2 }}
           />
         </CartProviderComponent>
-      </OrderInstanceWrapper>
+      </OrderInstanceWrapper>,
     );
 
     const cart = screen.getByText("add to cart");
@@ -516,7 +516,7 @@ describe("Cart functionalities", () => {
       JSON.stringify({
         cd95a6ece74af996094f966b72087d55564fccfd04ba27034231cbcf9ac4d45f:
           defaultInstance,
-      })
+      }),
     );
 
     await userEvent.click(edit);
@@ -542,7 +542,7 @@ describe("Cart functionalities", () => {
           basePrice: 4.5,
           quantity: 2,
         },
-      })
+      }),
     );
 
     expect(screen.getByTestId("itemsArray").innerHTML).toBe(
@@ -567,7 +567,7 @@ describe("Cart functionalities", () => {
           basePrice: 4.5,
           quantity: 2,
         },
-      ])
+      ]),
     );
   });
 
@@ -580,7 +580,7 @@ describe("Cart functionalities", () => {
         >
           <CheckoutList orderItems={sampleOrderItems} />
         </CartProviderComponent>
-      </OrderInstanceWrapper>
+      </OrderInstanceWrapper>,
     );
 
     console.log(screen.getAllByRole("button", { name: "edit item" }));
@@ -602,7 +602,7 @@ describe("Cart functionalities", () => {
             <TotalBar />
           </CartProviderComponent>
         </OrderInstanceWrapper>
-      </MantineProvider>
+      </MantineProvider>,
     );
   });
 });

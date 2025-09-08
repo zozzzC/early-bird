@@ -37,7 +37,7 @@ describe("test preorder processing function", () => {
           quantity: 1,
           basePrice: 4.5,
         },
-      ] as ICartItemWithId[]
+      ] as ICartItemWithId[],
     );
   });
   it("updates a preorder processing", async () => {

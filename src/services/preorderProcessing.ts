@@ -11,7 +11,7 @@ import { Client } from "@notionhq/client";
 
 export async function createPreorderProcessing(
   customerDetails: CustomerDetails,
-  itemsArray: ICartItemWithId[]
+  itemsArray: ICartItemWithId[],
 ): Promise<string> {
   try {
     await customerDetailsSchema.validate(customerDetails);
@@ -76,7 +76,7 @@ export async function createPreorderProcessing(
 
 export async function setPreorderProcessing(
   id: string,
-  status: "processing" | "unpaid" | "paid"
+  status: "processing" | "unpaid" | "paid",
 ) {
   const notion = new Client({
     auth: process.env.NOTION_KEY,

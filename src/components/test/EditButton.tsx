@@ -3,7 +3,7 @@ import { useOrderInstanceContext } from "@/hooks/useOrderInstanceContext";
 import { ICartItem } from "@/types/Cart";
 import { Button } from "@mantine/core";
 
-export default function EditButton({cartItem} : {cartItem: ICartItem}) {
+export default function EditButton({ cartItem }: { cartItem: ICartItem }) {
   const { editCartItem } = useCartContext();
   const { orderInstance } = useOrderInstanceContext();
 
@@ -12,7 +12,7 @@ export default function EditButton({cartItem} : {cartItem: ICartItem}) {
       <Button
         onClick={() => {
           if (orderInstance) {
-            console.log(cartItem === orderInstance)
+            console.log(cartItem === orderInstance);
 
             editCartItem(cartItem, orderInstance);
           }

@@ -7,7 +7,7 @@ import { ExtraCostsResponse } from "@/types/ExtraCostsResponse";
 
 export default async function formatOrderModal(
   order: Array<{ key: string; value: rawNotionOrderProps }>,
-  extraCosts: ExtraCostsResponse
+  extraCosts: ExtraCostsResponse,
 ): Promise<Array<OrderModalResponse>> {
   let res: Array<OrderModalResponse> = [];
 
@@ -43,7 +43,7 @@ export default async function formatOrderModal(
           });
         } else {
           console.log(
-            `Skipping ${i.name} because it does not have a price. Please specify the price.`
+            `Skipping ${i.name} because it does not have a price. Please specify the price.`,
           );
         }
       });
@@ -68,7 +68,7 @@ export default async function formatOrderModal(
           });
         } else {
           console.log(
-            `Skipping ${i.name} because it does not have a price. Please specify the price.`
+            `Skipping ${i.name} because it does not have a price. Please specify the price.`,
           );
         }
       });
@@ -87,7 +87,7 @@ export default async function formatOrderModal(
           });
         } else {
           console.log(
-            `Skipping ${i.name} because it does not have a price. Please specify the price.`
+            `Skipping ${i.name} because it does not have a price. Please specify the price.`,
           );
         }
       });

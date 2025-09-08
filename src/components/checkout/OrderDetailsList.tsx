@@ -33,7 +33,7 @@ export default function OrderDetailsList({
     validate: {
       name: hasLength(
         { min: 2, max: 100 },
-        "Name must be between 2-100 characters long."
+        "Name must be between 2-100 characters long.",
       ),
       email: isEmail("Invalid email."),
       phone: () => {
@@ -65,7 +65,7 @@ export default function OrderDetailsList({
   const [minTime, setMinTime] = useState<string | undefined>(undefined);
   const [maxTime, setMaxTime] = useState<string | undefined>(undefined);
   const [selectedDate, setSelectedDate] = useState<string | undefined>(
-    undefined
+    undefined,
   );
   const ref = useRef(null);
 
@@ -73,24 +73,28 @@ export default function OrderDetailsList({
     <div className=" flex flex-col items-center ">
       {itemsArray.length != 0 ? (
         <form
-          onSubmit={form.onSubmit((values) => {
+          onSubmit={form.onSubmit(async (values) => {
+            if (selectedDate) {
+              customerDetailsRef.current = {
+                name: values.name,
+                email: values.email,
+                phone: values.phone,
+                pickupDate: selectedDate as string,
+                createdDate: new Date().toISOString(),
+              };
+            }
+
             if (
               !checkIfInvalid(itemsArray, orderItems) &&
               itemsArray.length != 0 &&
               form.isValid()
             ) {
-              console.log("we can continue.");
+              console.log("Valid, can continue");
+              //await createStripeCheckout();
             } else {
               console.error("Still need to delete some items.");
             }
 
-            customerDetailsRef.current = {
-              name: values.name,
-              email: values.email,
-              phone: values.phone,
-              pickupDate: values.date,
-              createdDate: new Date().toISOString(),
-            };
             return;
           })}
         >

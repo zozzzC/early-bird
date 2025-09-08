@@ -1,3 +1,1 @@
-export function convertUtcToNz() {
-    
-}
+export function convertUtcToNz() {}

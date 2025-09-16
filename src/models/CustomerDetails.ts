@@ -1,6 +1,5 @@
 import * as yup from "yup";
-
-export const customerDetailsSchema = yup
+const customerDetailsSchema = yup
   .object()
   .shape({
     name: yup.string().required(),
@@ -17,7 +16,7 @@ const cartAddOnSchema = yup.object().shape({
   price: yup.number().required(),
 });
 
-export const cartItemWithIdSchema = yup
+const cartItemWithIdSchema = yup
   .object()
   .shape({
     id: yup.string().required(),
@@ -32,7 +31,14 @@ export const cartItemWithIdSchema = yup
   })
   .noUnknown(true);
 
-export const cartItemWithIdArraySchema = yup
+const cartItemWithIdArraySchema = yup
   .array()
   .of(cartItemWithIdSchema)
   .required();
+
+export {
+  customerDetailsSchema,
+  cartAddOnSchema,
+  cartItemWithIdArraySchema,
+  cartItemWithIdSchema,
+};

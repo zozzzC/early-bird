@@ -22,6 +22,8 @@ const orderSchema = new Schema({
   pickupDate: Date,
   createdDate: Date,
   itemsArray: [orderItemSchema],
+  paid: { type: Boolean, default: false },
+  paymentIntentId: { type: String, default: null },
 });
 
 export const OrderModel =
